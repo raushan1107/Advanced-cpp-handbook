@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learn Qt and QML with Raushan | Enterprise C++ Handbook</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .qt-page { max-width: 1120px; margin: 0 auto; padding: 0 28px 80px; }
+    .qt-hero { padding: 36px 0 34px; border-bottom: 1px solid var(--border); }
+    .qt-hero h1 { max-width: 850px; margin: 0 0 14px; }
+    .qt-hero .sub { max-width: 760px; color: var(--text-muted); font-size: 16px; line-height: 1.75; }
+    .qt-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; margin-bottom: 14px; border: 1px solid #b7e4f5; border-radius: 999px; background: #effaff; color: #087ea4; font: 700 11px var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+    .qt-roadmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 26px 0 10px; }
+    .qt-roadmap a { min-height: 104px; padding: 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); text-decoration: none; }
+    .qt-roadmap a:hover { border-color: #9dddf0; background: #f5fcff; text-decoration: none; }
+    .qt-roadmap b { display: block; color: var(--accent-dark); font: 700 12px var(--mono); margin-bottom: 6px; }
+    .qt-roadmap span { display: block; color: var(--text-muted); font-size: 13px; line-height: 1.45; }
+    .qt-section { scroll-margin-top: 96px; margin: 38px 0; padding: 26px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+    .qt-section h2 { margin-bottom: 10px; font-size: 24px; }
+    .qt-section h3 { margin: 24px 0 8px; font-size: 17px; }
+    .qt-section p, .qt-section li { color: var(--text-muted); line-height: 1.75; }
+    .qt-section ul, .qt-section ol { padding-left: 22px; }
+    .qt-section li { margin-bottom: 7px; }
+    .qt-kicker { color: var(--accent-dark); font: 700 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .qt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 18px 0; }
+    .qt-card { padding: 17px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2); }
+    .qt-card h3 { margin: 0 0 7px; font-size: 16px; }
+    .qt-card p { margin: 0; font-size: 14px; }
+    .qt-timeline { display: grid; gap: 0; margin-top: 18px; }
+    .qt-timeline-item { display: grid; grid-template-columns: 100px 1fr; gap: 18px; padding: 15px 0; border-top: 1px solid var(--border-soft); }
+    .qt-timeline-item strong { color: var(--accent-dark); font: 700 13px var(--mono); }
+    .qt-timeline-item p { margin: 0; }
+    .qt-pipeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 20px 0; }
+    .qt-pipeline div { position: relative; padding: 14px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: #fbfdff; text-align: center; }
+    .qt-pipeline div:not(:last-child)::after { content: "->"; position: absolute; right: -17px; top: 21px; color: var(--accent-dark); font: 700 12px var(--mono); z-index: 1; }
+    .qt-pipeline b { display: block; font-size: 13px; color: var(--text); }
+    .qt-pipeline span { display: block; margin-top: 4px; color: var(--text-muted); font-size: 11px; line-height: 1.35; }
+    .qt-code { margin: 15px 0 20px; border: 1px solid var(--code-border); border-radius: var(--radius-sm); overflow: hidden; }
+    .qt-code-head { padding: 9px 13px; background: var(--code-head-bg); color: var(--text-muted); font: 600 12px var(--mono); }
+    .qt-code pre { margin: 0; padding: 15px; overflow-x: auto; background: var(--code-bg); color: var(--text); font: 13px/1.65 var(--mono); }
+    .qt-note { padding: 15px 17px; margin: 17px 0; border-left: 3px solid var(--accent); background: var(--accent-soft); color: var(--text-muted); }
+    .qt-note strong { color: var(--text); }
+    .qt-command { display: inline-block; padding: 9px 12px; margin: 5px 0; border: 1px solid var(--code-border); border-radius: var(--radius-sm); background: var(--code-bg); color: var(--text); font: 13px var(--mono); }
+    .qt-next { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 22px; margin-top: 28px; border-top: 1px solid var(--border); }
+    .qt-next a { font-weight: 600; }
+    .qt-link { color: var(--link); font-weight: 600; }
+    .path-highlight { border-color: #b7e4f5 !important; background: linear-gradient(135deg, #effaff, #fffaf0) !important; }
+    @media (max-width: 760px) {
+      .qt-page { padding-left: 18px; padding-right: 18px; }
+      .qt-section { padding: 20px; }
+      .qt-timeline-item { grid-template-columns: 1fr; gap: 5px; }
+      .qt-pipeline { grid-template-columns: 1fr; }
+      .qt-pipeline div:not(:last-child)::after { content: "v"; right: auto; left: 50%; top: auto; bottom: -17px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="sidebar-toggle" type="button" aria-label="Toggle course navigation" aria-expanded="true">☰</button>
+      <a href="../index.html" class="brand"><span class="brand-mark">C++</span><span class="brand-text">Enterprise C++ Handbook<small>Personal notes by Raushan Ranjan</small></span></a>
+    </div>
+    <div class="topbar-center"><label class="search-bar"><span class="search-icon">⌕</span><input class="search-input" type="search" placeholder="Search the handbook" aria-label="Search the handbook"><kbd class="search-kbd">⌘ K</kbd></label></div>
+    <div class="topbar-right"><a href="../index.html">All modules</a><a href="repo-guide.html">How to use code</a><a href="explore-more.html">Explore more</a><a class="btn-notes" href="qt-qml-learning.html">Learn Qt + QML</a></div>
+  </header>
+
+  <div class="app-layout">
+    <aside class="sidebar-left">
+      <div class="sidebar-content">
+        <div class="sidebar-section-title">Qt + QML path</div>
+        <nav class="nav-tree" aria-label="Qt and QML learning navigation">
+          <div class="nav-day" data-open="true">
+            <a class="nav-day-toggle" href="#start" aria-expanded="true"><span class="nav-day-icon">◐</span><span class="nav-day-label">Start here</span><span class="nav-day-subtitle">The big picture</span><span class="nav-day-chevron">›</span></a>
+            <div class="nav-day-body"><div class="nav-module" data-open="true"><div class="nav-module-label">Foundations</div><ul class="nav-topics"><li class="nav-topic"><a href="#why-qt">Why Qt exists</a></li><li class="nav-topic"><a href="#history">Qt history</a></li><li class="nav-topic"><a href="#pipeline">Build pipeline</a></li></ul></div></div>
+          </div>
+          <div class="nav-day" data-open="true">
+            <a class="nav-day-toggle" href="#build" aria-expanded="true"><span class="nav-day-icon">◐</span><span class="nav-day-label">Build the mental model</span><span class="nav-day-subtitle">C++ to application</span><span class="nav-day-chevron">›</span></a>
+            <div class="nav-day-body"><div class="nav-module" data-open="true"><div class="nav-module-label">Qt technologies</div><ul class="nav-topics"><li class="nav-topic"><a href="#objects">QObject and events</a></li><li class="nav-topic"><a href="#widgets">Widgets</a></li><li class="nav-topic"><a href="#qml">QML and Qt Quick</a></li><li class="nav-topic"><a href="#bridge">C++ and QML bridge</a></li></ul></div></div>
+          </div>
+          <div class="nav-day" data-open="true">
+            <a class="nav-day-toggle" href="#roadmap" aria-expanded="true"><span class="nav-day-icon">◐</span><span class="nav-day-label">Keep building</span><span class="nav-day-subtitle">Practice path</span><span class="nav-day-chevron">›</span></a>
+            <div class="nav-day-body"><div class="nav-module" data-open="true"><div class="nav-module-label">Repository route</div><ul class="nav-topics"><li class="nav-topic"><a href="#applications">What you can build</a></li><li class="nav-topic"><a href="#practice">Run the examples</a></li></ul></div></div>
+          </div>
+        </nav>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Dedicated learning</div>
+        <ul class="sidebar-resources"><li><a class="path-highlight" href="qt-qml-learning.html">◆ Learn Qt and QML with Raushan</a></li><li><a href="module9.html">Module 9: Qt/QML + Network</a></li><li><a href="../index.html">Course overview</a></li></ul>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Resources</div>
+        <ul class="sidebar-resources"><li><a href="practice-tests.html">✎ Practice MCQ tests</a></li><li><a href="repo-guide.html">▣ How to use the repository</a></li><li><a href="explore-more.html">? Explore more questions</a></li><li><a href="https://github.com/raushan1107/Advanced-cpp-handbook" target="_blank" rel="noopener">↗ Source code</a></li></ul>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="qt-page" id="start">
+        <header class="qt-hero">
+          <div class="breadcrumb"><a href="../index.html">Course home</a> / Dedicated learning path</div>
+          <div class="qt-badge">◆ Dedicated path · taught from the ground up</div>
+          <h1>Learn Qt and QML with Raushan</h1>
+          <p class="sub">A patient route from “what is a framework?” to building event-driven desktop, mobile, embedded, and connected applications. We will connect the C++ ideas you already know to Qt objects, Widgets, QML, Qt Quick, CMake, and the full path from source code to a running application.</p>
+          <div class="qt-roadmap" id="roadmap">
+            <a href="#why-qt"><b>01 · Why Qt?</b><span>The problem a framework solves.</span></a>
+            <a href="#history"><b>02 · The story</b><span>How Qt grew from the 1990s to today.</span></a>
+            <a href="#pipeline"><b>03 · The build</b><span>Preprocess, compile, link, run.</span></a>
+            <a href="#widgets"><b>04 · Widgets</b><span>Traditional C++ desktop UI.</span></a>
+            <a href="#qml"><b>05 · QML</b><span>Declarative UI and Qt Quick.</span></a>
+            <a href="#practice"><b>06 · Practice</b><span>A route through the repository.</span></a>
+          </div>
+        </header>
+
+        <section class="qt-section" id="why-qt">
+          <div class="qt-kicker">01 · Begin with the question</div>
+          <h2>Why does Qt exist?</h2>
+          <p>Imagine writing a desktop program that must create a window, draw controls, react to clicks, read files, open network connections, start threads, and work on more than one operating system. Without a framework, you would learn a different operating-system API for Windows, macOS, Linux, Android, and embedded devices.</p>
+          <p>Qt gives you a consistent C++ API and an event-driven application model. You describe what should happen, connect it to an event, and let Qt communicate with the operating system underneath.</p>
+          <div class="qt-grid">
+            <article class="qt-card"><h3>Operating-system abstraction</h3><p><code>QFile</code>, <code>QTcpSocket</code>, and <code>QThread</code> hide platform-specific details behind familiar Qt classes.</p></article>
+            <article class="qt-card"><h3>Reusable application objects</h3><p>Qt provides objects for windows, timers, models, network sockets, databases, multimedia, and more.</p></article>
+            <article class="qt-card"><h3>Event-driven behavior</h3><p>Clicks, timers, network data, and property changes become events handled by signals, slots, and bindings.</p></article>
+          </div>
+          <div class="qt-note"><strong>Beginner rule:</strong> Qt is not a replacement for C++. It is a large C++ framework that gives C++ reusable building blocks and a carefully designed application runtime.</div>
+        </section>
+
+        <section class="qt-section" id="history">
+          <div class="qt-kicker">02 · The story behind the framework</div>
+          <h2>How Qt evolved</h2>
+          <p>Understanding the history explains why Qt has both classic C++ APIs and newer declarative tools. The framework did not appear as one finished idea; it grew as application interfaces, platforms, and developer needs changed.</p>
+          <div class="qt-timeline">
+            <div class="qt-timeline-item"><strong>1991</strong><p>Haavard Nord and Eirik Chambe-Eng begin work on a cross-platform C++ GUI toolkit in Norway. The original goal is practical: build software that can move between platforms without rewriting every UI.</p></div>
+            <div class="qt-timeline-item"><strong>1995-1996</strong><p>The early toolkit becomes public and is used in real applications. The name becomes Qt, and the framework develops its recognizable object model, event loop, widgets, and cross-platform classes.</p></div>
+            <div class="qt-timeline-item"><strong>1998-2008</strong><p>Trolltech grows the toolkit and its developer ecosystem. Qt becomes important for commercial desktop software, KDE, embedded systems, and applications that need one codebase across operating systems.</p></div>
+            <div class="qt-timeline-item"><strong>2008-2011</strong><p>Nokia acquires Trolltech. Qt expands across mobile and embedded work. Qt 4.7 introduces Qt Quick and QML, separating visual UI description from much of the application logic.</p></div>
+            <div class="qt-timeline-item"><strong>2012-2014</strong><p>Digia takes over Qt commercial development and later forms The Qt Company. Qt 5 strengthens the Qt Quick, multimedia, networking, and cross-platform story.</p></div>
+            <div class="qt-timeline-item"><strong>Today</strong><p>Qt 6 continues the C++ and QML approach for desktop, mobile, embedded, automotive, industrial, medical, and connected applications. It remains relevant because it combines native performance with a productive UI and application framework.</p></div>
+          </div>
+          <div class="qt-note"><strong>Who developed Qt?</strong> It began with Haavard Nord and Eirik Chambe-Eng, grew through Trolltech, passed through Nokia and Digia, and is now developed and stewarded by The Qt Company together with its open-source community.</div>
+        </section>
+
+        <section class="qt-section" id="pipeline">
+          <div class="qt-kicker">03 · Connect this to your C++ foundation</div>
+          <h2>What happens between Qt source code and a running app?</h2>
+          <p>With ordinary C++, you learned the path from a source file to an executable. Qt follows the same fundamental compiler pipeline, but adds code-generation and resource steps because the framework provides features beyond the C++ language itself.</p>
+          <div class="qt-pipeline" aria-label="Qt build pipeline"><div><b>Preprocess</b><span>Expand includes and macros.</span></div><div><b>Qt tools</b><span>moc, uic, rcc generate support code.</span></div><div><b>Compile</b><span>C++ becomes object code.</span></div><div><b>Link</b><span>Qt libraries join your objects.</span></div><div><b>Run</b><span>The OS loads the executable.</span></div></div>
+          <h3>Preprocessing</h3>
+          <p>Headers such as <code>#include &lt;QPushButton&gt;</code> are expanded before the compiler sees the translation unit. Macros such as <code>Q_OBJECT</code> mark a class for Qt's tools; they are not ordinary C++ language keywords.</p>
+          <h3>Qt code generation</h3>
+          <p>The Meta-Object Compiler, or <code>moc</code>, reads classes containing <code>Q_OBJECT</code> and generates metadata used by signals, slots, properties, and runtime type information. CMake can run this automatically with <code>CMAKE_AUTOMOC ON</code>.</p>
+          <h3>Compilation and linking</h3>
+          <p>The C++ compiler checks your source and creates object files. The linker then combines those object files with the Qt libraries requested by CMake. If a Qt header is found but the library is not linked, compilation may succeed while linking fails.</p>
+          <div class="qt-code"><div class="qt-code-head">CMakeLists.txt · the smallest useful Qt build description</div><pre>cmake_minimum_required(VERSION 3.16)
+project(first_qt_app)
+set(CMAKE_AUTOMOC ON)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+add_executable(first_qt_app main.cpp)
+target_link_libraries(first_qt_app Qt6::Widgets)</pre></div>
+          <div class="qt-note"><strong>Useful distinction:</strong> CMake is not the compiler. CMake generates build instructions for a compiler and linker. Ninja, Make, or Visual Studio then performs the actual build.</div>
+        </section>
+
+        <section class="qt-section" id="objects">
+          <div class="qt-kicker">04 · The Qt object model</div>
+          <h2>QObject, parent-child ownership, and the event loop</h2>
+          <p><code>QObject</code> is the common base for many Qt objects. It provides an identity, a parent-child ownership tree, signal and slot support, properties, and participation in the event system.</p>
+          <div class="qt-code"><div class="qt-code-head">A small QObject with a signal</div><pre>class Counter : public QObject {
+    Q_OBJECT
+public:
+    explicit Counter(QObject *parent = nullptr) : QObject(parent) {}
+
+    void increment() {
+        ++value;
+        emit valueChanged(value);
+    }
+
+signals:
+    void valueChanged(int value);
+
+private:
+    int value = 0;
+};</pre></div>
+          <ul>
+            <li><code>class Counter : public QObject</code> gives the class Qt object behavior through inheritance.</li>
+            <li><code>Q_OBJECT</code> asks Qt's Meta-Object Compiler to generate support code.</li>
+            <li><code>emit valueChanged(value)</code> announces an event; it does not decide who listens.</li>
+            <li>The event loop, started by <code>app.exec()</code>, dispatches user, timer, and network events.</li>
+          </ul>
+          <div class="qt-note"><strong>Ownership is not inheritance:</strong> a parent QObject owns its child objects and cleans them up. That ownership tree is separate from the C++ inheritance relationship used to reuse behavior.</div>
+        </section>
+
+        <section class="qt-section" id="widgets">
+          <div class="qt-kicker">05 · The classic C++ UI path</div>
+          <h2>Qt Widgets: build the interface in C++</h2>
+          <p>Qt Widgets are traditional desktop controls such as windows, labels, buttons, text fields, layouts, menus, and tables. You create them as C++ objects and arrange them with layout managers.</p>
+          <div class="qt-code"><div class="qt-code-head">main.cpp · a minimal button window</div><pre>#include &lt;QApplication&gt;
+#include &lt;QPushButton&gt;
+
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+
+    QPushButton button("Click me");
+    button.resize(220, 70);
+    button.show();
+
+    return app.exec();
+}</pre></div>
+          <p>For a real UI, you add a layout, connect signals such as <code>QPushButton::clicked</code>, and keep business logic in separate classes. That is what the repository's calculator demonstrates.</p>
+          <div class="qt-grid">
+            <article class="qt-card"><h3>Strengths</h3><p>Mature desktop controls, precise C++ control, strong accessibility support, and a natural fit for existing C++ applications.</p></article>
+            <article class="qt-card"><h3>Trade-off</h3><p>The UI structure can become verbose because layout and behavior are both expressed in C++.</p></article>
+          </div>
+          <p>Study the working example: <a class="qt-link" href="../Advanced-cpp-sample-codes/28-Qt-QML/1-widgets-click-counter/main.cpp">Widgets click counter</a>, followed by the <a class="qt-link" href="../Advanced-cpp-sample-codes/28-Qt-QML/2-signals-slots-calculator/main.cpp">signals and slots calculator</a>.</p>
+        </section>
+
+        <section class="qt-section" id="qml">
+          <div class="qt-kicker">06 · A new way to describe UI</div>
+          <h2>QML and Qt Quick</h2>
+          <p>QML is a declarative language. Instead of writing every UI construction step, you describe the objects, their properties, their relationships, and what should happen when an event occurs.</p>
+          <div class="qt-code"><div class="qt-code-head">main.qml · a property binding and a signal handler</div><pre>import QtQuick
+import QtQuick.Controls
+
+ApplicationWindow {
+    visible: true
+    width: 320
+    height: 220
+
+    property int clicks: 0
+
+    Column {
+        anchors.centerIn: parent
+
+        Text { text: "Clicks: " + clicks }
+        Button {
+            text: "Click me"
+            onClicked: clicks++
+        }
+    }
+}</pre></div>
+          <h3>QML syntax vocabulary</h3>
+          <ul>
+            <li><code>import QtQuick</code> makes the Qt Quick types available.</li>
+            <li><code>ApplicationWindow { }</code> declares an object and its nested object tree.</li>
+            <li><code>property int clicks: 0</code> declares a typed property.</li>
+            <li><code>id: buttonName</code> gives another QML object a local name.</li>
+            <li><code>text: "Clicks: " + clicks</code> is a binding that updates when <code>clicks</code> changes.</li>
+            <li><code>onClicked: clicks++</code> is QML's inline handler for a signal.</li>
+          </ul>
+          <div class="qt-note"><strong>Declarative does not mean “no programming.”</strong> QML describes relationships and visual behavior, while JavaScript expressions and C++ provide logic where needed.</div>
+        </section>
+
+        <section class="qt-section" id="bridge">
+          <div class="qt-kicker">07 · The practical architecture</div>
+          <h2>How C++ and QML work together</h2>
+          <p>The most useful Qt Quick architecture is not “QML replaces C++.” It is a partnership: QML handles presentation and interaction, while C++ handles domain rules, performance-sensitive work, hardware access, networking, and reusable services.</p>
+          <div class="qt-code"><div class="qt-code-head">main.cpp · expose one C++ object to QML</div><pre>Calculator calc;
+QQmlApplicationEngine engine;
+
+engine.rootContext()-&gt;setContextProperty("calc", &amp;calc);
+engine.load(QUrl::fromLocalFile("main.qml"));</pre></div>
+          <div class="qt-code"><div class="qt-code-head">main.qml · call C++ and listen for its signal</div><pre>Button {
+    text: "Calculate"
+    onClicked: calc.add(parseFloat(aField.text), parseFloat(bField.text))
+}
+
+Connections {
+    target: calc
+    function onResultChanged(value) {
+        result = value
+    }
+}</pre></div>
+          <p>The C++ object is exposed under the name <code>calc</code>. QML calls its method, C++ emits <code>resultChanged</code>, and QML reacts. This is the same signal-and-slot idea from the Widgets calculator, with a different presentation layer.</p>
+          <p>Study the complete example: <a class="qt-link" href="../Advanced-cpp-sample-codes/28-Qt-QML/4-qml-calculator/main.cpp">QML calculator C++ backend</a> and <a class="qt-link" href="../Advanced-cpp-sample-codes/28-Qt-QML/4-qml-calculator/main.qml">its QML front end</a>.</p>
+        </section>
+
+        <section class="qt-section" id="applications">
+          <div class="qt-kicker">08 · Where this leads</div>
+          <h2>What can you build with Qt and QML?</h2>
+          <div class="qt-grid">
+            <article class="qt-card"><h3>Desktop tools</h3><p>Engineering consoles, editors, dashboards, configuration tools, media applications, and professional workflows.</p></article>
+            <article class="qt-card"><h3>Embedded interfaces</h3><p>Industrial panels, medical devices, vehicle displays, robotics controls, and appliances with touch-first interfaces.</p></article>
+            <article class="qt-card"><h3>Connected applications</h3><p>TCP/UDP clients, device monitors, chat tools, fleet systems, telemetry dashboards, and cloud-connected front ends.</p></article>
+            <article class="qt-card"><h3>Mobile and cross-platform apps</h3><p>Shared UI and application logic across supported desktop, mobile, and embedded targets.</p></article>
+          </div>
+          <p>Qt is powerful because one application model can combine native C++ performance, a mature cross-platform library, declarative UI, networking, multimedia, threading, and deployment tools.</p>
+        </section>
+
+        <section class="qt-section" id="build">
+          <div class="qt-kicker">09 · Build with CMake</div>
+          <h2>Why CMake matters in Qt projects</h2>
+          <p>As a project grows, manually typing compiler commands becomes fragile. You need to record source files, include paths, Qt modules, generated code, linker libraries, debug and release settings, and platform differences. CMake stores that build knowledge in a repeatable form.</p>
+          <div class="qt-grid">
+            <article class="qt-card"><h3>Configure</h3><p>CMake finds Qt, your compiler, and the selected generator such as Ninja.</p></article>
+            <article class="qt-card"><h3>Generate</h3><p>CMake writes the build files that describe how targets should be compiled and linked.</p></article>
+            <article class="qt-card"><h3>Build</h3><p>Ninja or another build tool compiles only what changed and produces the executable.</p></article>
+          </div>
+          <div class="qt-code"><div class="qt-code-head">Typical commands from one Qt example folder</div><pre>cmake -B build -S . -G Ninja
+cmake --build build
+build\your_app.exe</pre></div>
+          <p>For QML examples that load <code>main.qml</code> from a relative path, run the executable from the example folder so the program can find the QML file.</p>
+          <div class="qt-note"><strong>Qt Creator connection:</strong> Qt Creator opens the <code>CMakeLists.txt</code>, selects a Qt kit, configures the project, builds the targets, and creates run configurations. The IDE is a helpful interface over the same CMake, compiler, linker, and runtime process.</div>
+        </section>
+
+        <section class="qt-section" id="practice">
+          <div class="qt-kicker">10 · A progressive practice route</div>
+          <h2>How to learn this repository without getting lost</h2>
+          <ol>
+            <li>Start with <a class="qt-link" href="../Advanced-cpp-sample-codes/28-Qt-QML/1-widgets-click-counter/main.cpp">1-widgets-click-counter</a>. Learn <code>QApplication</code>, <code>QWidget</code>, layouts, <code>connect</code>, and <code>app.exec()</code>.</li>
+            <li>Move to <a class="qt-link" href="../Advanced-cpp-sample-codes/28-Qt-QML/2-signals-slots-calculator/main.cpp">2-signals-slots-calculator</a>. Separate calculation logic from the UI with a custom <code>QObject</code>.</li>
+            <li>Compare it with <a class="qt-link" href="../Advanced-cpp-sample-codes/28-Qt-QML/3-qml-counter/main.qml">3-qml-counter</a>. Notice how a property binding replaces explicit label updates.</li>
+            <li>Study <a class="qt-link" href="../Advanced-cpp-sample-codes/28-Qt-QML/4-qml-calculator/main.qml">4-qml-calculator</a>. See the C++ backend and QML front end cross the language boundary.</li>
+            <li>Run <a class="qt-link" href="../Advanced-cpp-sample-codes/28-Qt-QML/5-tcp-chat/chat_server.cpp">5-tcp-chat</a>. Learn that Qt also provides console and networking applications, not only windows.</li>
+            <li>Continue with UDP, drawing, and finally <a class="qt-link" href="../Advanced-cpp-sample-codes/28-Qt-QML/8-nimbus-fleet-console/program.cpp">8-nimbus-fleet-console</a>, where UI and networking meet.</li>
+          </ol>
+          <h3>Your learning loop</h3>
+          <p>Read the why, learn the new vocabulary, build the smallest example, run it, change exactly one thing, and explain the output. Then move the same idea into the next project. A framework becomes understandable when you can predict the event flow, not when you can memorise every class.</p>
+          <div class="qt-note"><strong>Checkpoint:</strong> You are ready for the next example when you can answer three questions: Who owns this object? What event causes this code to run? Which part is C++, which part is Qt, and which part is QML?</div>
+          <div class="qt-next"><a href="module9.html">Open the structured Module 9 lesson →</a><a href="../index.html">Return to the full course map →</a></div>
+        </section>
+      </div>
+      <footer class="page-footer">Learn Qt and QML with Raushan · Enterprise C++ Handbook</footer>
+    </main>
+  </div>
+  <script>
+    const toggle = document.querySelector('.sidebar-toggle');
+    const sidebar = document.querySelector('.sidebar-left');
+    if (toggle && sidebar) {
+      const desktop = window.matchMedia('(min-width: 861px)');
+      toggle.addEventListener('click', () => {
+        if (desktop.matches) document.body.classList.toggle('sidebar-collapsed');
+        else sidebar.classList.toggle('open');
+      });
+      sidebar.querySelectorAll('a:not(.nav-day-toggle)').forEach((link) => link.addEventListener('click', () => sidebar.classList.remove('open')));
+      sidebar.querySelectorAll('.nav-module-label').forEach((label) => {
+        const module = label.parentElement;
+        const content = module.querySelector(':scope > .nav-topics, :scope > .nav-tabs');
+        if (!content) return;
+        label.setAttribute('role', 'button');
+        label.setAttribute('tabindex', '0');
+        label.setAttribute('aria-expanded', 'true');
+        const toggleModule = () => {
+          const open = module.dataset.open !== 'false';
+          module.dataset.open = String(!open);
+          label.setAttribute('aria-expanded', String(!open));
+        };
+        label.addEventListener('click', toggleModule);
+        label.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleModule();
+          }
+        });
+      });
+    }
+  </script>
+<script src="site-navigation.js"></script>
+</body>
+</html>

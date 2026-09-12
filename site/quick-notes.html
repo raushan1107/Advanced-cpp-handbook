@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quick Notes | Enterprise C++ Handbook</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .quick-page { max-width: 1120px; margin: 0 auto; padding: 36px 28px 80px; }
+    .quick-intro { max-width: 760px; margin-bottom: 30px; }
+    .quick-intro h1 { margin: 0 0 12px; }
+    .quick-intro p { color: var(--text-muted); line-height: 1.75; }
+    .quick-badge { display: inline-block; margin-bottom: 12px; padding: 5px 9px; border: 1px solid var(--accent-border); border-radius: 999px; background: var(--accent-soft); color: var(--accent-dark); font: 700 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+    .quick-list { display: grid; gap: 12px; }
+    .quick-item { display: grid; grid-template-columns: 86px 1fr auto; gap: 18px; align-items: start; padding: 18px 20px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+    .quick-number { color: var(--accent-dark); font: 700 12px var(--mono); }
+    .quick-item h2 { margin: 0 0 5px; font-size: 18px; }
+    .quick-item p { margin: 0 0 8px; color: var(--text-muted); font-size: 14px; line-height: 1.65; }
+    .quick-item p:last-child { margin-bottom: 0; }
+    .quick-label { color: var(--text); font-size: 12px; font-weight: 700; }
+    .quick-terms { color: var(--accent-dark) !important; font-family: var(--mono); font-size: 12px !important; }
+    .quick-item a { white-space: nowrap; font-size: 13px; font-weight: 600; }
+    .quick-flow { margin-top: 26px; padding: 17px 19px; border-left: 3px solid var(--accent); background: var(--accent-soft); color: var(--text-muted); line-height: 1.7; }
+    .quick-flow strong { color: var(--text); }
+    @media (max-width: 700px) {
+      .quick-page { padding: 26px 18px 60px; }
+      .quick-item { grid-template-columns: 1fr; gap: 7px; }
+      .quick-item a { margin-top: 7px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="sidebar-toggle" type="button" aria-label="Toggle course navigation" aria-expanded="true">☰</button>
+      <a href="../index.html" class="brand"><span class="brand-mark">C++</span><span class="brand-text">Enterprise C++ Handbook<small>Personal notes by Raushan Ranjan</small></span></a>
+    </div>
+    <div class="topbar-center"><label class="search-bar"><span class="search-icon">⌕</span><input class="search-input" type="search" placeholder="Search the handbook" aria-label="Search the handbook"><kbd class="search-kbd">⌘ K</kbd></label></div>
+    <div class="topbar-right"><a href="../index.html">All modules</a><a href="repo-guide.html">How to use code</a><a href="explore-more.html">Explore more</a><a href="qt-qml-learning.html">Learn Qt + QML</a></div>
+  </header>
+
+  <div class="app-layout">
+    <aside class="sidebar-left">
+      <div class="sidebar-content">
+        <div class="sidebar-section-title">Quick notes</div>
+        <nav class="nav-tree" aria-label="Quick notes navigation">
+          <div class="nav-day" data-open="true">
+            <a class="nav-day-toggle" href="#quick-notes" aria-expanded="true"><span class="nav-day-icon">◐</span><span class="nav-day-label">Full course</span><span class="nav-day-subtitle">Fast revision</span><span class="nav-day-chevron">›</span></a>
+            <div class="nav-day-body"><div class="nav-module" data-open="true"><div class="nav-module-label">Modules 0-10</div><ul class="nav-topics"><li class="nav-topic"><a href="#module0">Foundations</a></li><li class="nav-topic"><a href="#module4">Robustness</a></li><li class="nav-topic"><a href="#module8">Systems</a></li><li class="nav-topic"><a href="#module9">Qt/QML</a></li></ul></div></div>
+          </div>
+        </nav>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Related paths</div>
+        <ul class="sidebar-resources"><li><a href="qt-qml-learning.html">◆ Learn Qt and QML with Raushan</a></li><li><a href="repo-guide.html">▣ How to use the repository</a></li><li><a href="../index.html">▣ Course overview</a></li></ul>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="quick-page" id="quick-notes">
+        <div class="breadcrumb"><a href="../index.html">Course home</a> / Quick notes</div>
+        <div class="quick-intro">
+          <span class="quick-badge">Fast revision map</span>
+          <h1>Enterprise C++: quick notes</h1>
+          <p>Use this page before a lesson, after a practice session, or when you need to remember where a concept fits. The order moves from language foundations to object design, robustness, modern C++, systems, Qt, and final projects.</p>
+        </div>
+
+        <div class="quick-list">
+          <article class="quick-item" id="module0"><span class="quick-number">MODULE 0</span><div><h2>Foundation Enhancer</h2><p><span class="quick-label">Definition:</span> C++ is a compiled, general-purpose language that combines direct hardware control with abstractions such as classes, templates, and exceptions.</p><p class="quick-terms">Terms: source code · compiler · linker · executable · namespace · procedural · OOP</p><p><span class="quick-label">Use case:</span> compile a small command-line program and trace how <code>.cpp</code> becomes a runnable program.</p></div><a href="module0.html">Open module →</a></article>
+          <article class="quick-item" id="module1"><span class="quick-number">MODULE 1</span><div><h2>C++ Basics</h2><p><span class="quick-label">Definition:</span> A class is a user-defined type that groups data with the functions allowed to operate on that data; an object is one instance of that class.</p><p class="quick-terms">Terms: class · object · constructor · destructor · public · private · static · friend</p><p><span class="quick-label">Use case:</span> model a bank account that protects its balance and exposes safe deposit and withdrawal operations.</p></div><a href="module1.html">Open module →</a></article>
+          <article class="quick-item" id="module2"><span class="quick-number">MODULE 2</span><div><h2>Inheritance and Polymorphism</h2><p><span class="quick-label">Definition:</span> Inheritance lets a derived class reuse a base interface; polymorphism lets one base reference call behavior belonging to the object’s actual derived type.</p><p class="quick-terms">Terms: base class · derived class · virtual · override · abstract class · interface · vtable</p><p><span class="quick-label">Use case:</span> render circles and rectangles through one <code>Shape*</code> collection without hard-coding every shape in the drawing loop.</p></div><a href="module2.html">Open module →</a></article>
+          <article class="quick-item" id="module3"><span class="quick-number">MODULE 3</span><div><h2>Compile-time Polymorphism</h2><p><span class="quick-label">Definition:</span> Compile-time polymorphism chooses an operation while compiling, based on the number or types of arguments, rather than discovering it at runtime.</p><p class="quick-terms">Terms: overload · operator overload · template · type deduction · static dispatch</p><p><span class="quick-label">Use case:</span> let <code>add</code> work with integers, floating-point values, or a custom numeric type using the appropriate implementation.</p></div><a href="module3.html">Open module →</a></article>
+          <article class="quick-item" id="module4"><span class="quick-number">MODULE 4</span><div><h2>Exception Handling and Robustness</h2><p><span class="quick-label">Definition:</span> An exception is an object describing an unusual failure; <code>throw</code> transfers control to a matching <code>catch</code> handler.</p><p class="quick-terms">Terms: try · throw · catch · custom exception · validation · RAII · stack unwinding</p><p><span class="quick-label">Use case:</span> reject an invalid transfer and guarantee that files, locks, or other resources are released during error handling.</p></div><a href="module4.html">Open module →</a></article>
+          <article class="quick-item" id="module5"><span class="quick-number">MODULE 5</span><div><h2>Templates and Generics</h2><p><span class="quick-label">Definition:</span> A template is a type-independent pattern from which the compiler generates a function or class for the concrete type you use.</p><p class="quick-terms">Terms: template&lt;typename T&gt; · function template · class template · instantiation · generic code</p><p><span class="quick-label">Use case:</span> create one <code>Stack&lt;T&gt;</code> that stores integers, strings, or domain objects without rewriting stack logic.</p></div><a href="module5.html">Open module →</a></article>
+          <article class="quick-item" id="module6"><span class="quick-number">MODULE 6</span><div><h2>STL and Containers</h2><p><span class="quick-label">Definition:</span> The Standard Template Library provides reusable containers, iterators, and algorithms for storing and processing collections.</p><p class="quick-terms">Terms: vector · map · set · queue · iterator · range · sort · find_if · accumulate</p><p><span class="quick-label">Use case:</span> load student records into a container, filter them, sort them, and calculate summary statistics.</p></div><a href="module6.html">Open module →</a></article>
+          <article class="quick-item" id="module7"><span class="quick-number">MODULE 7</span><div><h2>Advanced C++ Features</h2><p><span class="quick-label">Definition:</span> Modern C++ uses ownership types, move operations, file RAII, and synchronization tools to make resource-heavy and concurrent programs safer.</p><p class="quick-terms">Terms: unique_ptr · shared_ptr · weak_ptr · move · mutex · lock_guard · thread · future</p><p><span class="quick-label">Use case:</span> collect sensor logs from several workers while protecting shared results and closing files automatically.</p></div><a href="module7.html">Open module →</a></article>
+          <article class="quick-item" id="module8"><span class="quick-number">MODULE 8</span><div><h2>Systems Programming and Internals</h2><p><span class="quick-label">Definition:</span> Systems programming uses C++ to communicate with operating-system services, hardware resources, processes, and binary libraries.</p><p class="quick-terms">Terms: socket · TCP · UDP · pipe · process · static link · dynamic link · RTTI · ABI</p><p><span class="quick-label">Use case:</span> build a fleet diagnostics relay that sends data over TCP, exchanges information between processes, and identifies message types safely.</p></div><a href="module8.html">Open module →</a></article>
+          <article class="quick-item" id="module9"><span class="quick-number">MODULE 9</span><div><h2>Qt, QML, and Network Programming</h2><p><span class="quick-label">Definition:</span> Qt is a cross-platform C++ framework; QML is its declarative UI language; together they support event-driven interfaces and connected applications.</p><p class="quick-terms">Terms: QObject · signal · slot · event loop · Widget · QML property · binding · CMake</p><p><span class="quick-label">Use case:</span> build a calculator or fleet console where a QML/Widget UI reacts to C++ logic and network events.</p></div><a href="module9.html">Open module →</a></article>
+          <article class="quick-item" id="module10"><span class="quick-number">MODULE 10</span><div><h2>Wrap-up and Evaluation</h2><p><span class="quick-label">Definition:</span> A capstone is a complete, explainable program that combines the course’s design, error handling, data structures, performance, and UI skills.</p><p class="quick-terms">Terms: integration · trade-off · performance · testing · presentation · maintainability</p><p><span class="quick-label">Use case:</span> extend a banking, library, performance, or Qt mini-project and defend the design decisions in a review.</p></div><a href="module10.html">Open module →</a></article>
+        </div>
+
+        <div class="quick-flow"><strong>Progressive rule:</strong> understand the smallest example first, compile it, change one thing, explain the result, and only then move to the next module. Concepts become durable when you can connect the syntax to the problem it solves.</div>
+      </div>
+      <footer class="page-footer">Quick notes · Enterprise C++ Handbook</footer>
+    </main>
+  </div>
+  <script>
+    const toggle = document.querySelector('.sidebar-toggle');
+    const sidebar = document.querySelector('.sidebar-left');
+    if (toggle && sidebar) {
+      const desktop = window.matchMedia('(min-width: 861px)');
+      toggle.addEventListener('click', () => {
+        if (desktop.matches) document.body.classList.toggle('sidebar-collapsed');
+        else sidebar.classList.toggle('open');
+      });
+      sidebar.querySelectorAll('a:not(.nav-day-toggle)').forEach((link) => link.addEventListener('click', () => sidebar.classList.remove('open')));
+    }
+  </script>
+<script src="site-navigation.js"></script>
+</body>
+</html>
