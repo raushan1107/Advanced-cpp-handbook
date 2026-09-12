@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C++ in the Wild - Enterprise C++ Handbook</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="sidebar-toggle" type="button" aria-label="Toggle course navigation" aria-expanded="true">☰</button>
+    <a href="../index.html" class="brand"><span class="brand-mark">C++</span><span class="brand-text">Enterprise C++ Handbook<small>Personal notes by Raushan Ranjan</small></span></a>
+  </div>
+  <div class="topbar-center"><label class="search-bar"><span class="search-icon">⌕</span><input class="search-input" type="search" placeholder="Search the handbook" aria-label="Search the handbook"><kbd class="search-kbd">⌘ K</kbd></label></div>
+  <div class="topbar-right"><a href="../index.html">All modules</a><a href="repo-guide.html">How to use code</a><a class="btn-notes" href="cpp-in-the-wild.html">🌍 C++ in the Wild</a></div>
+</div>
+
+<div class="app-layout">
+<aside class="sidebar-left">
+  <div class="sidebar-content">
+    <div class="sidebar-section-title">Course map</div>
+    <nav class="nav-tree" aria-label="Course navigation">
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day1"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 1</span><span class="nav-day-subtitle">Foundations</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module0.html">Foundation Enhancer</a></li><li class="nav-topic"><a href="module1.html">C++ Basics</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day2"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 2</span><span class="nav-day-subtitle">Polymorphism</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module2.html">Inheritance &amp; Polymorphism</a></li><li class="nav-topic"><a href="module3.html">Compile-time Polymorphism</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day3"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 3</span><span class="nav-day-subtitle">Robustness</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module4.html">Exception Handling</a></li><li class="nav-topic"><a href="module5.html">Templates &amp; Generics</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day4"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 4</span><span class="nav-day-subtitle">Modern C++</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module6.html">STL &amp; Containers</a></li><li class="nav-topic"><a href="module7.html">Advanced C++ Features</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day5"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 5</span><span class="nav-day-subtitle">Systems &amp; Internals</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module8.html">Systems Programming &amp; Advanced C++ Internals</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day"><a class="nav-day-toggle" href="../index.html#day6" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 6</span><span class="nav-day-subtitle">Qt &amp; Capstone</span><span class="nav-day-chevron">›</span></a><div class="nav-day-body"><div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module9.html">Qt/QML &amp; Network Programming</a></li><li class="nav-topic"><a href="module10.html">Wrap-up &amp; Evaluation</a></li></ul></div></div></div>
+    </nav>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-title">Resources</div>
+    <ul class="sidebar-resources"><li><a href="repo-guide.html">▣ How to use the repository</a></li><li><a href="module-authoring-context.html">↗ Study flow guide</a></li><li><a href="https://github.com/raushan1107/Advanced-cpp-sample-codes" target="_blank" rel="noopener">↗ Source code</a></li><li><a href="exercise.html">★ Capstone: RR Skillverse Course Tracker</a></li><li><a href="capstone-work1.html">★ Capstone-Work1: Smart Office Access System</a></li><li><a href="capstone-work2.html">★ Capstone-Work2: Nimbus Logistics Challenge</a></li><li><a href="capstone-work3.html">★ Capstone-Work3: Nimbus Fleet Command</a></li></ul>
+  </div>
+</aside>
+
+<main class="main-content">
+<div class="module-header">
+  <div class="breadcrumb"><a href="../index.html">Course</a> / C++ in the Wild</div>
+  <h1>C++ in the Wild</h1>
+  <p class="sub">Every concept in this handbook, paired with one real place it actually gets used — a game, a bank, a browser, a robot arm — so "why would I ever use this?" has a concrete answer before you go looking for a bigger example on your own.</p>
+  <div class="module-meta"><span><b>Covers:</b> Module 0 → Module 10 + Best Practices</span><span><b>Format:</b> one topic, one domain, one sentence — not a tutorial</span></div>
+</div>
+
+<div class="tabs-wrap">
+  <p class="topic-intro" style="margin-bottom:0;">This page is a map, not a lesson: each entry names a real application domain and the one problem this concept solves there. Treat every entry as a research starting point — search the domain and the concept together, and you'll find the real system behind the one sentence.</p>
+  <div class="callout" style="margin-top:14px;"><strong>How to use this page:</strong> next time you're deciding "should this be a <code>unique_ptr</code> or a raw pointer?", "should this be a virtual function or a template?", or "why would anyone need RTTI?" — find the concept here first. The domain example is the intuition; the module page is where you learn the syntax.</div>
+
+  <div class="tabbar"><button data-tab="t0" class="active">Module 0</button><button data-tab="t1">Module 1</button><button data-tab="t2">Module 2</button><button data-tab="t3">Module 3</button><button data-tab="t4">Module 4</button><button data-tab="t5">Module 5</button><button data-tab="t6">Module 6</button><button data-tab="t7">Module 7</button><button data-tab="t8">Module 8</button><button data-tab="t9">Module 9</button><button data-tab="t10">Module 10</button><button data-tab="t11">⚠ Best Practices</button></div>
+
+  <!-- MODULE 0 -->
+  <div class="tabpanel active" id="t0">
+    <h2 class="wild-module-head">Module 0 — Foundation Enhancer</h2>
+    <p class="wild-module-sub">The concepts that decide how you think about a program before you've written a single class.</p>
+    <div class="analogue-grid">
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Procedural vs. object-oriented thinking</h4>
+        <span class="analogue-domain">Game engines</span>
+        <p class="analogue-text">Early engines (the Doom/Quake era) were written in C, faking "objects" with structs and function pointers. Modern engines model a <code>GameObject</code>/<code>Component</code> hierarchy in actual classes — the same jump this module makes.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Pointers</h4>
+        <span class="analogue-domain">Embedded firmware / device drivers</span>
+        <p class="analogue-text">A sensor driver on a microcontroller reads a hardware register through a raw pointer to a fixed memory address — there's no object, just an address, and dereferencing it wrong can corrupt the device.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Pass by value vs. pass by reference</h4>
+        <span class="analogue-domain">Video editing software</span>
+        <p class="analogue-text">A filter function takes a multi-megabyte video frame by reference to avoid copying it on every call, but takes a small "brightness" setting by value so the function can't accidentally change the caller's copy.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">C vs. C++ (what changed, and why)</h4>
+        <span class="analogue-domain">Legacy financial systems</span>
+        <p class="analogue-text">Banks migrating old C risk-calculation engines to C++ keep the same math but wrap it in classes, so new compliance rules become overridable behavior instead of copy-pasted procedural code.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 1 -->
+  <div class="tabpanel" id="t1">
+    <h2 class="wild-module-head">Module 1 — C++ Basics</h2>
+    <p class="wild-module-sub">The vocabulary every class in every later module is built from.</p>
+    <div class="analogue-grid">
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Classes &amp; objects</h4>
+        <span class="analogue-domain">E-commerce checkout</span>
+        <p class="analogue-text">An <code>Order</code> class bundles items, price, and shipping status together, instead of five loose variables getting passed through every function that touches an order.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Access specifiers</h4>
+        <span class="analogue-domain">Banking software</span>
+        <p class="analogue-text">A <code>BankAccount</code>'s <code>balance</code> is private — only <code>deposit()</code>/<code>withdraw()</code> can touch it, so nothing outside the class can set it to an invalid number directly.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Constructors &amp; destructors</h4>
+        <span class="analogue-domain">Database connection pools</span>
+        <p class="analogue-text">A <code>DbConnection</code> opens in its constructor and is guaranteed closed in its destructor, so a connection is never silently leaked even if the calling code exits early.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Static members</h4>
+        <span class="analogue-domain">Multiplayer game servers</span>
+        <p class="analogue-text">A <code>Player</code> class keeps a <code>static</code> counter shared across every instance, so the server can report "14,203 players online" without a stray global variable.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Friend functions &amp; classes</h4>
+        <span class="analogue-domain">Graphics / physics engines</span>
+        <p class="analogue-text">A <code>Matrix</code> class grants a <code>Renderer</code> class <code>friend</code> access to its raw internal floats for a direct GPU upload, without exposing that low-level access to everything else.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 2 -->
+  <div class="tabpanel" id="t2">
+    <h2 class="wild-module-head">Module 2 — Inheritance &amp; Polymorphism</h2>
+    <p class="wild-module-sub">How large systems treat many different things the same way — safely.</p>
+    <div class="analogue-grid">
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Inheritance</h4>
+        <span class="analogue-domain">UI toolkits (Qt)</span>
+        <p class="analogue-text"><code>QPushButton</code>, <code>QCheckBox</code>, and <code>QLabel</code> all inherit from <code>QWidget</code>, so the whole framework can lay out and repaint "anything on screen" uniformly, even though each one draws itself differently.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Virtual functions</h4>
+        <span class="analogue-domain">Game engines</span>
+        <p class="analogue-text">Every enemy type overrides a virtual <code>update()</code>; the engine's main loop calls it on a mixed list of enemies without an <code>if/else</code> chain asking "is this a Zombie? A Robot?" every single frame.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Abstract classes / pure virtual functions</h4>
+        <span class="analogue-domain">Payment gateways</span>
+        <p class="analogue-text">An abstract <code>PaymentProcessor</code> with a pure virtual <code>charge()</code> lets checkout code plug in Stripe, PayPal, or Razorpay interchangeably, never knowing which one it's actually talking to.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Virtual destructors &amp; vtables</h4>
+        <span class="analogue-domain">Plugin-based apps (audio/video editors)</span>
+        <p class="analogue-text">A DAW loads third-party effect plugins as a base <code>Effect*</code>. Without a virtual destructor, deleting one through that base pointer runs only the base class's cleanup and leaks the plugin's real resources.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 3 -->
+  <div class="tabpanel" id="t3">
+    <h2 class="wild-module-head">Module 3 — Compile-time Polymorphism</h2>
+    <p class="wild-module-sub">Choosing behavior at compile time, before a single object exists at runtime.</p>
+    <div class="analogue-grid">
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Function overloading</h4>
+        <span class="analogue-domain">Math &amp; graphics libraries</span>
+        <p class="analogue-text">A vector-math library offers several <code>dot()</code> overloads for <code>float</code>, <code>double</code>, and <code>int</code> vectors, so every caller writes the same natural call regardless of precision.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Operator overloading</h4>
+        <span class="analogue-domain">CAD / scientific computing software</span>
+        <p class="analogue-text">A <code>Matrix</code> class overloads <code>+</code>, <code>*</code>, and <code>==</code> so engineering code reads <code>result = A * B + C</code> directly — the same notation the engineer already thinks in.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 4 -->
+  <div class="tabpanel" id="t4">
+    <h2 class="wild-module-head">Module 4 — Exception Handling</h2>
+    <p class="wild-module-sub">What a program does the instant something it can't control goes wrong.</p>
+    <div class="analogue-grid">
+      <div class="analogue-card">
+        <h4 class="analogue-topic">try/catch basics</h4>
+        <span class="analogue-domain">Cloud storage apps (Dropbox-style)</span>
+        <p class="analogue-text">An upload function wraps disk I/O in try/catch so a full disk or a permissions error becomes a clean "Upload failed" message instead of crashing the whole client.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Catch by type / multi-catch</h4>
+        <span class="analogue-domain">Retail point-of-sale systems</span>
+        <p class="analogue-text">A checkout terminal catches <code>CardDeclinedException</code> and <code>NetworkTimeoutException</code> separately, so it can say "Try another card" for one and "Check your connection" for the other.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Custom exceptions</h4>
+        <span class="analogue-domain">Airline booking systems</span>
+        <p class="analogue-text"><code>SeatUnavailableException</code> and <code>FareExpiredException</code> let a booking engine react to exactly which business rule broke, not just "something went wrong."</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">RAII</h4>
+        <span class="analogue-domain">Industrial robotics</span>
+        <p class="analogue-text">A robotic arm's <code>MotorLock</code> acquires a hardware lock in its constructor and releases it in its destructor, guaranteeing the motor is never left engaged if the control software crashes mid-operation.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 5 -->
+  <div class="tabpanel" id="t5">
+    <h2 class="wild-module-head">Module 5 — Templates &amp; Generics</h2>
+    <p class="wild-module-sub">Writing one algorithm that works for types you haven't thought of yet.</p>
+    <div class="analogue-grid">
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Why templates exist</h4>
+        <span class="analogue-domain">Internal utility libraries</span>
+        <p class="analogue-text">A single <code>clamp&lt;T&gt;(value, min, max)</code> works for <code>int</code> scores, <code>float</code> volume, and <code>double</code> sensor readings, instead of three near-identical hand-written functions.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Function templates</h4>
+        <span class="analogue-domain">Game engines (math utilities)</span>
+        <p class="analogue-text">A <code>lerp&lt;T&gt;(a, b, t)</code> smoothly animates a character's position, a camera's field of view, or a UI color — same formula, different type, zero duplicated code.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Class templates</h4>
+        <span class="analogue-domain">Trading systems</span>
+        <p class="analogue-text">A generic <code>RingBuffer&lt;T&gt;</code> stores the last N trades for one feed and the last N price ticks for another, using the exact same tested buffer logic for both.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">STL as templates</h4>
+        <span class="analogue-domain">Search engines / data pipelines</span>
+        <p class="analogue-text"><code>std::vector&lt;Document&gt;</code> and <code>std::unordered_map&lt;string,int&gt;</code> (word-frequency counts) inside a search indexer are both instances of the exact template machinery you just learned.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 6 -->
+  <div class="tabpanel" id="t6">
+    <h2 class="wild-module-head">Module 6 — STL &amp; Containers</h2>
+    <p class="wild-module-sub">Picking the right data structure instead of reaching for an array every time.</p>
+    <div class="analogue-grid">
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Sequence containers</h4>
+        <span class="analogue-domain">Game engines / music apps</span>
+        <p class="analogue-text">A game keeps active bullets in a <code>vector&lt;Bullet&gt;</code> for fast iteration every frame; a music app keeps a <code>deque&lt;Track&gt;</code> playlist so it can queue or play-next from either end cheaply.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Associative containers</h4>
+        <span class="analogue-domain">Browsers (DNS caching)</span>
+        <p class="analogue-text">A browser's DNS cache is essentially an <code>unordered_map&lt;string, IPAddress&gt;</code> — look up a hostname and get its IP back in constant time instead of re-resolving it over the network.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Algorithms</h4>
+        <span class="analogue-domain">E-commerce / analytics dashboards</span>
+        <p class="analogue-text">An online store uses <code>sort</code> to rank products by rating, <code>count_if</code> to count what's in stock, and <code>accumulate</code> to total a cart — no hand-written loops.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Iterators</h4>
+        <span class="analogue-domain">Log analysis tools</span>
+        <p class="analogue-text">A log-monitoring tool scans a container with an iterator for error patterns, and the same scanning code keeps working unchanged even if the storage later swaps from a list to a vector.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 7 -->
+  <div class="tabpanel" id="t7">
+    <h2 class="wild-module-head">Module 7 — Advanced C++ Features</h2>
+    <p class="wild-module-sub">The four features that turn a working program into a production-grade one.</p>
+    <div class="analogue-grid">
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Lambdas</h4>
+        <span class="analogue-domain">UI event handling (Qt, game editors)</span>
+        <p class="analogue-text">A "Save" button's click signal connects to a small inline lambda that captures the current document and writes it — no need to name a whole separate <code>onSaveClicked()</code> for one button.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Smart pointers</h4>
+        <span class="analogue-domain">Game engines (asset management)</span>
+        <p class="analogue-text">A texture is owned by a <code>shared_ptr&lt;Texture&gt;</code>; every 3D model using it holds a copy of that same pointer, and the texture is freed from GPU memory the instant the last model referencing it unloads.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">File I/O</h4>
+        <span class="analogue-domain">Games &amp; editors (settings/config)</span>
+        <p class="analogue-text">A game reads <code>settings.json</code> at startup with <code>ifstream</code> to restore resolution and key bindings, and writes it back with <code>ofstream</code> the moment a setting changes.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Multithreading</h4>
+        <span class="analogue-domain">Video editors / ride-hailing apps</span>
+        <p class="analogue-text">A video editor renders each timeline clip's thumbnail on its own thread so scrubbing stays smooth; a ride-hailing app's matcher uses a mutex to protect the shared "available drivers" list under concurrent requests.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 8 -->
+  <div class="tabpanel" id="t8">
+    <h2 class="wild-module-head">Module 8 — Systems Programming &amp; Advanced C++ Internals</h2>
+    <p class="wild-module-sub">What sits underneath the application layer — the OS, the network, the build.</p>
+    <div class="analogue-grid">
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Networking (TCP vs UDP)</h4>
+        <span class="analogue-domain">Multiplayer games</span>
+        <p class="analogue-text">A shooter sends player-position updates over UDP (fast, occasional loss is fine) but sends "match result" and "purchase confirmed" over TCP (must arrive) — the exact tradeoff this module teaches, live in production.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Move semantics</h4>
+        <span class="analogue-domain">Photo/video editing pipelines</span>
+        <p class="analogue-text">A photo editor passes a decoded 50MB bitmap between its "load," "filter," and "export" stages with <code>std::move</code>, handing it off instantly instead of copying it three times.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Pipes &amp; file descriptors</h4>
+        <span class="analogue-domain">Qt/QML industrial dashboards</span>
+        <p class="analogue-text">An embedded Linux dashboard reads a temperature sensor's live output through a serial-port file descriptor and streams the readings straight into a QML gauge on screen.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Linking (static vs. dynamic)</h4>
+        <span class="analogue-domain">Desktop game distribution</span>
+        <p class="analogue-text">A studio dynamically links against a shared physics-engine <code>.dll</code> so a critical bug fix reaches every installed copy of the game through a small patch, not a multi-gigabyte reinstall.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Reading system info</h4>
+        <span class="analogue-domain">Rendering engines</span>
+        <p class="analogue-text">A game queries CPU core count at startup to decide how many worker threads to spawn for physics and AI, tuning itself automatically between a laptop and a high-end gaming PC.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">RTTI (typeid, dynamic_cast)</h4>
+        <span class="analogue-domain">Game engine editors / plugin systems</span>
+        <p class="analogue-text">A level editor gets a generic <code>Component*</code> from a scene file and uses <code>dynamic_cast</code> to check "is this a <code>LightComponent</code>?" before showing light-specific sliders in the inspector.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 9 -->
+  <div class="tabpanel" id="t9">
+    <h2 class="wild-module-head">Module 9 — Qt/QML &amp; Network Programming</h2>
+    <p class="wild-module-sub">The GUI toolkit and networking classes behind a surprising number of applications you've probably already used.</p>
+    <div class="analogue-grid">
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Qt fundamentals &amp; widgets</h4>
+        <span class="analogue-domain">Cross-platform desktop software</span>
+        <p class="analogue-text">VLC's player interface, Wireshark's packet inspector, and Autodesk Maya's entire UI are all built with Qt Widgets — the same <code>QApplication</code>/<code>QWidget</code>/layout pattern this module teaches, scaled up to a full production application.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Signals &amp; slots</h4>
+        <span class="analogue-domain">Automotive dashboards (Qt for Automotive)</span>
+        <p class="analogue-text">A car's infotainment cluster built with Qt for Automotive lets the engine module emit a "gear changed" signal that updates the dashboard display — the dashboard code never needs to know the engine module exists at all.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">QML &amp; Qt Quick</h4>
+        <span class="analogue-domain">Medical devices &amp; industrial touchscreens</span>
+        <p class="analogue-text">Ultrasound machines and industrial control-panel touchscreens use Qt Quick/QML specifically because it separates the visual design (QML) from the safety-critical logic (C++) — restyling the screen never risks touching the code that controls the hardware.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Qt networking</h4>
+        <span class="analogue-domain">IoT gateways / remote monitoring dashboards</span>
+        <p class="analogue-text">A factory-floor monitoring dashboard uses <code>QTcpSocket</code> to stream live sensor readings from a fleet of remote devices into one continuously-updating window — the same pattern this module's own Nimbus Fleet Console case study builds.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 10 -->
+  <div class="tabpanel" id="t10">
+    <h2 class="wild-module-head">Module 10 — Real-World C++ Hall of Fame</h2>
+    <p class="wild-module-sub">Module 10 itself is a wrap-up — three mini-projects revisiting earlier ideas, not new syntax — so instead of one more "topic → domain" mapping, here's the other half of the picture: real, widely-used software actually built in C++, organized by category. This is what the modules you just finished are for.</p>
+    <div class="analogue-grid">
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Unreal Engine (Fortnite, PUBG, Gears of War) · id Tech (Doom 2016, Doom Eternal)</h4>
+        <span class="analogue-domain">Game engines</span>
+        <p class="analogue-text">Real-time rendering and physics at 60+ frames a second leaves no room for a slower language — every major game engine in wide use today is written in C++.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Chromium (Chrome, Edge, Opera) · the V8 JavaScript engine</h4>
+        <span class="analogue-domain">Web browsers</span>
+        <p class="analogue-text">Parsing a page, laying it out, and running its JavaScript fast enough to feel instant — page after page, tab after tab — is built on a C++ core.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">MySQL · MongoDB · Microsoft SQL Server</h4>
+        <span class="analogue-domain">Databases</span>
+        <p class="analogue-text">Handling millions of queries a second needs the same low-level control over memory and performance Modules 7-8 of this course covered.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">Adobe Photoshop · Autodesk Maya</h4>
+        <span class="analogue-domain">Creative &amp; engineering tools</span>
+        <p class="analogue-text">Manipulating multi-gigabyte images and 3D scenes in real time, with plugin ecosystems built on the same class hierarchies and virtual functions from Module 2.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">High-frequency trading systems</h4>
+        <span class="analogue-domain">Finance</span>
+        <p class="analogue-text">Firms across the trading industry write their execution systems almost exclusively in C++, because a few extra microseconds of latency can be the difference between catching a price and missing it.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">ROS (Robot Operating System)</h4>
+        <span class="analogue-domain">Robotics</span>
+        <p class="analogue-text">The framework behind most research and industrial robots is built in C++ — the same real-time, resource-constrained environment Module 8's systems programming targets.</p>
+      </div>
+      <div class="analogue-card">
+        <h4 class="analogue-topic">NASA JPL's F´ (F Prime) flight-software framework — flew the Mars Ingenuity helicopter</h4>
+        <span class="analogue-domain">Aerospace &amp; defense</span>
+        <p class="analogue-text">Open-sourced by NASA specifically for real-time, resource-constrained embedded control; the same reasoning puts C++ at the center of most radar and avionics systems, where deterministic timing isn't optional.</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:14px;"><strong>The point of this tab:</strong> none of this is exotic. It's the same classes, virtual functions, templates, STL containers, smart pointers, and systems-level code from Modules 0-8 — just applied at a scale you can now recognize by name.</div>
+  </div>
+
+  <!-- BEST PRACTICES -->
+  <div class="tabpanel" id="t11">
+    <h2 class="wild-module-head">⚠ Best Practices — Never Forget</h2>
+    <p class="wild-module-sub">A quick reminder, from Raushan: almost every resource this course teaches you to <em>open</em>, <em>allocate</em>, or <em>lock</em> also needs to be <em>closed</em>, <em>freed</em>, or <em>unlocked</em> — and nothing in C++ does that for you automatically unless you specifically reach for a tool that does. Every rule below traces back to a module you've already read; this tab exists so you never have to hunt for the reminder again.</p>
+    <div class="callout" style="margin:10px 0 18px;"><strong>The one habit that fixes most of this list:</strong> whenever you catch yourself pairing an "open" call with a manual "close" call, ask whether a Module 7/8 RAII tool (<code>unique_ptr</code>, <code>shared_ptr</code>, <code>lock_guard</code>, or just a destructor) could hold that resource instead — then the pairing enforces itself, even when an exception or an early <code>return</code> is in the way.</div>
+    <div class="analogue-grid">
+      <div class="analogue-card practice-card">
+        <span class="analogue-domain">Module 7 · Smart Pointers</span>
+        <h4 class="analogue-topic">new → delete (and new[] → delete[])</h4>
+        <p class="analogue-text"><strong>Never forget:</strong> every <code>new</code> needs exactly one matching <code>delete</code>, and every <code>new[]</code> needs <code>delete[]</code> specifically (not plain <code>delete</code>). Miss it and that memory — and the object's destructor — is never reclaimed for the rest of the program's run.</p>
+        <p class="practice-fix"><strong>Modern alternative:</strong> <code>std::unique_ptr</code> / <code>std::make_unique</code>. It deletes automatically the instant it goes out of scope, even if an exception unwinds straight through the function.</p>
+      </div>
+      <div class="analogue-card practice-card">
+        <span class="analogue-domain">Module 7 · Smart Pointers</span>
+        <h4 class="analogue-topic">Multiple owners of one object → shared_ptr, not several raw pointers</h4>
+        <p class="analogue-text"><strong>Never forget:</strong> if more than one part of your program might need to keep an object alive, a raw pointer can't tell you who's responsible for the one <code>delete</code> — and calling it twice (a double free) crashes just as badly as never calling it.</p>
+        <p class="practice-fix"><strong>Modern alternative:</strong> <code>std::shared_ptr</code>. Its reference count frees the object automatically the moment the <em>last</em> owner goes away — never earlier, never twice.</p>
+      </div>
+      <div class="analogue-card practice-card">
+        <span class="analogue-domain">Module 7 · Smart Pointers</span>
+        <h4 class="analogue-topic">shared_ptr cycles (Parent ↔ Child) → break one side with weak_ptr</h4>
+        <p class="analogue-text"><strong>Never forget:</strong> two objects holding <code>shared_ptr</code>s to <em>each other</em> keep both reference counts above zero forever — a real leak, even though you did everything "right" with smart pointers.</p>
+        <p class="practice-fix"><strong>Modern alternative:</strong> make the non-owning side (usually the "child looking back at its parent") a <code>std::weak_ptr</code> instead — it observes without counting as an owner, so the cycle breaks and both objects destruct correctly.</p>
+      </div>
+      <div class="analogue-card practice-card">
+        <span class="analogue-domain">Module 8 · Networking</span>
+        <h4 class="analogue-topic">WSAStartup() → WSACleanup()</h4>
+        <p class="analogue-text"><strong>Never forget:</strong> every Winsock program on Windows must call <code>WSAStartup()</code> once before any socket call, and <code>WSACleanup()</code> once when networking is done — skip the cleanup and the Winsock library stays loaded and reference-counted past the point your program still needs it.</p>
+        <p class="practice-fix"><strong>Modern alternative:</strong> Qt's networking classes (Module 9) hide this pairing entirely — <code>QTcpSocket</code>/<code>QTcpServer</code> need no <code>WSAStartup</code>/<code>WSACleanup</code> at all.</p>
+      </div>
+      <div class="analogue-card practice-card">
+        <span class="analogue-domain">Module 8 · Networking</span>
+        <h4 class="analogue-topic">socket() → closesocket() (Windows) / close() (POSIX)</h4>
+        <p class="analogue-text"><strong>Never forget:</strong> an open socket holds a port and kernel resources for as long as your process runs — close every socket you open, on every code path, including the error paths.</p>
+        <p class="practice-fix"><strong>Modern alternative:</strong> a small RAII wrapper (constructor opens, destructor closes) turns this into the same "can't forget it" guarantee <code>fstream</code> already gives you for files.</p>
+      </div>
+      <div class="analogue-card practice-card">
+        <span class="analogue-domain">Module 8 · Pipes &amp; FDs</span>
+        <h4 class="analogue-topic">CreatePipe / CreateProcess → CloseHandle for every HANDLE</h4>
+        <p class="analogue-text"><strong>Never forget:</strong> <code>hRead</code>, <code>hWrite</code>, <code>hProcess</code>, and <code>hThread</code> are four <em>separate</em> OS-tracked handles — leaving even one of them open leaks a kernel resource for the rest of the process's life, even after you've closed the other three.</p>
+        <p class="practice-fix"><strong>Modern alternative:</strong> none built into the standard library for this one — Win32 handles are exactly the kind of resource a hand-written RAII wrapper class (constructor takes ownership, destructor calls <code>CloseHandle</code>) is meant for.</p>
+      </div>
+      <div class="analogue-card practice-card">
+        <span class="analogue-domain">Module 7 · Multithreading</span>
+        <h4 class="analogue-topic">std::thread → .join() or .detach() before it destructs</h4>
+        <p class="analogue-text"><strong>Never forget:</strong> this one isn't a leak, it's a crash — a joinable <code>std::thread</code> whose destructor runs without either call terminates the <em>entire program</em> via <code>std::terminate()</code>, not just that one thread.</p>
+        <p class="practice-fix"><strong>Modern alternative:</strong> decide up front whether the caller needs to wait for the thread (<code>.join()</code>) or truly doesn't (<code>.detach()</code>) — never leave a <code>std::thread</code> variable to just go out of scope unresolved.</p>
+      </div>
+      <div class="analogue-card practice-card">
+        <span class="analogue-domain">Module 7 · Multithreading</span>
+        <h4 class="analogue-topic">std::mutex → don't call .lock()/.unlock() by hand</h4>
+        <p class="analogue-text"><strong>Never forget:</strong> an exception, an early <code>return</code>, or a <code>break</code> between a manual <code>.lock()</code> and <code>.unlock()</code> skips the unlock — the mutex stays locked forever, and every other thread that ever tries to lock it deadlocks.</p>
+        <p class="practice-fix"><strong>Modern alternative:</strong> <code>std::lock_guard</code> / <code>std::unique_lock</code>. They unlock automatically in their destructor, even when an exception unwinds straight through the block — the RAII pattern applied to locking instead of memory.</p>
+      </div>
+      <div class="analogue-card practice-card">
+        <span class="analogue-domain">Module 7 · File I/O</span>
+        <h4 class="analogue-topic">ifstream / ofstream — usually nothing to remember at all</h4>
+        <p class="analogue-text"><strong>Good news:</strong> <code>fstream</code> is already RAII — its destructor closes the file automatically when it goes out of scope, so you almost never need to call <code>.close()</code> yourself. The one time it matters: if you're about to reopen the <em>same</em> stream object for a different file while still in the same scope, close it explicitly first.</p>
+        <p class="practice-fix"><strong>Why it's worth calling out:</strong> this is the pattern every rule above is trying to imitate — one object, acquire in the constructor, release in the destructor, nothing left to forget.</p>
+      </div>
+      <div class="analogue-card practice-card">
+        <span class="analogue-domain">15-Smart_Pointers sample code</span>
+        <h4 class="analogue-topic">placement new → you must call the destructor yourself</h4>
+        <p class="analogue-text"><strong>Never forget:</strong> placement new only runs a constructor at memory you already own — there is no matching "placement delete" to free anything, so nothing will ever call that object's destructor for you.</p>
+        <p class="practice-fix"><strong>Modern alternative:</strong> this is the one case in the whole course where you call a destructor directly by name (<code>obj->~ClassName();</code>) instead of relying on <code>delete</code> or scope-exit — reach for placement new only when you specifically need that control (memory pools/arenas), not as a general habit.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:12px;"><strong>Keep going:</strong> once a module here makes sense at a glance, open its full page from the sidebar — every concept above has a WHY/WHAT/HOW breakdown, runnable code, and a Story Mode narrative waiting there.</div>
+</div>
+</main>
+</div>
+<footer>C++ in the Wild · Enterprise C++ Training Programme · Personal notes by <strong>Raushan Ranjan</strong></footer>
+<script>
+function initSidebar(){const toggle=document.querySelector('.sidebar-toggle'),sidebar=document.querySelector('.sidebar-left');if(!toggle||!sidebar)return;const desktop=window.matchMedia('(min-width: 861px)');toggle.addEventListener('click',()=>{if(desktop.matches){const collapsed=document.body.classList.toggle('sidebar-collapsed');toggle.setAttribute('aria-expanded',String(!collapsed));}else sidebar.classList.toggle('open');});sidebar.querySelectorAll('a:not(.nav-day-toggle)').forEach(link=>link.addEventListener('click',()=>sidebar.classList.remove('open')));}
+function initNavGroups(){document.querySelectorAll('.nav-day').forEach(day=>{const toggle=day.querySelector(':scope > .nav-day-toggle'),body=day.querySelector(':scope > .nav-day-body');if(!toggle||!body)return;toggle.setAttribute('aria-expanded',String(day.dataset.open==='true'));toggle.addEventListener('click',event=>{event.preventDefault();const open=day.dataset.open==='true';day.dataset.open=String(!open);toggle.setAttribute('aria-expanded',String(!open));});});}
+function initTabs(){const bar=document.querySelector('.tabbar');if(!bar)return;const buttons=[...document.querySelectorAll('.tabbar button,.nav-tab')],panels=[...document.querySelectorAll('.tabpanel')];function activate(id,updateHash){buttons.forEach(b=>b.classList.toggle('active',b.dataset.tab===id));panels.forEach(p=>p.classList.toggle('active',p.id===id));if(updateHash)history.replaceState(null,'','#'+id);}buttons.forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab,true)));const requested=location.hash.slice(1);activate(buttons.some(b=>b.dataset.tab===requested)?requested:(buttons.find(b=>b.classList.contains('active'))||buttons[0]).dataset.tab,false);}
+document.addEventListener('DOMContentLoaded',()=>{initSidebar();initNavGroups();initTabs();});
+</script>
+<script src="search.js"></script>
+</body>
+</html>

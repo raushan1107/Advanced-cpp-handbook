@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.16)
+project(nimbus_fleet_console)
+set(CMAKE_AUTOMOC ON)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Network)
+add_executable(nimbus_fleet_console program.cpp)
+target_link_libraries(nimbus_fleet_console Qt6::Widgets Qt6::Network)

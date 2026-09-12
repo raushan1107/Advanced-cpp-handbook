@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.16)
+project(qt_chat)
+set(CMAKE_AUTOMOC ON)
+find_package(Qt6 REQUIRED COMPONENTS Network)
+add_executable(chat_server chat_server.cpp)
+target_link_libraries(chat_server Qt6::Network)
+add_executable(chat_client chat_client.cpp)
+target_link_libraries(chat_client Qt6::Network)

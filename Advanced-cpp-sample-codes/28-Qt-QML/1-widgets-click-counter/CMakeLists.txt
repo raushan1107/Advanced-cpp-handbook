@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.16)
+project(calc_window)
+set(CMAKE_AUTOMOC ON)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+add_executable(calc_window main.cpp)
+target_link_libraries(calc_window Qt6::Widgets)

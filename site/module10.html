@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 10: Wrap-up &amp; Evaluation - Enterprise C++ Handbook</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="sidebar-toggle" type="button" aria-label="Toggle course navigation" aria-expanded="true">☰</button>
+    <a href="../index.html" class="brand"><span class="brand-mark">C++</span><span class="brand-text">Enterprise C++ Handbook<small>Personal notes by Raushan Ranjan</small></span></a>
+  </div>
+  <div class="topbar-center"><label class="search-bar"><span class="search-icon">⌕</span><input class="search-input" type="search" placeholder="Search the handbook" aria-label="Search the handbook"><kbd class="search-kbd">⌘ K</kbd></label></div>
+  <div class="topbar-right"><a href="../index.html">All modules</a><a href="../index.html#day6">Curriculum</a><a href="cpp-in-the-wild.html">🌍 C++ in the Wild</a><a class="btn-notes" href="../index.html#day6">Qt &amp; Capstone</a></div>
+</div>
+
+<div class="app-layout">
+<aside class="sidebar-left">
+  <div class="sidebar-content">
+    <div class="sidebar-section-title">Course map</div>
+    <nav class="nav-tree" aria-label="Course navigation">
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day1" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 1</span><span class="nav-day-subtitle">Foundations</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module0.html">Foundation Enhancer</a></li><li class="nav-topic"><a href="module1.html">C++ Basics</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day2" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 2</span><span class="nav-day-subtitle">Polymorphism</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module2.html">Inheritance &amp; Polymorphism</a></li><li class="nav-topic"><a href="module3.html">Compile-time Polymorphism</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day3" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 3</span><span class="nav-day-subtitle">Robustness</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module4.html">Exception Handling</a></li><li class="nav-topic"><a href="module5.html">Templates &amp; Generics</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day4" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 4</span><span class="nav-day-subtitle">Modern C++</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module6.html">STL &amp; Containers</a></li><li class="nav-topic"><a href="module7.html">Advanced C++</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day5" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 5</span><span class="nav-day-subtitle">Systems &amp; Internals</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module8.html">Systems Programming &amp; Advanced C++ Internals</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day" data-open="true">
+        <a class="nav-day-toggle" href="../index.html#day6"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 6</span><span class="nav-day-subtitle">Qt &amp; Capstone</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module9.html">Qt/QML &amp; Network Programming</a></li><li class="nav-topic"><a class="active" href="module10.html">Wrap-up &amp; Evaluation</a></li></ul></div>
+          <div class="nav-module"><div class="nav-module-label">Topics</div><div class="nav-tabs">
+            <button class="nav-tab active" data-tab="t1">01 Banking System</button>
+            <button class="nav-tab" data-tab="t2">02 Library Management</button>
+            <button class="nav-tab" data-tab="t3">03 Shape Drawing (Qt)</button>
+            <button class="nav-tab" data-tab="t4">04 Performance debugging</button>
+            <button class="nav-tab" data-tab="t5">05 Final presentations</button>
+            <button class="nav-tab" data-tab="t6">06 🎬 Story Mode</button>
+          </div></div>
+        </div>
+      </div>
+    </nav>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-title">Resources</div>
+    <ul class="sidebar-resources"><li><a href="https://github.com/raushan1107/Advanced-cpp-sample-codes" target="_blank" rel="noopener">↗ Source code</a></li><li><a href="../index.html#day6">▣ Course overview</a></li></ul>
+  </div>
+</aside>
+
+<main class="main-content">
+<div class="module-header">
+  <div class="breadcrumb"><a href="../index.html#day6">Qt &amp; Capstone</a> / Module 10</div>
+  <h1>Wrap-up &amp; Evaluation</h1>
+  <p class="sub">Three mini-projects that each lean on a different slice of everything you've built so far — a Banking System (safety and exceptions), a Library Management System (persistence and STL), and a Qt Shape Drawing canvas (rendering Module 2's polymorphic shapes) — plus a look at whether your code is actually fast, and how to present it once it's done.</p>
+  <div class="module-meta"><span><b>Day:</b> 6 of 6</span><span><b>Topics:</b> 5 + Story Mode</span><span><b>Case study:</b> Library Management System (catalog with file persistence)</span><span><b>Repo folder:</b> <code>29-WrapUp-MiniProjects/</code>, <code>28-Qt-QML/7-shape-canvas/</code></span></div>
+</div>
+
+<div class="callout" style="margin:0 0 20px;"><strong>How this module is organized:</strong> the Banking System, Library Management System, and Shape Drawing canvas are three independent mini-projects, not one merged program — each is a small, complete, worked example of a pattern real teams reuse for much larger versions of the same system. The Library Management System is this module's flagship "Try now" build, since it's the one that needs nothing beyond the plain g++ toolchain already used all course long; Shape Drawing needs the Qt SDK from Module 9.</div>
+
+<div class="tabs-wrap">
+  <div class="tabbar"><button data-tab="t1" class="active">01 Banking System</button><button data-tab="t2">02 Library Management</button><button data-tab="t3">03 Shape Drawing (Qt)</button><button data-tab="t4">04 Performance debugging</button><button data-tab="t5">05 Final presentations</button><button data-tab="t6">06 🎬 Story Mode</button></div>
+
+  <!-- TAB 1: Banking System -->
+  <div class="tabpanel active" id="t1">
+    <p class="topic-intro">A banking system is the classic first "real" C++ project because it forces three earlier modules to work together at once: inheritance for account types, exceptions for the operations that must never silently fail, and smart pointers for a collection that owns its accounts safely.</p>
+
+    <div class="block">
+      <div class="block-label"><span class="tag why">WHY</span><h4>Money is the use case that makes "just don't crash" not good enough</h4></div>
+      <div class="content">
+        <p>A withdrawal that overdraws an account, or a deposit of a negative amount, isn't a crash-worthy bug — it's a silent, wrong answer that looks like a valid balance. Module 4's exception handling exists exactly for cases like this: instead of returning a sentinel value the caller might forget to check, an invalid operation <code>throw</code>s, and the caller is forced to either handle it or let it propagate — it cannot be silently ignored the way a returned error code can.</p>
+        <p>A <strong>transfer</strong> between two accounts adds a second requirement: if the withdrawal from the source account fails, the deposit into the destination must never happen. Ordering the two calls so the risky one (<code>withdraw</code>) runs first, and only calling <code>deposit</code> if it didn't throw, keeps the two accounts consistent even when something goes wrong.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag what">WHAT</span><h4>A small class hierarchy, one custom exception, and unique_ptr ownership</h4></div>
+      <div class="content">
+        <ul>
+          <li><code>class InsufficientFundsError : public runtime_error</code> — a custom exception type (Module 4) that carries a specific, catchable meaning instead of a generic <code>runtime_error</code> every caller has to inspect the message of.</li>
+          <li><code>Account</code> / <code>SavingsAccount : public Account</code> — the same base/derived relationship from Module 2, this time modeling a real account hierarchy instead of shapes.</li>
+          <li><code>vector&lt;unique_ptr&lt;Account&gt;&gt;</code> — the bank owns every account exactly once (Module 7); storing base-class pointers lets the vector hold a mix of <code>Account</code> and <code>SavingsAccount</code> objects polymorphically.</li>
+          <li><code>dynamic_cast&lt;SavingsAccount*&gt;(ptr)</code> — Module 8's RTTI, used here to reach a <code>SavingsAccount</code>-only method (<code>applyInterest()</code>) from a loop that's iterating over the base type.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>Transfer between accounts, then trigger and catch an overdraft</h4></div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">banking_system.cpp</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;memory&gt;
+#include &lt;stdexcept&gt;
+#include &lt;sstream&gt;
+#include &lt;iomanip&gt;
+using namespace std;
+
+class InsufficientFundsError : public runtime_error {
+public:
+    InsufficientFundsError(const string&amp; msg) : runtime_error(msg) {}
+};
+
+class Account {
+protected:
+    string owner;
+    double balance;
+public:
+    Account(string owner_, double opening) : owner(move(owner_)), balance(opening) {}
+    virtual ~Account() {}
+    virtual void deposit(double amt) {
+        if (amt &lt;= 0) throw invalid_argument("Deposit amount must be positive");
+        balance += amt;
+    }
+    virtual void withdraw(double amt) {
+        if (amt &lt;= 0) throw invalid_argument("Withdrawal amount must be positive");
+        if (amt &gt; balance) throw InsufficientFundsError(owner + " has insufficient funds");
+        balance -= amt;
+    }
+    double getBalance() const { return balance; }
+    virtual string describe() const {
+        ostringstream oss;
+        oss &lt;&lt; owner &lt;&lt; ": $" &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; balance;
+        return oss.str();
+    }
+};
+
+class SavingsAccount : public Account {
+    double rate;
+public:
+    SavingsAccount(string owner_, double opening, double rate_) : Account(move(owner_), opening), rate(rate_) {}
+    void applyInterest() { balance += balance * rate; }
+    string describe() const override {
+        ostringstream oss;
+        oss &lt;&lt; owner &lt;&lt; " (Savings, " &lt;&lt; int(rate * 100) &lt;&lt; "% APR): $" &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; balance;
+        return oss.str();
+    }
+};
+
+void transfer(Account&amp; from, Account&amp; to, double amt) {
+    from.withdraw(amt); // if this throws, `to` is untouched
+    to.deposit(amt);
+}
+
+int main() {
+    vector&lt;unique_ptr&lt;Account&gt;&gt; bank;
+    bank.push_back(make_unique&lt;Account&gt;("Meera", 500.0));
+    bank.push_back(make_unique&lt;SavingsAccount&gt;("Aakash", 1000.0, 0.04));
+
+    cout &lt;&lt; "Opening balances:\n";
+    for (auto&amp; acc : bank) cout &lt;&lt; "  " &lt;&lt; acc-&gt;describe() &lt;&lt; "\n";
+
+    transfer(*bank[1], *bank[0], 200.0);
+    cout &lt;&lt; "\nAfter transferring 200 from Aakash to Meera:\n";
+    for (auto&amp; acc : bank) cout &lt;&lt; "  " &lt;&lt; acc-&gt;describe() &lt;&lt; "\n";
+
+    if (auto* savings = dynamic_cast&lt;SavingsAccount*&gt;(bank[1].get())) {
+        savings-&gt;applyInterest();
+    }
+    cout &lt;&lt; "\nAfter Aakash's savings account applies interest:\n";
+    for (auto&amp; acc : bank) cout &lt;&lt; "  " &lt;&lt; acc-&gt;describe() &lt;&lt; "\n";
+
+    cout &lt;&lt; "\nAttempting to withdraw 10000 from Meera's account:\n";
+    try {
+        bank[0]-&gt;withdraw(10000.0);
+    } catch (const InsufficientFundsError&amp; e) {
+        cout &lt;&lt; "  Caught: " &lt;&lt; e.what() &lt;&lt; "\n";
+    }
+}</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Actual output</span>Opening balances:
+  Meera: $500.00
+  Aakash (Savings, 4% APR): $1000.00
+
+After transferring 200 from Aakash to Meera:
+  Meera: $700.00
+  Aakash (Savings, 4% APR): $800.00
+
+After Aakash's savings account applies interest:
+  Meera: $700.00
+  Aakash (Savings, 4% APR): $832.00
+
+Attempting to withdraw 10000 from Meera's account:
+  Caught: Meera has insufficient funds</div>
+      <div class="quickguide">
+        <p class="qg-title">Run it and experiment</p>
+        <ol>
+          <li>Compile: <code>g++ -std=c++17 banking_system.cpp -o banking_system</code>, run.</li>
+          <li><strong>Experiment 1:</strong> Call <code>transfer(*bank[0], *bank[1], 5000.0)</code> — since Meera can't cover it, confirm (by adding a try/catch around the call) that Aakash's balance is completely unaffected, proving the ordering in <code>transfer()</code> actually protects both sides.</li>
+          <li><strong>Experiment 2:</strong> Add a <code>CheckingAccount</code> subclass with an overdraft limit — override <code>withdraw()</code> to allow the balance to go negative down to <code>-overdraftLimit</code> before throwing.</li>
+        </ol>
+      </div>
+      <div class="callout"><strong>Note:</strong> this exact file was compiled and run for this page — see <code>29-WrapUp-MiniProjects/1_banking_system.cpp</code>.</div>
+    </div>
+
+    <div class="topic-nav">
+      <span></span>
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t2]').click()">Next: Library Management →</button>
+    </div>
+  </div>
+
+  <!-- TAB 2: Library Management System -->
+  <div class="tabpanel" id="t2">
+    <p class="topic-intro">A library catalog is a small STL-and-file-I/O project: a collection of records, a couple of state changes (borrowed vs. available), and — the part most console-only class exercises skip — actually surviving the program exiting and starting again.</p>
+
+    <div class="block">
+      <div class="block-label"><span class="tag why">WHY</span><h4>In-memory state disappears the moment the program exits</h4></div>
+      <div class="content">
+        <p>Every earlier module's programs built a <code>vector</code> or a <code>map</code>, printed something useful from it, and exited — the data was never meant to outlive one run. A real catalog has to survive that: close the program, reopen it tomorrow, and the same books, with the same borrowed/available state, need to still be there. That's what Module 7's file I/O is actually for in a system like this — not just "reading a file," but giving a program memory across separate runs.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag what">WHAT</span><h4>A simple delimited file format, plus find_if for lookups</h4></div>
+      <div class="content">
+        <ul>
+          <li><code>struct Book { string title, author; bool onLoan; }</code> — a plain aggregate; no need for a class hierarchy here since every book is the same kind of record.</li>
+          <li><code>find_if(catalog.begin(), catalog.end(), lambda)</code> — Module 6's algorithm header, used here to locate one book by title without writing a manual loop.</li>
+          <li><strong>Delimited text format</strong> — each line is <code>title|author|0-or-1</code>; <code>ofstream</code> writes it, <code>ifstream</code> + <code>getline(stream, field, '|')</code> reads it back field by field. This is the simplest possible persistence format — real systems would reach for a library like SQLite (already a dependency of Qt6, from Module 9's install) or a structured format like JSON once the schema grows past a few fields.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>Borrow, save to disk, reload into a fresh object, and confirm the state survived</h4></div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">library_system.cpp (excerpt — full listing in the try-now section below)</span><button class="copy-btn">Copy</button></div>
+        <pre><code>bool Library::borrowBook(const string&amp; title) {
+    auto it = find_if(catalog.begin(), catalog.end(),
+                       [&amp;](const Book&amp; b) { return b.title == title; });
+    if (it == catalog.end() || it-&gt;onLoan) return false;
+    it-&gt;onLoan = true;
+    return true;
+}
+
+void Library::saveToFile() const {
+    ofstream out(catalogFile);
+    for (const auto&amp; b : catalog)
+        out &lt;&lt; b.title &lt;&lt; '|' &lt;&lt; b.author &lt;&lt; '|' &lt;&lt; (b.onLoan ? 1 : 0) &lt;&lt; '\n';
+}</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Actual output (from the full program — see the try-now section)</span>Available before borrowing:
+  Clean Code by Robert Martin
+  The Pragmatic Programmer by Hunt &amp; Thomas
+  Effective Modern C++ by Scott Meyers
+
+Available after borrowing 'Effective Modern C++':
+  Clean Code by Robert Martin
+  The Pragmatic Programmer by Hunt &amp; Thomas
+
+Catalog saved to catalog.txt.
+
+Reloaded from disk, available copies:
+  Clean Code by Robert Martin
+  The Pragmatic Programmer by Hunt &amp; Thomas</div>
+      <div class="quickguide">
+        <p class="qg-title">The full class is in the try-now section</p>
+        <ol>
+          <li>This tab shows the two methods that matter most — <code>borrowBook()</code> and <code>saveToFile()</code>. The complete <code>Library</code> class (plus <code>returnBook()</code> and <code>loadFromFile()</code>) is this module's flagship complete program, below.</li>
+          <li><strong>Experiment (once you have the full file):</strong> delete <code>catalog.txt</code> between runs and confirm <code>loadFromFile()</code> just produces an empty catalog rather than crashing — a real system should treat "no file yet" as "empty," not an error.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="topic-nav">
+      <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=t1]').click()">← Banking System</button>
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t3]').click()">Next: Shape Drawing →</button>
+    </div>
+  </div>
+
+  <!-- TAB 3: Shape Drawing (Qt GUI) -->
+  <div class="tabpanel" id="t3">
+    <p class="topic-intro">Module 2 built a <code>Shape</code>/<code>Circle</code>/<code>Rectangle</code> hierarchy that only ever printed <code>area()</code> to a console. Give that same polymorphic hierarchy one more virtual method — <code>draw()</code> — and Module 9's Qt skills turn it into an actual picture.</p>
+
+    <div class="block">
+      <div class="block-label"><span class="tag why">WHY</span><h4>Rendering is just another virtual call</h4></div>
+      <div class="content">
+        <p>Nothing about polymorphism changes when the thing each subtype does differently is "draw itself" instead of "compute my area." <code>Shape</code> gains a second pure-virtual method, <code>draw(QPainter&amp;)</code>, and every subclass implements it the same way it already implements <code>area()</code> — the calling code still just loops over <code>vector&lt;unique_ptr&lt;Shape&gt;&gt;</code> and calls a virtual method, exactly like Module 2 and Module 8's RTTI examples did.</p>
+        <p>What's new is <em>when</em> that loop runs: a <code>QWidget</code> doesn't paint itself once and stay that way — the OS asks it to repaint whenever it's shown, resized, or uncovered, and Qt calls <code>paintEvent()</code> each time that happens.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag what">WHAT</span><h4>paintEvent, QPainter, and scheduling a redraw</h4></div>
+      <div class="content">
+        <ul>
+          <li><code>void paintEvent(QPaintEvent*) override</code> — a <code>QWidget</code> virtual method Qt calls whenever the widget needs to (re)draw; you never call it yourself.</li>
+          <li><code>QPainter painter(this)</code> — constructing a painter "on" a widget inside <code>paintEvent</code> is what makes its <code>draw*</code> calls actually land on that widget's surface.</li>
+          <li><code>painter.setBrush(Qt::cyan)</code> / <code>drawEllipse(...)</code> / <code>drawRect(...)</code> — fill color plus the actual shape-drawing calls; <code>QPainter::Antialiasing</code> smooths curved edges.</li>
+          <li><code>widget-&gt;update()</code> (not used in this minimal demo, but the standard next step) — schedules a repaint for later rather than drawing immediately, so multiple changes in one event can be batched into a single <code>paintEvent</code> call.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>The Module 2 Shape hierarchy, rendered instead of printed</h4></div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">main.cpp</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;QApplication&gt;
+#include &lt;QWidget&gt;
+#include &lt;QPainter&gt;
+#include &lt;memory&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+struct Shape {
+    virtual ~Shape() {}
+    virtual double area() const = 0;
+    virtual void draw(QPainter &amp;painter) const = 0;
+};
+
+struct Circle : Shape {
+    int x, y, radius;
+    Circle(int x_, int y_, int r) : x(x_), y(y_), radius(r) {}
+    double area() const override { return 3.14159 * radius * radius; }
+    void draw(QPainter &amp;painter) const override {
+        painter.setBrush(Qt::cyan);
+        painter.drawEllipse(QPoint(x, y), radius, radius);
+    }
+};
+
+struct RectangleShape : Shape {
+    int x, y, w, h;
+    RectangleShape(int x_, int y_, int w_, int h_) : x(x_), y(y_), w(w_), h(h_) {}
+    double area() const override { return w * h; }
+    void draw(QPainter &amp;painter) const override {
+        painter.setBrush(Qt::yellow);
+        painter.drawRect(x, y, w, h);
+    }
+};
+
+class ShapeCanvas : public QWidget {
+public:
+    ShapeCanvas() {
+        shapes.push_back(make_unique&lt;Circle&gt;(80, 80, 50));
+        shapes.push_back(make_unique&lt;RectangleShape&gt;(180, 40, 100, 80));
+        setWindowTitle("Nimbus Shape Canvas");
+        resize(320, 200);
+    }
+protected:
+    void paintEvent(QPaintEvent *) override {
+        QPainter painter(this);
+        painter.setRenderHint(QPainter::Antialiasing);
+        for (const auto &amp;s : shapes) s-&gt;draw(painter);
+    }
+private:
+    vector&lt;unique_ptr&lt;Shape&gt;&gt; shapes;
+};
+
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+    ShapeCanvas canvas;
+    canvas.show();
+    return app.exec();
+}</code></pre>
+      </div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">CMakeLists.txt</span><button class="copy-btn">Copy</button></div>
+        <pre><code>cmake_minimum_required(VERSION 3.16)
+project(shape_canvas)
+set(CMAKE_AUTOMOC ON)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+add_executable(shape_canvas main.cpp)
+target_link_libraries(shape_canvas Qt6::Widgets)</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Expected behavior</span>A window titled "Nimbus Shape Canvas" opens showing a cyan circle and a yellow rectangle, positioned side by side — the same two shapes Module 2 only ever described in text, now actually on screen.</div>
+      <div class="quickguide">
+        <p class="qg-title">Build it and experiment</p>
+        <ol>
+          <li>Same Qt SDK and build steps as Module 9 — <code>cmake -B build -S . -G Ninja &amp;&amp; cmake --build build</code>, then run the executable.</li>
+          <li><strong>Experiment 1:</strong> Add a <code>Triangle</code> subtype (three points, <code>painter.drawPolygon(...)</code>) — nothing about <code>ShapeCanvas</code> changes, only the vector's contents.</li>
+          <li><strong>Experiment 2:</strong> Print each shape's <code>area()</code> to the console right before drawing it — the same polymorphic call from Module 2, running alongside the new <code>draw()</code> call on the exact same objects.</li>
+        </ol>
+      </div>
+      <div class="callout"><strong>Note:</strong> this file was built successfully against Qt 6.10 for this page — see <code>28-Qt-QML/7-shape-canvas/</code>. As with Module 9's widget demos, the window's visual output wasn't captured as text (there's nothing to print — it's a picture), but the build succeeded and the window opened without error.</div>
+    </div>
+
+    <div class="topic-nav">
+      <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=t2]').click()">← Library Management</button>
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t4]').click()">Next: Performance debugging →</button>
+    </div>
+  </div>
+
+  <!-- TAB 4: Performance Debugging -->
+  <div class="tabpanel" id="t4">
+    <p class="topic-intro">Every program in this course so far has been judged on one thing: does it produce the right output? The last skill before you ship anything is the other question — is it fast enough, and if not, exactly where is the time going?</p>
+
+    <div class="block">
+      <div class="block-label"><span class="tag why">WHY</span><h4>"It feels slow" is not a diagnosis</h4></div>
+      <div class="content">
+        <p>Guessing at performance problems wastes time on the wrong fix. The discipline is: measure first, change one thing, measure again — the exact same "predict, run, compare" rhythm this handbook has used for every topic, applied to wall-clock time instead of program output. Two of the most common, easy-to-miss costs in C++ specifically are container reallocation (a <code>vector</code> growing without <code>reserve()</code> copies every existing element into new memory, repeatedly) and unnecessary copies (Module 8's move semantics exists specifically to avoid this one).</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag what">WHAT</span><h4>Manual timing, and the real profiling tools for when manual timing isn't enough</h4></div>
+      <div class="content">
+        <ul>
+          <li><code>std::chrono::high_resolution_clock::now()</code> — Module 7-adjacent standard-library timing; bracket the code under test with two calls and subtract.</li>
+          <li><code>duration&lt;double, milli&gt;</code> — converts a raw tick difference into milliseconds as a plain <code>double</code> you can print.</li>
+          <li><strong>gprof</strong> — the classic GCC/MinGW profiler: compile with <code>-pg</code>, run the program once (it writes a <code>gmon.out</code> file), then run <code>gprof yourprogram.exe gmon.out</code> to get a per-function breakdown of where time actually went, instead of guessing.</li>
+          <li><strong>Visual Studio Performance Profiler</strong> — for MSVC projects, <em>Debug → Performance Profiler → CPU Usage</em> gives the same kind of per-function timing breakdown with a graphical call tree, no separate command-line tool needed.</li>
+          <li><strong>Valgrind/callgrind</strong> (Linux/macOS) — a heavier but very precise instruction-level profiler; overkill for a quick check, valuable for a genuinely mysterious bottleneck.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>Measuring the exact cost of skipping reserve()</h4></div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">performance_debugging.cpp</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;iostream&gt;
+#include &lt;chrono&gt;
+#include &lt;vector&gt;
+using namespace std;
+using namespace std::chrono;
+
+vector&lt;int&gt; buildWithoutReserve(int n) {
+    vector&lt;int&gt; v;
+    for (int i = 0; i &lt; n; i++) v.push_back(i);
+    return v;
+}
+
+vector&lt;int&gt; buildWithReserve(int n) {
+    vector&lt;int&gt; v;
+    v.reserve(n);
+    for (int i = 0; i &lt; n; i++) v.push_back(i);
+    return v;
+}
+
+int main() {
+    const int N = 2000000;
+
+    auto t1 = high_resolution_clock::now();
+    auto v1 = buildWithoutReserve(N);
+    auto t2 = high_resolution_clock::now();
+    auto v2 = buildWithReserve(N);
+    auto t3 = high_resolution_clock::now();
+
+    duration&lt;double, milli&gt; withoutReserve = t2 - t1;
+    duration&lt;double, milli&gt; withReserve = t3 - t2;
+
+    cout &lt;&lt; "Without reserve(): " &lt;&lt; withoutReserve.count() &lt;&lt; " ms\n";
+    cout &lt;&lt; "With reserve():    " &lt;&lt; withReserve.count() &lt;&lt; " ms\n";
+    cout &lt;&lt; "Both vectors have size " &lt;&lt; v1.size() &lt;&lt; " and " &lt;&lt; v2.size() &lt;&lt; "\n";
+}</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Actual output (your numbers will vary by machine and by run — timing is never perfectly repeatable)</span>Without reserve(): 23.3903 ms
+With reserve():    9.0513 ms
+Both vectors have size 2000000 and 2000000</div>
+      <div class="quickguide">
+        <p class="qg-title">Run it and experiment</p>
+        <ol>
+          <li>Compile: <code>g++ -std=c++17 performance_debugging.cpp -o performance_debugging</code>, run it two or three times and watch the numbers shift slightly each time — that variance is normal and is exactly why profiling tools average over many runs instead of trusting one.</li>
+          <li><strong>Experiment 1:</strong> Compile again with <code>-O2</code> and compare — optimized builds shrink the gap, but <code>reserve()</code> still wins, because it's avoiding real reallocations the optimizer can't remove.</li>
+          <li><strong>Experiment 2 (gprof):</strong> Recompile with <code>g++ -std=c++17 -pg performance_debugging.cpp -o performance_debugging</code>, run it once, then <code>gprof performance_debugging.exe gmon.out</code> — look for <code>buildWithoutReserve</code> and <code>buildWithReserve</code> in the flat profile and confirm which one the tool itself reports as more expensive.</li>
+        </ol>
+      </div>
+      <div class="callout"><strong>Note:</strong> this file was compiled and run for this page with plain <code>g++ -std=c++17</code> (no optimization flag), matching the compile command shown on every other module — see <code>29-WrapUp-MiniProjects/3_performance_debugging.cpp</code>.</div>
+    </div>
+
+    <div class="topic-nav">
+      <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=t3]').click()">← Shape Drawing</button>
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t5]').click()">Next: Final presentations →</button>
+    </div>
+  </div>
+
+  <!-- TAB 5: Final Presentations & Course Wrap-up -->
+  <div class="tabpanel" id="t5">
+    <p class="topic-intro">A working program is not the same skill as explaining one. In an enterprise team, "it compiles and passes review" only matters once you can also walk a room through what it does, why you built it that way, and what you'd change with more time — that's the actual job once training ends.</p>
+
+    <div class="block">
+      <div class="block-label"><span class="tag why">WHY</span><h4>Reviews and demos are where design decisions get tested</h4></div>
+      <div class="content">
+        <p>A design decision that seemed obvious while you were writing the code — why <code>transfer()</code> withdraws before it deposits, why the shape hierarchy uses a virtual <code>draw()</code> instead of a big <code>switch</code> — often only gets questioned out loud in a review or a demo. Being able to defend it in one or two sentences, with the actual tradeoff, is a large part of what separates "I wrote code that works" from "I can be trusted with a codebase other people depend on."</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag what">WHAT</span><h4>A short presentation checklist</h4></div>
+      <div class="content">
+        <ul>
+          <li><strong>Problem statement (1-2 minutes):</strong> what does this solve, and for whom — before any code is shown.</li>
+          <li><strong>Architecture walkthrough (3-4 minutes):</strong> the class/module shape, not every function — a whiteboard sketch of <code>Shape → Circle/Rectangle</code> says more in ten seconds than scrolling through the header file.</li>
+          <li><strong>Live demo, not just slides (4-5 minutes):</strong> run the actual program. A demo that fails live and gets debugged in front of the room is more convincing than a screenshot, not less.</li>
+          <li><strong>One deliberate edge case (2 minutes):</strong> show a case you thought about on purpose — an overdrawn account, a missing catalog file, a division by zero — and how the program handles it without crashing.</li>
+          <li><strong>What you'd do differently (1-2 minutes):</strong> naming a real tradeoff you made under time pressure (the delimited file format instead of SQLite, say) shows judgment, not just output.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>What this course covered, Day 1 to Day 6</h4></div>
+      <div class="content">
+        <p>Before presenting, it's worth re-reading the module list once as a whole — not to relearn anything, just to remember how much of it connects to what you're about to demo.</p>
+        <ul class="topic-list">
+          <li><a href="module0.html">Module 0 — Foundation Enhancer</a>: toolchain, syntax, namespaces</li>
+          <li><a href="module1.html">Module 1 — C++ Basics</a>: classes and a first complete program</li>
+          <li><a href="module2.html">Module 2 — Inheritance &amp; Polymorphism</a>: the Shape hierarchy this module's canvas reuses</li>
+          <li><a href="module3.html">Module 3 — Compile-time Polymorphism</a>: overloading and templates' first appearance</li>
+          <li><a href="module4.html">Module 4 — Exception Handling</a>: the pattern behind <code>InsufficientFundsError</code></li>
+          <li><a href="module5.html">Module 5 — Templates &amp; Generics</a>: writing code once for many types</li>
+          <li><a href="module6.html">Module 6 — STL &amp; Containers</a>: the <code>find_if</code> this module's catalog search uses</li>
+          <li><a href="module7.html">Module 7 — Advanced C++ Features</a>: smart pointers, file I/O, lambdas, threading</li>
+          <li><a href="module8.html">Module 8 — Systems Programming &amp; Advanced C++ Internals</a>: networking, move semantics, RTTI</li>
+          <li><a href="module9.html">Module 9 — Qt/QML &amp; Network Programming</a>: the GUI and signals/slots this module's canvas and console build on</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="topic-nav" style="justify-content:flex-end;">
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t6]').click()">Story Mode: see it all connected →</button>
+    </div>
+  </div>
+
+  <!-- TAB 6: Story Mode -->
+  <div class="tabpanel" id="t6">
+    <span class="story-badge">🎬 Story Mode</span>
+    <h2 style="margin:0 0 12px;">Launch day at Nimbus</h2>
+    <p class="story-lede">Six days ago this cohort couldn't compile "hello world." Today, Nimbus's engineering lead has asked three of them to demo what they built during training to the rest of the department — not as an exercise, but because the department actually wants to know if any of it is worth building on. Here's the demo, module by module.</p>
+
+    <div class="story-timeline">
+      <div class="story-act">
+        <div class="story-act-head">
+          <span class="story-act-num">ACT 1</span>
+          <h3>"Show them it won't lose their money"</h3>
+          <button class="story-jump" type="button" onclick="document.querySelector('[data-tab=t1]').click()">↳ Revisit Banking System</button>
+        </div>
+        <p>The first demo is deliberately the least flashy: a transfer between two accounts, then a withdrawal that's too large, caught and reported instead of crashing or silently succeeding. The engineering lead's only question is "what happens if the second half of a transfer fails halfway through?" — and the answer, live, is: it can't, because the withdrawal happens first and nothing about the destination account changes unless it succeeds.</p>
+      </div>
+      <div class="story-act">
+        <div class="story-act-head">
+          <span class="story-act-num">ACT 2</span>
+          <h3>"Show them it remembers"</h3>
+          <button class="story-jump" type="button" onclick="document.querySelector('[data-tab=t2]').click()">↳ Revisit Library Management</button>
+        </div>
+        <p>The second demo borrows a book, closes the program entirely, reopens it, and the book is still marked borrowed. It's a small thing to demo, but it's the one that gets a nod from the room — every prior demo this cohort gave started from a blank slate each run; this is the first one that has memory.</p>
+      </div>
+      <div class="story-act">
+        <div class="story-act-head">
+          <span class="story-act-num">ACT 3</span>
+          <h3>"Show them, don't just tell them"</h3>
+          <button class="story-jump" type="button" onclick="document.querySelector('[data-tab=t3]').click()">↳ Revisit Shape Drawing</button>
+        </div>
+        <p>The shape canvas demo is short on purpose — a cyan circle, a yellow rectangle, nothing more — but it's the one moment in six days of terminal output where something appears on screen instead of as text. The engineering lead's reaction says more than any explanation could: this is the first thing in the whole training that looks like a product instead of an exercise.</p>
+      </div>
+      <div class="story-act">
+        <div class="story-act-head">
+          <span class="story-act-num">ACT 4</span>
+          <h3>"Show them you checked, instead of assuming"</h3>
+          <button class="story-jump" type="button" onclick="document.querySelector('[data-tab=t4]').click()">↳ Revisit Performance debugging</button>
+        </div>
+        <p>Someone in the room asks the question every demo eventually gets: "will this scale?" Instead of a guess, the answer is a number — the <code>reserve()</code> timing comparison, run live, showing the actual cost of the naive version next to the fixed one. It's not a huge number. That's the point: it's a real, measured one, not a hand-wave.</p>
+      </div>
+      <div class="story-act">
+        <div class="story-act-head">
+          <span class="story-act-num">ACT 5</span>
+          <h3>"Now defend it"</h3>
+          <button class="story-jump" type="button" onclick="document.querySelector('[data-tab=t5]').click()">↳ Revisit Final presentations</button>
+        </div>
+        <p>The last five minutes aren't a demo at all — they're questions. Why a delimited text file instead of a real database? Why <code>dynamic_cast</code> in the banking system instead of a virtual method? Every answer traces back to a specific module, a specific tradeoff, made on purpose. That's the actual skill this whole day was testing: not writing the code, but being able to explain it under questioning.</p>
+      </div>
+    </div>
+
+    <blockquote class="story-pullquote">Every module in this handbook taught one idea in isolation. Launch day is the first time all of them have to hold up together, in front of people who weren't there when you wrote any of it.</blockquote>
+
+    <div class="story-also">
+      <p class="story-also-title">Also seen in the wild</p>
+      <div class="story-also-grid">
+        <div class="story-also-item"><span class="story-also-domain">Startups</span>A demo day pitch is the same exercise at company scale — architecture, live demo, and a defensible answer for "why did you build it this way."</div>
+        <div class="story-also-item"><span class="story-also-domain">Open source</span>A pull request description that states the tradeoff up front gets reviewed faster than one that just says "fixes the bug."</div>
+        <div class="story-also-item"><span class="story-also-domain">Consulting</span>Client sign-off meetings run on the exact same problem statement → demo → "what's next" structure as this module's presentation checklist.</div>
+        <div class="story-also-item"><span class="story-also-domain">Academia</span>A thesis defense is a presentation checklist with higher stakes: the same requirement to justify every design decision under direct questioning.</div>
+      </div>
+    </div>
+
+    <div class="callout"><strong>Bring it back:</strong> the complete program below is the Library Management System — the one mini-project from this module built entirely on the plain g++ toolchain this whole course has used, so it's the one every learner can actually run and extend without installing anything new. Banking System and Shape Drawing stay as their own standalone worked examples above, exactly as their own tabs presented them.</div>
+
+    <div class="topic-nav">
+      <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=t5]').click()">← Final presentations</button>
+      <a class="btn btn-primary" href="../index.html">Back to course overview →</a>
+    </div>
+  </div>
+
+  <section class="try-now" id="try-now">
+    <div class="try-now-header"><div><div class="section-kicker">Learn by doing</div><h2>Try now: build the Nimbus Library Management System</h2><p>Build the catalog step by step — records and search, then borrow/return state, then persistence to disk — then run the complete system and confirm it survives a restart.</p></div><span class="try-badge">30 minutes</span></div>
+    <div class="build-ladder">
+      <div class="build-step"><div class="build-step-title"><span>Step 1</span><strong>A catalog of books, listed with a range-based for loop</strong></div><p>Just a <code>vector&lt;Book&gt;</code> and a function to add and list entries — no state changes yet.</p><div class="code-card"><div class="code-head"><span class="filename">step1_catalog.cpp</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+using namespace std;
+
+struct Book { string title; string author; };
+
+int main() {
+    vector&lt;Book&gt; catalog;
+    catalog.push_back({"Clean Code", "Robert Martin"});
+    catalog.push_back({"Effective Modern C++", "Scott Meyers"});
+
+    cout &lt;&lt; "Catalog:\n";
+    for (const auto&amp; b : catalog)
+        cout &lt;&lt; "  " &lt;&lt; b.title &lt;&lt; " by " &lt;&lt; b.author &lt;&lt; "\n";
+}</code></pre></div><p class="run-line"><b>Run:</b> <code>g++ -std=c++17 step1_catalog.cpp -o step1</code></p><p class="mini-output"><b>See:</b> both books printed, one per line</p></div>
+      <div class="build-step"><div class="build-step-title"><span>Step 2</span><strong>Add borrow/return state with find_if</strong></div><p>A boolean <code>onLoan</code> field, flipped through a lookup by title instead of a manual index.</p><div class="code-card"><div class="code-head"><span class="filename">step2_borrow.cpp</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+struct Book { string title; string author; bool onLoan; };
+
+bool borrowBook(vector&lt;Book&gt;&amp; catalog, const string&amp; title) {
+    auto it = find_if(catalog.begin(), catalog.end(),
+                       [&amp;](const Book&amp; b) { return b.title == title; });
+    if (it == catalog.end() || it-&gt;onLoan) return false;
+    it-&gt;onLoan = true;
+    return true;
+}
+
+int main() {
+    vector&lt;Book&gt; catalog = {{"Clean Code", "Robert Martin", false}};
+    cout &lt;&lt; "Borrow succeeded: " &lt;&lt; boolalpha &lt;&lt; borrowBook(catalog, "Clean Code") &lt;&lt; "\n";
+    cout &lt;&lt; "Borrow again succeeded: " &lt;&lt; borrowBook(catalog, "Clean Code") &lt;&lt; "\n";
+}</code></pre></div><p class="run-line"><b>Run:</b> <code>g++ -std=c++17 step2_borrow.cpp -o step2</code></p><p class="mini-output"><b>See:</b> first borrow true, second borrow (already on loan) false</p></div>
+    </div>
+    <div class="build-divider"><span>Now combine the pieces into the complete use case</span></div>
+    <div class="try-step"><span>01</span><div><strong>Library Management System — records, borrow/return, and file persistence together</strong></div><p>The full <code>Library</code> class: add, borrow, return, list available, and save/load the whole catalog to a text file.</p></div>
+    <div class="code-card"><div class="code-head"><span class="filename">program.cpp — complete use case</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+struct Book {
+    string title;
+    string author;
+    bool onLoan;
+};
+
+class Library {
+    vector&lt;Book&gt; catalog;
+    string catalogFile;
+public:
+    Library(string file) : catalogFile(move(file)) {}
+
+    void addBook(const string&amp; title, const string&amp; author) {
+        catalog.push_back({title, author, false});
+    }
+
+    bool borrowBook(const string&amp; title) {
+        auto it = find_if(catalog.begin(), catalog.end(),
+                           [&amp;](const Book&amp; b) { return b.title == title; });
+        if (it == catalog.end() || it-&gt;onLoan) return false;
+        it-&gt;onLoan = true;
+        return true;
+    }
+
+    bool returnBook(const string&amp; title) {
+        auto it = find_if(catalog.begin(), catalog.end(),
+                           [&amp;](const Book&amp; b) { return b.title == title; });
+        if (it == catalog.end() || !it-&gt;onLoan) return false;
+        it-&gt;onLoan = false;
+        return true;
+    }
+
+    void listAvailable() const {
+        for (const auto&amp; b : catalog)
+            if (!b.onLoan) cout &lt;&lt; "  " &lt;&lt; b.title &lt;&lt; " by " &lt;&lt; b.author &lt;&lt; "\n";
+    }
+
+    void saveToFile() const {
+        ofstream out(catalogFile);
+        for (const auto&amp; b : catalog)
+            out &lt;&lt; b.title &lt;&lt; '|' &lt;&lt; b.author &lt;&lt; '|' &lt;&lt; (b.onLoan ? 1 : 0) &lt;&lt; '\n';
+    }
+
+    void loadFromFile() {
+        catalog.clear();
+        ifstream in(catalogFile);
+        string line;
+        while (getline(in, line)) {
+            stringstream ss(line);
+            string title, author, loanFlag;
+            getline(ss, title, '|');
+            getline(ss, author, '|');
+            getline(ss, loanFlag, '|');
+            catalog.push_back({title, author, loanFlag == "1"});
+        }
+    }
+};
+
+int main() {
+    Library lib("catalog.txt");
+    lib.addBook("Clean Code", "Robert Martin");
+    lib.addBook("The Pragmatic Programmer", "Hunt &amp; Thomas");
+    lib.addBook("Effective Modern C++", "Scott Meyers");
+
+    cout &lt;&lt; "Available before borrowing:\n";
+    lib.listAvailable();
+
+    lib.borrowBook("Effective Modern C++");
+    cout &lt;&lt; "\nAvailable after borrowing 'Effective Modern C++':\n";
+    lib.listAvailable();
+
+    lib.saveToFile();
+    cout &lt;&lt; "\nCatalog saved to catalog.txt.\n";
+
+    Library reloaded("catalog.txt");
+    reloaded.loadFromFile();
+    cout &lt;&lt; "\nReloaded from disk, available copies:\n";
+    reloaded.listAvailable();
+
+    reloaded.returnBook("Effective Modern C++");
+    cout &lt;&lt; "\nAfter returning 'Effective Modern C++':\n";
+    reloaded.listAvailable();
+}</code></pre></div>
+    <div class="output-box"><span class="lbl">Actual output</span>Available before borrowing:
+  Clean Code by Robert Martin
+  The Pragmatic Programmer by Hunt &amp; Thomas
+  Effective Modern C++ by Scott Meyers
+
+Available after borrowing 'Effective Modern C++':
+  Clean Code by Robert Martin
+  The Pragmatic Programmer by Hunt &amp; Thomas
+
+Catalog saved to catalog.txt.
+
+Reloaded from disk, available copies:
+  Clean Code by Robert Martin
+  The Pragmatic Programmer by Hunt &amp; Thomas
+
+After returning 'Effective Modern C++':
+  Clean Code by Robert Martin
+  The Pragmatic Programmer by Hunt &amp; Thomas
+  Effective Modern C++ by Scott Meyers</div>
+    <div class="quickguide"><p class="qg-title">Run it in VS Code</p><ol><li>Create folder <code>module10-try-now</code>, open in VS Code, save as <code>program.cpp</code>.</li><li>Compile: <code>g++ -std=c++17 program.cpp -o program</code>, then run <code>program.exe</code>.</li><li>Notice a <code>catalog.txt</code> file appears in the folder after the first run — open it and see the raw <code>title|author|0-or-1</code> lines.</li><li>Run the program a second time without changing anything — since <code>main()</code> always calls <code>addBook</code> for the same three titles, notice the catalog would need a "does this title already exist" check before <code>addBook</code> to avoid duplicate entries on repeated runs. That's part of the homework below.</li></ol></div>
+    <div class="task-card"><div class="task-label">Homework / assessment</div><h3>Prevent duplicate titles, and add a search-by-author feature</h3><p>Extend <code>addBook()</code> so it refuses to add a title that already exists in the catalog (return a <code>bool</code> for success/failure instead of always succeeding). Then add a <code>listByAuthor(const string&amp; author)</code> method that prints every book — borrowed or not — written by a given author, clearly marking which ones are currently on loan.</p><p class="hint-title">Hints, not the answer</p><ul class="hint-list"><li>The duplicate check is the same <code>find_if</code> pattern already used in <code>borrowBook</code>/<code>returnBook</code> — just checking title equality before pushing, instead of after.</li><li><code>listByAuthor</code> doesn't need <code>find_if</code> at all — a plain range-based <code>for</code> loop with an <code>if (b.author == author)</code> check covers it, since you want every match, not just the first.</li></ul></div>
+    <div class="submission-card"><strong>Submit for evaluation</strong><p>Send your finished <code>program.cpp</code> to the trainer's cohort email.</p><div><b>Subject:</b> <code>Module 10 Task - Your Name - program.cpp</code></div><div><b>Body:</b> <code>Your Name | Module 10 | compiler used | result you observed</code></div><p>Attach <code>program.cpp</code> and describe what <code>listByAuthor</code> printed for at least one author with more than one book.</p></div>
+  </section>
+
+  <details class="practice-drawer">
+    <summary>★ Practice &amp; Capstones <span class="practice-drawer-hint">— standalone challenges you can attempt any time</span></summary>
+    <div class="practice-drawer-body">
+      <p style="margin:10px 0 0; font-size:13.5px; color:var(--text-muted);">Each one is a separate, self-contained exercise — pick whichever matches what you've covered so far.</p>
+      <div class="practice-links">
+        <a class="practice-link" href="exercise.html"><span class="practice-link-tag">Capstone</span>RR Skillverse Course Tracker — a course tracker built from scratch</a>
+        <a class="practice-link" href="capstone-work1.html"><span class="practice-link-tag">Capstone-Work1</span>Smart Office Access System — inheritance &amp; overloading, from scratch</a>
+        <a class="practice-link" href="capstone-work2.html"><span class="practice-link-tag">Capstone-Work2</span>Nimbus Logistics Challenge — fix 3 TODOs (Modules 1-6)</a>
+        <a class="practice-link" href="capstone-work3.html"><span class="practice-link-tag">Capstone-Work3</span>Nimbus Fleet Command — fix 5 TODOs (Module 8)</a>
+      </div>
+    </div>
+  </details>
+</div>
+</main>
+</div>
+<footer>Module 10 of 11 · Enterprise C++ Training Programme · Personal notes by <strong>Raushan Ranjan</strong></footer>
+<script>
+function initSidebar(){const toggle=document.querySelector('.sidebar-toggle'),sidebar=document.querySelector('.sidebar-left');if(!toggle||!sidebar)return;const desktop=window.matchMedia('(min-width: 861px)');toggle.addEventListener('click',()=>{if(desktop.matches){const collapsed=document.body.classList.toggle('sidebar-collapsed');toggle.setAttribute('aria-expanded',String(!collapsed));}else sidebar.classList.toggle('open');});sidebar.querySelectorAll('a:not(.nav-day-toggle)').forEach(link=>link.addEventListener('click',()=>sidebar.classList.remove('open')));}
+function initNavGroups(){document.querySelectorAll('.nav-day').forEach(day=>{const toggle=day.querySelector(':scope > .nav-day-toggle'),body=day.querySelector(':scope > .nav-day-body');if(!toggle||!body)return;toggle.setAttribute('aria-expanded',String(day.dataset.open==='true'));toggle.addEventListener('click',event=>{event.preventDefault();const open=day.dataset.open==='true';day.dataset.open=String(!open);toggle.setAttribute('aria-expanded',String(!open));});});}
+function initNavModules(){document.querySelectorAll('.nav-module').forEach(module=>{const label=module.querySelector(':scope > .nav-module-label'),content=module.querySelector(':scope > .nav-topics, :scope > .nav-tabs');if(!label||!content)return;module.dataset.open=module.dataset.open||'true';label.setAttribute('role','button');label.setAttribute('tabindex','0');label.setAttribute('aria-expanded',String(module.dataset.open==='true'));const toggle=()=>{const open=module.dataset.open==='true';module.dataset.open=String(!open);label.setAttribute('aria-expanded',String(!open));};label.addEventListener('click',toggle);label.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();toggle();}});});}
+function initTabs(){const bar=document.querySelector('.tabbar');if(!bar)return;const buttons=[...document.querySelectorAll('.tabbar button,.nav-tab')],panels=[...document.querySelectorAll('.tabpanel')];function activate(id,updateHash){buttons.forEach(b=>b.classList.toggle('active',b.dataset.tab===id));panels.forEach(p=>p.classList.toggle('active',p.id===id));if(updateHash)history.replaceState(null,'','#'+id);}buttons.forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab,true)));const requested=location.hash.slice(1);activate(buttons.some(b=>b.dataset.tab===requested)?requested:(buttons.find(b=>b.classList.contains('active'))||buttons[0]).dataset.tab,false);}
+function initCopyButtons(){document.querySelectorAll('.copy-btn').forEach(btn=>btn.addEventListener('click',async()=>{const code=btn.closest('.code-card').querySelector('code').innerText;try{await navigator.clipboard.writeText(code);}catch(e){const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1200);}));}
+document.addEventListener('DOMContentLoaded',()=>{initSidebar();initNavGroups();initNavModules();initTabs();initCopyButtons();});
+</script>
+<script src="search.js"></script>
+</body>
+</html>

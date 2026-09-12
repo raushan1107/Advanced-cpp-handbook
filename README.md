@@ -55,12 +55,12 @@ the handbook locally by opening index.html in a browser.
 Useful pages:
 
 - [Course home](index.html)
-- [How to use the repository and sample codes](repo-guide.html)
-- [Student study-flow guide](module-authoring-context.html)
-- [Module 0: C++ foundation](module0.html)
-- [Module 1: C++ basics](module1.html)
-- [Module 2: Inheritance and polymorphism](module2.html)
-- [Module 3: Compile-time polymorphism](module3.html)
+- [How to use the repository and sample codes](site/repo-guide.html)
+- [Student study-flow guide](site/module-authoring-context.html)
+- [Module 0: C++ foundation](site/module0.html)
+- [Module 1: C++ basics](site/module1.html)
+- [Module 2: Inheritance and polymorphism](site/module2.html)
+- [Module 3: Compile-time polymorphism](site/module3.html)
 
 ## Sample-Code Repository
 
@@ -85,7 +85,7 @@ semantics, threading, client-server programs, file descriptors, linking, and
 exercises.
 
 For the full run order and folder-by-folder classroom flow, open
-[How to use the repository](repo-guide.html).
+[How to use the repository](site/repo-guide.html).
 
 ## Basic Terminal Commands
 

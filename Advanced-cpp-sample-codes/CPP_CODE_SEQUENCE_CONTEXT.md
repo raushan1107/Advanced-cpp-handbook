@@ -239,6 +239,23 @@ g++ -std=c++17 thread1.cpp -pthread -o thread_demo
 .\thread_demo.exe
 ```
 
+Bonus, not part of the curriculum: `17-Threading\6_sync_vs_async.cpp`. PART 1
+(blocking) and PART 2 (single-threaded cooperative "async" via a hand-rolled
+step()/while-loop scheduler, zero std::thread, zero async keyword) contrast
+blocking vs. non-blocking to head off the common confusion between
+"asynchronous" and "multithreaded." Use it if a learner asks "why does my
+whole program freeze during a long operation, and how would async fix that
+without adding threads?" — the "(Not Responding)" Windows GUI freeze is the
+real-world hook in its header comment. (Added 2026-09-11, prompted by a
+learner noticing PARTS 1-2 had no actual async keyword or library call:)
+PART 3 adds std::async/std::future — C++'s real library-level async facility
+(launches a genuine background thread, unlike PART 2). PART 4 adds a minimal
+C++20 coroutine (co_await/co_return — the only REAL async keywords in C++)
+driven by the same step-loop shape as PART 2, guarded behind
+`#if __cplusplus >= 202002L` so the file still builds and runs PARTS 1-3
+under `-std=c++17`; use `-std=c++20` to get all four parts. Verified both
+ways on this repo's MinGW/g++ toolchain.
+
 ### 16. Move semantics
 
 Recap lvalue vs rvalue, `T&&`, `std::move`, and why returning a large object
@@ -321,15 +338,64 @@ This is the Module 8 (Day 5) "Additional Topics" lesson — added because the
 Enterprise curriculum otherwise never covers typeid/dynamic_cast/RTTI/
 polymorphic type identification.
 
+### 28. Qt/QML (widgets, signals & slots, QML, Qt networking)
+
+This is the Module 9 (Day 6) path. Every file here needs the Qt 6 SDK, not
+just plain g++ — see the "Before you start — install Qt" callout at the top
+of `module9.html` for the exact `pacman` package list and CMake build
+commands used to actually build and (for the console ones) run these before
+they were put on the page.
+
+Open 28-Qt-QML in this order:
+
+1. 1-widgets-click-counter/ — `QApplication`, `QWidget`, layouts, a first
+   informal `connect()`.
+2. 2-signals-slots-calculator/ — a custom `QObject` with its own `signals:`
+   and a `Q_OBJECT`-in-`.cpp` class (note the `#include "main.moc"` line).
+3. 3-qml-counter/ — pure QML, no C++ backend; `main.cpp` + `main.qml`.
+4. 4-qml-calculator/ — the same Calculator class from folder 2, now driven
+   from QML via `setContextProperty` and a `Connections` block.
+5. 5-tcp-chat/ — `chat_server.cpp` + `chat_client.cpp`, the Qt-networking
+   rewrite of Module 8's raw-Winsock relay demo (`QCoreApplication`, no
+   widgets).
+6. 6-udp-heartbeat/ — a `QUdpSocket` broadcast/receive snippet.
+7. 7-shape-canvas/ — Module 2's `Shape`/`Circle`/`Rectangle` hierarchy given
+   a `draw(QPainter&)` method and rendered in a `QWidget::paintEvent`; this
+   is Module 10's "Shape Drawing (Qt GUI)" mini-project.
+8. 8-nimbus-fleet-console/ — `program.cpp`, Module 9's complete try-now use
+   case: a chat-style `QWidget` window (log + input + Send button) wired to
+   a `QTcpSocket` that connects to folder 5's `chat_server.cpp`.
+
+Every folder has its own `CMakeLists.txt` — `cmake -B build -S . -G Ninja`,
+then `cmake --build build`, then run the executable from that same folder
+(the QML demos load their `.qml` file from disk by relative path, so the
+working directory matters).
+
+### 29. Wrap-up mini-projects (Module 10)
+
+Plain g++ toolchain, no Qt needed — these three are independent, standalone
+mini-projects, not one merged program (see `module10.html`'s intro callout
+for why). All three were compiled and run for the page with
+`g++ -std=c++17 <file>.cpp -o <name>`.
+
+1. 1_banking_system.cpp — `Account`/`SavingsAccount`, a custom
+   `InsufficientFundsError`, `vector<unique_ptr<Account>>`, and a `transfer()`
+   that withdraws before it deposits so a failed transfer never touches the
+   destination account.
+2. 2_library_system.cpp — the Module 10 flagship: a `Library` class with
+   `find_if`-based borrow/return and a delimited-text `saveToFile()`/
+   `loadFromFile()` pair, so the catalog survives the program exiting.
+3. 3_performance_debugging.cpp — `std::chrono::high_resolution_clock` timing
+   `vector::push_back` with vs. without `reserve()`; the page also points to
+   gprof (`-pg` + `gprof`) and the Visual Studio Performance Profiler as the
+   real tools for a deeper breakdown, without a from-scratch demo of either.
+
 ## Curriculum Gaps
 
-The sample repository does not currently contain a dedicated folder for:
-
-- 09-Qt-QML: planned Qt widgets, QML, signals/slots, and Qt networking
-  (Day 6, Module 9 — moved from its original Day 5 slot).
-
-Do not present that example as available until the folder and code exist.
-(The earlier-noted 05-Templates gap is resolved — see 26-Templates.)
+(The earlier-noted 05-Templates and 09-Qt-QML gaps are both resolved — see
+26-Templates and 28-Qt-QML above. The originally-planned folder name
+"09-Qt-QML" was never created under that number since 09-Operators already
+occupies it; the actual Qt/QML folder is 28-Qt-QML, numbered after 27-RTTI.)
 
 ## Teaching Rhythm
 

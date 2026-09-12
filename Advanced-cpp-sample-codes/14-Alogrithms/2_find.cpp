@@ -1,3 +1,8 @@
+// std::find — a linear search over any iterator range for the first
+// element equal to a given value.
+//
+// Compile: g++ -std=c++17 2_find.cpp -o find_demo
+// Run:     find_demo.exe   (Windows)   or   ./find_demo   (Linux/macOS)
 #include<iostream>
 #include<algorithm>
 #include<vector>
@@ -10,9 +15,18 @@ int main()
     int target = 70;
 
     // Using std::find to search for the target element
+    // find(arr.begin(), arr.end(), target)
+    //   arr.begin(), arr.end() - the range to search, start to end.
+    //   target                 - the value being searched for; returns an
+    //                            iterator to its FIRST occurrence, or
+    //                            arr.end() if it's nowhere in the range.
     auto it = find(arr.begin(), arr.end(), target);
 
     if (it != arr.end()) {
+        // distance(arr.begin(), it)
+        //   arr.begin(), it - the number of steps between these two
+        //                     iterators — converts a found ITERATOR back
+        //                     into a plain, printable INDEX.
         cout << "Element " << target << " found at index: " << distance(arr.begin(), it) << endl;
     } else {
         cout << "Element " << target << " not found in the array." << endl;
@@ -53,3 +67,18 @@ int main()
 // The find algorithm is a powerful and versatile tool in C++ for searching elements
 // within various data structures, making it easier to implement search functionality
 // in your programs.
+
+// --------------------------------------------------------------------------
+// Step-by-step execution trace
+// --------------------------------------------------------------------------
+// STEP 1  arr = {10,20,30,40,50,60,70,80,90,100}; target = 70.
+// STEP 2  find scans from arr.begin() forward: 10 (no match), 20, 30, 40,
+//         50, 60 — all no match — then 70 AT INDEX 6 matches; it stops
+//         there and returns an iterator pointing at that 70.
+// STEP 3  it != arr.end() is true (a match was found) -> distance(begin,
+//         it) computes 6 -> "Element 70 found at index: 6" prints.
+// STEP 4  main() returns 0.
+//
+// If target had been, say, 999 (not in arr), find would scan the ENTIRE
+// range without matching and return arr.end() — the if-check would then
+// take the else branch, printing "Element 999 not found in the array."

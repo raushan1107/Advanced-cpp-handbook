@@ -1,15 +1,22 @@
 // Iterators in C++
 // An iterator is an object that enables a programmer to traverse a container, particularly lists.
-// The iterator pattern decouples algorithms from containers; in some cases, algorithms are implemented independently of the container's structure.
+// The iterator pattern decouples algorithms from containers; in some cases, 
+// algorithms are implemented independently of the container's structure.
 // Accessing elements through iterators allows for more generic and reusable code.
-// C++ provides several types of iterators, including input iterators, output iterators, forward iterators, bidirectional iterators, and random access iterators.
-// Mover iterators are a type of iterator that allows the resources of an object to be moved rather than copied, enhancing performance by eliminating unnecessary deep copies.
-// Compared to regular iterators, mover iterators transfer ownership of the resources they point to, leaving the original object in a valid but unspecified state.
+// C++ provides several types of iterators, including input iterators, output iterators, 
+// forward iterators, bidirectional iterators, and random access iterators.
+// Mover iterators are a type of iterator that allows the resources of an object to 
+// be moved rather than copied, enhancing performance by eliminating unnecessary deep copies.
+// Compared to regular iterators, mover iterators transfer ownership of the resources they 
+// point to, leaving the original object in a valid but unspecified state.
 
-//std::vector with begin() and end() iterators: 
+// std::vector with begin() and end() iterators:
 // std::vector is a sequence container that encapsulates dynamic size arrays.
 // The begin() function returns an iterator pointing to the first element in the vector.
 // The end() function returns an iterator pointing to one past the last element in the vector.
+//
+// Compile: g++ -std=c++17 1_iterators.cpp -o iterators
+// Run:     iterators.exe   (Windows)   or   ./iterators   (Linux/macOS)
 
 #include <iostream>
 #include <vector>
@@ -94,6 +101,34 @@ int main() {
 
     return 0;
 }
+
+// --------------------------------------------------------------------------
+// Step-by-step execution trace
+// --------------------------------------------------------------------------
+// STEP 1  numbers = {10,20,30,...,100} (10 elements). The explicit
+//         iterator loop (numbers.begin() to numbers.end()) visits each in
+//         order, printing "10 20 30 40 50 60 70 80 90 100 ".
+// STEP 2  The range-based for loop visits the SAME elements in the SAME
+//         order — printing the identical line a second time, just via
+//         more concise syntax.
+// STEP 3  ageMap = {"Alice":30, "Bob":25, "Charlie":35}. Iterating a map
+//         always visits keys in SORTED order (alphabetical for strings),
+//         not insertion order: "Alice: 30", "Bob: 25", "Charlie: 35" —
+//         even though Bob was inserted after Alice in the initializer
+//         list's second position, "Bob" alphabetically sorts after
+//         "Alice" anyway, so the print order happens to match insertion
+//         order here purely by chance of the names chosen.
+// STEP 4  rbegin()/rend() walk numbers BACKWARD without modifying it:
+//         "100 90 80 70 60 50 40 30 20 10 ".
+// STEP 5  cbegin()/cend() walk forward again (const iterators — same
+//         visiting order as STEP 1, just read-only): "10 20 30 ... 100 ".
+// STEP 6  reverse(numbers.begin(), numbers.end()) ACTUALLY MODIFIES
+//         numbers in place this time (unlike STEP 4's rbegin/rend, which
+//         only changed the DIRECTION of traversal, not the underlying
+//         data) — numbers becomes {100, 90, 80, ..., 10}, and the
+//         following range-based for loop prints that new, permanently
+//         reversed order: "100 90 80 70 60 50 40 30 20 10 ".
+// STEP 7  main() returns 0.
 
 
 // What is the meaning of noexcept in C++?

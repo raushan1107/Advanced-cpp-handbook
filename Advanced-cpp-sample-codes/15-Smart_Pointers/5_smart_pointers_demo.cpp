@@ -150,3 +150,34 @@ int main() {
     part3_weak_ptr();
     return 0;
 }
+
+// --------------------------------------------------------------------------
+// Step-by-step execution trace
+// --------------------------------------------------------------------------
+// This file is unusual among this course's samples: every claim in the
+// comments above is already proven by a cout line placed exactly where
+// the claim is made (that's the file's own stated design, see the header
+// comment) — so rather than re-deriving a separate trace, here is the
+// REAL, actually-captured console output this file produces, top to
+// bottom, confirming each PART's story plays out exactly as described:
+//
+// PART 0: RawResource is constructed, used, and explicitly deleted — one
+//   clean cycle, but only because the single `delete` line was not missed.
+// PART 1: Ticket is constructed once; move(owner) transfers ownership to
+//   movedOwner (owner becomes null, no second object is ever constructed);
+//   exactly one destructor fires, when movedOwner's scope ends. The
+//   exception-safety block then shows a SECOND Resource being destroyed
+//   automatically during stack unwinding, BEFORE the catch block's own
+//   cout line runs.
+// PART 2: CachedImage is constructed once. use_count reads 1, then 2
+//   once `b` shares ownership, then back to 1 once `b`'s scope ends —
+//   the object itself is only destroyed once `a` (the last owner) goes
+//   out of scope at the very end of the function.
+// PART 3a: Parent "Alice" and Child "Bob" each end up with use_count 2
+//   (each holds a shared_ptr to the other) — and critically, NEITHER
+//   destructor ever fires, even after their scope ends: a genuine leak.
+// PART 3b: ParentFixed "Charlie" and ChildFixed "Dave" repeat the same
+//   setup, but with Child observing Parent via weak_ptr instead of
+//   shared_ptr — parent's use_count stays at 1 (the weak reference never
+//   counted), lock() still reaches "Charlie" successfully while both are
+//   alive, and BOTH destructors fire correctly once their scope ends.

@@ -3,6 +3,18 @@
 This file is the source of truth for writing or rewriting modules in this handbook.
 Future AI-assisted edits should read this file before changing lesson content.
 
+## Repository layout
+
+`index.html` is the only site page at the repo root; every other page
+(`module0.html`–`module10.html`, `style.css`, `search.js`, the capstone/
+exercise pages, `repo-guide.html`, `module-authoring-context.html`,
+`cpp-in-the-wild.html`) lives in `site/`. A new module page belongs in
+`site/`, not the root, and every link it adds back to `index.html` must be
+written as `../index.html` (not `index.html`) since it's one folder down
+from the root — see any existing `site/module*.html` file's topbar/
+breadcrumb/footer links for the pattern. `Advanced-cpp-sample-codes/` and
+these two root docs (`README.md`, this file) are unaffected by that split.
+
 ## Teaching Goal
 
 Teach enterprise C++ by moving from a plain-language concept to a small runnable
@@ -298,14 +310,33 @@ Module 8 is Day 5's only module — Day 5 was originally scoped as two modules
 (Networking, and Qt/QML), but Qt/QML moved to Day 6 (alongside the Module 10
 wrap-up/capstone) so that Day 5 could absorb every remaining non-Qt,
 non-capstone topic into one comprehensive day. Do not reintroduce a "Module 9:
-Qt/QML" card under Day 5 — Module 9 is now a Day 6 card.
+Qt/QML" card under Day 5 — Module 9 is a Day 6 card.
 
-Modules 9 and 10 are still listed on the index as coming soon (both under
-Day 6 now). When their lesson pages are created, use this exact structure
-(including the required Story Mode tab) and preserve the handbook's
-WHY / WHAT / HOW explanation rhythm. Default new modules to the light
-`style.css` theme used by `module2.html`/`module3.html` unless told to match
-the dark theme instead.
+- `module9.html` demonstrates the Day 6 Qt/QML module — four topic tabs
+  (Qt fundamentals/widgets, signals & slots, QML & Qt Quick, Qt networking)
+  plus Story Mode. Every code sample was actually built with Qt 6.10
+  (`mingw-w64-ucrt-x86_64-qt6-base`/`qt6-declarative` via MSYS2 pacman,
+  CMake + Ninja) before being put on the page — the console/networking demos
+  were run and their real output captured; the GUI/QML demos were confirmed
+  to build, link, and open without a runtime error, since clicking can't be
+  automated here. Case study: the Nimbus Fleet Console, a widget chat window
+  wired to a `QTcpSocket` talking to Module 8's relay-server pattern. Repo
+  folder: `28-Qt-QML/`.
+- `module10.html` demonstrates the Day 6 wrap-up module — Banking System,
+  Library Management System, and Shape Drawing (Qt GUI) as three independent,
+  explicitly-not-merged mini-projects, plus Performance Debugging (a
+  `std::chrono` timing demo, with gprof/Visual Studio Profiler as WHAT-level
+  tool references) and a code-free Final Presentations/course-recap tab, then
+  Story Mode. The Library Management System (STL `find_if` + delimited-file
+  persistence, plain g++ toolchain) is the flagship try-now complete program,
+  chosen because — unlike Banking System's own worked example and Shape
+  Drawing — it needs nothing beyond the toolchain used all course long.
+  Repo folders: `29-WrapUp-MiniProjects/` (Banking, Library, Performance —
+  all three compiled and run for this page) and `28-Qt-QML/7-shape-canvas/`
+  (Shape Drawing; build-verified only, same reasoning as module9's GUI demos).
+
+Default new modules to the light `style.css` theme used by
+`module2.html`/`module3.html` unless told to match the dark theme instead.
 
 ## Boilerplate/TODO Capstone Pattern
 
@@ -351,7 +382,7 @@ a "boilerplate," "template with blanks," or "fill in the logic" exercise:
 
 ## Practice & Capstones Drawer
 
-Every module page (`module0.html`–`module8.html`) ends with a collapsed
+Every module page (`module0.html`–`module10.html`) ends with a collapsed
 `<details class="practice-drawer">` (native disclosure element, no JS needed)
 right after the closing `</div>` of `.tabs-wrap` and before `</main>` (in
 `module3.html`'s differently-structured page, right before its

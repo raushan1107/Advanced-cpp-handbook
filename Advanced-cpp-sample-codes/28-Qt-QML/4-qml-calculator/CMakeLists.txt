@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.16)
+project(qml_calculator)
+set(CMAKE_AUTOMOC ON)
+find_package(Qt6 REQUIRED COMPONENTS Quick QuickControls2)
+add_executable(qml_calculator main.cpp)
+target_link_libraries(qml_calculator Qt6::Quick Qt6::QuickControls2)

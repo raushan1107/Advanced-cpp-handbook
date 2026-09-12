@@ -1,3 +1,14 @@
+// C++ memory types tour — stack, heap, static/global, and the code/text
+// segment — plus common heap bugs (leak, double free) and their fix
+// (smart pointers).
+//
+// Compile: g++ -std=c++17 1_cppMemoryTypes.cpp -o cppMemoryTypes
+// Run:     cppMemoryTypes.exe   (Windows)   or   ./cppMemoryTypes   (Linux/macOS)
+// Warning: this file DELIBERATELY leaks memory 10,000 times
+// (leakMemoryExample, called in a loop in main) to demonstrate what a
+// leak looks like — it will use a noticeable amount of memory while
+// running, by design, and is not a bug to fix.
+
 #include <iostream>
 #include <memory> // For smart pointers
 #include <vector>
@@ -7,6 +18,9 @@ using namespace std;
 // global variable (static/global memory)
 int globalVar = 50; // data segment (initialized global variable)
 static int staticGlobalVar; // bss segment (uninitialized global variable)
+// what is bss segment? BSS (Block Started by Symbol) segment is a 
+// portion of memory that contains uninitialized global and static variables. 
+// It is typically zero-initialized by the operating system when the program starts.
 
 int global_var = 42;            // data segment (initialized)
 static int static_var;          // BSS (uninitialized)
@@ -59,6 +73,12 @@ void leakMemoryExample() {
 
 }
 
+// doubefreeExample()
+// No parameters. Demonstrates a DANGLING POINTER: `b` still holds a's old
+// address after `a` is deleted — dereferencing `b` afterward reads freed
+// memory (undefined behavior; it MAY still print the old value by
+// coincidence, or may print garbage, depending on what the allocator does
+// with freed memory).
 void doubefreeExample() {
     int* ptr = new int(10);
     delete ptr; // First deletion
@@ -72,13 +92,27 @@ void doubefreeExample() {
     cout<< "b, after deleting a: " << *b << endl;
 }
 
+// safesingleallocExample()
+// No parameters. Shows the FIX for the leaks/double-frees above: smart
+// pointers that free themselves automatically.
 void safesingleallocExample() {
+    // make_unique<int>(10)
+    //   10 - the initial value the managed int is constructed with;
+    //        `p` (a unique_ptr<int>) owns it exclusively and frees it
+    //        automatically when p goes out of scope — no delete needed.
     auto p = make_unique<int>(10); // Using unique_ptr for safe memory management
     cout << "Value managed by unique_ptr: " << *p << endl;
 
+    // make_shared<int>(20)
+    //   20 - the initial value; unlike unique_ptr, MULTIPLE shared_ptrs
+    //        can own the same int at once, tracked by a reference count.
     auto q = make_shared<int>(20); // Using shared_ptr for shared ownership
     cout << "Value managed by shared_ptr: " << *q << endl;
-    cout << "Reference count of shared_ptr: " << q.use_count() << endl; 
+    cout << "Reference count of shared_ptr: " << q.use_count() << endl;
+    // shared_ptr<int> r = q
+    //   q - copying a shared_ptr increments the SAME shared reference
+    //       count; the underlying int is only freed once the LAST owner
+    //       (whichever of q or r goes out of scope last) is destroyed.
     shared_ptr<int> r = q; // Sharing ownership
     cout << "Reference count after sharing ownership: " << q.use_count() << endl;
 
@@ -168,7 +202,51 @@ int main() {
 
     return 0;
 }
-// What is memory leaks: Memory leaks occur when a program allocates 
+
+// --------------------------------------------------------------------------
+// Step-by-step execution trace (the overall flow of main(), top to bottom)
+// --------------------------------------------------------------------------
+// STEP 1  v.emplace_back("A") and ("B") construct two Big objects directly
+//         inside the already-reserved vector capacity — no move/copy
+//         needed since there's room. emplace_back("C") exceeds the
+//         reserved capacity of 2, forcing a REALLOCATION: the vector's
+//         existing elements ("A","B") are relocated into new, larger
+//         storage using Big's MOVE constructor (cheaper than copying),
+//         printing "Move ctor" once per relocated element. emplace_back
+//         ("D") constructs in place again if there's now room, or
+//         triggers another reallocation (more "Move ctor" lines) if not.
+// STEP 2  safesingleallocExample() runs (see its own comments above):
+//         prints unique_ptr's managed value (10), then shared_ptr's (20)
+//         along with reference counts 1, then 2 after sharing.
+// STEP 3  recurseiveFunction(1000) recurses 1000 levels deep, printing
+//         "Recursion depth: 1000", "900", ... "100" every 100th level —
+//         each level allocates a 1000-int array ON THE STACK, which is
+//         why deep, unbounded recursion can exhaust stack space (a stack
+//         overflow) in ways a heap allocation never would.
+// STEP 4  doubefreeExample() runs: prints "b: 5" and "a: 5" (both read the
+//         same freshly-allocated int), then deletes `a`. The final
+//         "b, after deleting a: ..." line reads THROUGH a dangling
+//         pointer — undefined behavior, so its printed value is not
+//         reliable (it may still show 5 by coincidence).
+// STEP 5  leakMemoryExample() runs 10,000 times in a loop, each call
+//         allocating a 1000-int array and never freeing it — this is a
+//         DELIBERATE, large memory leak, included specifically so you can
+//         watch this program's memory usage climb in a task manager while
+//         it runs.
+// STEP 6  heapAllocateDeallocateExample() allocates one int and one
+//         5-element array, prints their values (42, then "0 10 20 30
+//         40"), and correctly frees both.
+// STEP 7  showAddresses() prints a table of memory addresses — one per
+//         memory TYPE (code, global, static, local-static, stack, heap,
+//         string object, string literal) — the exact numbers differ every
+//         run (see 07-Pointers/1_Checkmemoryaddress.cpp for why), but
+//         their RELATIVE grouping (stack addresses near each other, heap
+//         addresses elsewhere) is the point being illustrated.
+// STEP 8  The remaining lines in main() repeat smaller, standalone
+//         examples of each memory type (stack, heap, static, code/text,
+//         global) with one line of output each, ending with "Global
+//         Variable: 50". main() returns 0.
+// What is memory leaks: Memory leaks occur when a program allocates
 //memory but fails to release it back to the system after it's no longer needed. 
 //This can lead to increased memory usage over time and may eventually cause the 
 //program to run out of memory.

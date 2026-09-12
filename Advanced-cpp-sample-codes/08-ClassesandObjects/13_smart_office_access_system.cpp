@@ -5,6 +5,9 @@
 // Use case: a smart office building that has to grant or deny badge access to
 // employees, contractors and visitors -- each under a different rule -- without
 // giving each type its own reporting logic.
+//
+// Compile: g++ -std=c++17 13_smart_office_access_system.cpp -o smart_office_access
+// Run:     smart_office_access.exe   (Windows)   or   ./smart_office_access   (Linux/macOS)
 #include <iostream>
 #include <string>
 using namespace std;
@@ -98,3 +101,39 @@ int main() {
     cout << "\nSame badge ID? sarah == sarahAgain -> " << (sarah == sarahAgain ? "true" : "false") << "\n";
     cout << "Same badge ID? priya == amit -> " << (priya == amit ? "true" : "false") << "\n";
 }
+
+// --------------------------------------------------------------------------
+// Step-by-step execution trace
+// --------------------------------------------------------------------------
+// STEP 1  Five Person-derived objects are constructed: rahul (Employee),
+//         priya (Contractor, active=true), amit (Contractor,
+//         active=false), sarah (Visitor, approved=true), john (Visitor,
+//         approved=false).
+// STEP 2  processAccess(rahul): calls rahul.display() (prints "Rahul |
+//         ID: 101 | Employee"), then rahul.canAccess() (Employee's
+//         override always returns true) -> " -> GRANTED".
+// STEP 3  processAccess(priya): statusLine() returns "Contractor
+//         (active)" since contractActive=true; canAccess() returns true
+//         -> " -> GRANTED".
+// STEP 4  processAccess(amit): statusLine() returns "Contractor
+//         (expired)"; canAccess() returns false -> " -> DENIED".
+// STEP 5  processAccess(sarah): "Visitor (approved)"; canAccess() true ->
+//         " -> GRANTED". processAccess(john): "Visitor (not approved)";
+//         canAccess() false -> " -> DENIED".
+// STEP 6  calculateCharge(4) matches the ONE-int-parameter overload:
+//         4 * 50.0 = 200.0 -> "Desk booking, 4 whole hours: Rs 200".
+//         calculateCharge(2.5, 60.0) matches the (double,double)
+//         overload: 2.5 * 60.0 = 150.0 -> "Desk booking, 2.5 hours @ Rs
+//         60/hr: Rs 150".
+// STEP 7  sarahAgain is a NEW Visitor with the same id (301) as sarah, but
+//         a different name. sarah == sarahAgain calls the friend
+//         operator==, which compares ONLY the id fields (a.id == b.id) ->
+//         301 == 301 -> true -> "Same badge ID? sarah == sarahAgain ->
+//         true" — proving the badge-match logic works across the SAME
+//         derived type even with different names.
+// STEP 8  priya == amit compares id 202 vs 203 -> false -> "Same badge ID?
+//         priya == amit -> false".
+// STEP 9  main() ends; every Person-derived object goes out of scope in
+//         REVERSE construction order, each running Person's virtual
+//         destructor (a no-op default here, so nothing prints).
+

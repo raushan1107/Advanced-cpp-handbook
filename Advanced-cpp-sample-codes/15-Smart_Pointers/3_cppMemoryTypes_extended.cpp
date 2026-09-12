@@ -1,3 +1,13 @@
+// A variant of 1_cppMemoryTypes.cpp — same memory-types tour (stack, heap,
+// static/global, code/text segment), but with the 10,000-iteration memory
+// leak loop commented OUT (so this version won't balloon memory usage
+// when run) and the double-free demo's dangerous second `delete ptr;`
+// left commented for safety. See 1_cppMemoryTypes.cpp for the fully
+// commented, currently-taught version of every function used here.
+//
+// Compile: g++ -std=c++17 3_cppMemoryTypes_extended.cpp -o cppMemoryTypes_extended
+// Run:     cppMemoryTypes_extended.exe   (Windows)   or   ./cppMemoryTypes_extended   (Linux/macOS)
+//
 // What is memory leaks: Memory leaks occur when a program allocates memory but fails to release it back to the system after it's no longer needed. This can lead to increased memory usage over time and may eventually cause the program to run out of memory.
 // Memory types:
 // 1. Stack Memory: Used for static memory allocation. Variables are automatically allocated and deallocated when they go out of scope.
@@ -234,6 +244,17 @@ int main() {
     // memory profiling tools to monitor and manage memory effectively.
     return 0;
 }
+
+// --------------------------------------------------------------------------
+// Step-by-step execution trace — same overall flow as
+// 1_cppMemoryTypes.cpp (emplace_back triggering move construction on
+// reallocation, smart pointer reference counts, deep recursion printing
+// its depth, a dangling-pointer read after doubefreeExample(), heap
+// alloc/dealloc, then the memory-address table) — see that file's trace
+// for the full walkthrough. The one difference: THIS file's leak loop is
+// commented out, so it prints no "Leaked memory allocated." lines and
+// uses no extra memory doing so.
+// --------------------------------------------------------------------------
 
 
 //& vs && in C++

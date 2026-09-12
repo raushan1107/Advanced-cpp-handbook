@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 9: Qt/QML &amp; Network Programming - Enterprise C++ Handbook</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="sidebar-toggle" type="button" aria-label="Toggle course navigation" aria-expanded="true">☰</button>
+    <a href="../index.html" class="brand"><span class="brand-mark">C++</span><span class="brand-text">Enterprise C++ Handbook<small>Personal notes by Raushan Ranjan</small></span></a>
+  </div>
+  <div class="topbar-center"><label class="search-bar"><span class="search-icon">⌕</span><input class="search-input" type="search" placeholder="Search the handbook" aria-label="Search the handbook"><kbd class="search-kbd">⌘ K</kbd></label></div>
+  <div class="topbar-right"><a href="../index.html">All modules</a><a href="../index.html#day6">Curriculum</a><a href="cpp-in-the-wild.html">🌍 C++ in the Wild</a><a class="btn-notes" href="../index.html#day6">Qt &amp; Capstone</a></div>
+</div>
+
+<div class="app-layout">
+<aside class="sidebar-left">
+  <div class="sidebar-content">
+    <div class="sidebar-section-title">Course map</div>
+    <nav class="nav-tree" aria-label="Course navigation">
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day1" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 1</span><span class="nav-day-subtitle">Foundations</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module0.html">Foundation Enhancer</a></li><li class="nav-topic"><a href="module1.html">C++ Basics</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day2" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 2</span><span class="nav-day-subtitle">Polymorphism</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module2.html">Inheritance &amp; Polymorphism</a></li><li class="nav-topic"><a href="module3.html">Compile-time Polymorphism</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day3" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 3</span><span class="nav-day-subtitle">Robustness</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module4.html">Exception Handling</a></li><li class="nav-topic"><a href="module5.html">Templates &amp; Generics</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day4" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 4</span><span class="nav-day-subtitle">Modern C++</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module6.html">STL &amp; Containers</a></li><li class="nav-topic"><a href="module7.html">Advanced C++</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day5" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 5</span><span class="nav-day-subtitle">Systems &amp; Internals</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module8.html">Systems Programming &amp; Advanced C++ Internals</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day" data-open="true">
+        <a class="nav-day-toggle" href="../index.html#day6"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 6</span><span class="nav-day-subtitle">Qt &amp; Capstone</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a class="active" href="module9.html">Qt/QML &amp; Network Programming</a></li><li class="nav-topic"><a href="module10.html">Wrap-up &amp; Evaluation</a></li></ul></div>
+          <div class="nav-module"><div class="nav-module-label">Topics</div><div class="nav-tabs">
+            <button class="nav-tab active" data-tab="t1">01 Qt fundamentals</button>
+            <button class="nav-tab" data-tab="t2">02 Signals &amp; slots</button>
+            <button class="nav-tab" data-tab="t3">03 QML &amp; Qt Quick</button>
+            <button class="nav-tab" data-tab="t4">04 Qt networking</button>
+            <button class="nav-tab" data-tab="t5">05 🎬 Story Mode</button>
+          </div></div>
+        </div>
+      </div>
+    </nav>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-title">Resources</div>
+    <ul class="sidebar-resources"><li><a href="https://github.com/raushan1107/Advanced-cpp-sample-codes" target="_blank" rel="noopener">↗ Source code</a></li><li><a href="../index.html#day6">▣ Course overview</a></li></ul>
+  </div>
+</aside>
+
+<main class="main-content">
+<div class="module-header">
+  <div class="breadcrumb"><a href="../index.html#day6">Qt &amp; Capstone</a> / Module 9</div>
+  <h1>Qt/QML &amp; Network Programming</h1>
+  <p class="sub">Every earlier module built logic that lived inside a terminal window. Qt is where that logic gets a face — windows, buttons, live text — and a way to talk to other machines without hand-rolling Winsock. This module covers the widget toolkit, the signals &amp; slots pattern that holds a Qt program together, Qt Quick/QML's declarative alternative, and Qt's own networking classes.</p>
+  <div class="module-meta"><span><b>Day:</b> 6 of 6</span><span><b>Topics:</b> 4 + Story Mode</span><span><b>Case study:</b> Nimbus Fleet Console (chat GUI)</span><span><b>Repo folder:</b> <code>28-Qt-QML/</code></span></div>
+</div>
+
+<div class="callout" style="margin:0 0 20px;"><strong>Before you start — install Qt:</strong> this module needs the Qt 6 SDK, which is not part of the plain g++ toolchain used everywhere else in this handbook. If you're on this repo's MSYS2/MinGW (UCRT64) setup, open the MSYS2 UCRT64 shell and run <code>pacman -S mingw-w64-ucrt-x86_64-qt6-base mingw-w64-ucrt-x86_64-qt6-declarative mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-ninja</code> (roughly 300&nbsp;MB installed). Otherwise, the <a href="https://www.qt.io/download-qt-installer" target="_blank" rel="noopener">Qt Online Installer</a> gives you the same SDK with Qt Creator attached. Every code sample below was written, built, and (for the console/networking ones) actually run against this exact setup — Qt 6.10 via CMake + Ninja — before being put on this page.</div>
+
+<div class="tabs-wrap">
+  <div class="tabbar"><button data-tab="t1" class="active">01 Qt fundamentals</button><button data-tab="t2">02 Signals &amp; slots</button><button data-tab="t3">03 QML &amp; Qt Quick</button><button data-tab="t4">04 Qt networking</button><button data-tab="t5">05 🎬 Story Mode</button></div>
+
+  <!-- TAB 1: Qt Fundamentals & Widgets -->
+  <div class="tabpanel active" id="t1">
+    <p class="topic-intro">A console program's entire interface is <code>cout</code> and <code>cin</code>. A desktop app needs a window, and a window needs something to keep it alive between clicks — Qt calls that the event loop, and everything else in this module is built on top of it.</p>
+
+    <div class="block">
+      <div class="block-label"><span class="tag why">WHY</span><h4>Event-driven programs don't run top to bottom</h4></div>
+      <div class="content">
+        <p>Every program you've written so far runs <code>main()</code> top to bottom and exits. A GUI program can't work that way — it has to sit idle, doing nothing, until the user clicks something, then react, then go back to sitting idle. That waiting-and-reacting loop is the <strong>event loop</strong>: the operating system hands the application a stream of events (mouse clicks, key presses, window resizes), and the app's job is to respond to each one and then wait for the next.</p>
+        <p>Qt is a C++ framework built around that idea. <code>QApplication</code> owns the event loop; every visible thing on screen — a window, a button, a text field — is a <code>QWidget</code> or one of its subclasses; and <code>app.exec()</code> is the call that actually starts the loop and blocks until the user closes the app.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag what">WHAT</span><h4>QApplication, QWidget, and layouts</h4></div>
+      <div class="content">
+        <ul>
+          <li><code>QApplication app(argc, argv)</code> — exactly one per program, constructed at the top of <code>main()</code>. It parses Qt's own command-line arguments and owns the event loop.</li>
+          <li><code>QWidget</code> — the base class for anything drawn on screen. A plain <code>QWidget</code> is a blank window; <code>QPushButton</code>, <code>QLabel</code>, <code>QLineEdit</code>, <code>QTextEdit</code> are all widgets that add their own drawing and behavior.</li>
+          <li><strong>Layouts</strong> (<code>QVBoxLayout</code>, <code>QHBoxLayout</code>) — arrange child widgets vertically or horizontally and resize them automatically when the window resizes, instead of you calculating pixel positions by hand.</li>
+          <li><code>new QLabel(...)</code> then <code>layout-&gt;addWidget(label)</code> — Qt widgets are heap-allocated with <code>new</code> and never manually <code>delete</code>d one by one; adding a widget to a layout makes the parent widget responsible for destroying it when the window closes. This is Qt's own ownership model, older than <code>std::unique_ptr</code> (Module 7) but solving the same problem: one clear owner for each resource.</li>
+          <li><code>window.show()</code> — makes a widget visible; nothing appears on screen until this is called.</li>
+          <li><code>app.exec()</code> — starts the event loop; the line after it doesn't run until the user closes the window.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>A window with a label and a button that updates it</h4></div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">main.cpp</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;QApplication&gt;
+#include &lt;QWidget&gt;
+#include &lt;QVBoxLayout&gt;
+#include &lt;QLabel&gt;
+#include &lt;QPushButton&gt;
+
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+
+    QWidget window;
+    window.setWindowTitle("Nimbus Click Counter");
+
+    auto *layout = new QVBoxLayout(&amp;window);
+    auto *countLabel = new QLabel("Clicks: 0");
+    auto *button = new QPushButton("Click me");
+
+    layout-&gt;addWidget(countLabel);
+    layout-&gt;addWidget(button);
+
+    int clicks = 0;
+    QObject::connect(button, &amp;QPushButton::clicked, [&amp;]() {
+        clicks++;
+        countLabel-&gt;setText(QString("Clicks: %1").arg(clicks));
+    });
+
+    window.show();
+    return app.exec();
+}</code></pre>
+      </div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">CMakeLists.txt</span><button class="copy-btn">Copy</button></div>
+        <pre><code>cmake_minimum_required(VERSION 3.16)
+project(calc_window)
+set(CMAKE_AUTOMOC ON)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+add_executable(calc_window main.cpp)
+target_link_libraries(calc_window Qt6::Widgets)</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Expected behavior</span>A small window titled "Nimbus Click Counter" opens showing "Clicks: 0" and a "Click me" button. Each click updates the label: "Clicks: 1", "Clicks: 2", and so on. Closing the window ends the program.</div>
+      <div class="quickguide">
+        <p class="qg-title">Build it and experiment</p>
+        <ol>
+          <li>Create a folder, save both files, then: <code>cmake -B build -S . -G Ninja</code> (or <code>-G "MinGW Makefiles"</code> if you don't have Ninja), then <code>cmake --build build</code>.</li>
+          <li>Run: <code>build\calc_window.exe</code> on Windows, or <code>./build/calc_window</code> on Linux/macOS.</li>
+          <li><strong>Experiment 1:</strong> Add a second <code>QPushButton</code> labeled "Reset" that sets <code>clicks = 0</code> and updates the label the same way.</li>
+          <li><strong>Experiment 2:</strong> Swap <code>QVBoxLayout</code> for <code>QHBoxLayout</code> and rerun — the label and button now sit side by side instead of stacked.</li>
+        </ol>
+      </div>
+      <div class="callout"><strong>Note:</strong> that lambda passed to <code>connect()</code> is a first, informal look at Qt's signals &amp; slots — <code>clicked</code> is a <em>signal</em> the button emits, and the lambda is the <em>slot</em> that runs in response. The next tab explains that connection properly, including how to declare your own signals.</div>
+    </div>
+
+    <div class="topic-nav">
+      <span></span>
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t2]').click()">Next: Signals &amp; slots →</button>
+    </div>
+  </div>
+
+  <!-- TAB 2: Signals & Slots -->
+  <div class="tabpanel" id="t2">
+    <p class="topic-intro">A button doesn't know or care what happens when it's clicked — it just announces "I was clicked" and lets whoever's listening decide what to do. That announce/listen pattern is signals &amp; slots, and it's the mechanism every Qt object uses to talk to every other Qt object without being tightly wired together.</p>
+
+    <div class="block">
+      <div class="block-label"><span class="tag why">WHY</span><h4>Decoupling the announcer from the reactor</h4></div>
+      <div class="content">
+        <p>Without signals &amp; slots, a button would need a direct reference to whatever it's supposed to update — "when clicked, call <code>calculator.add()</code>, then call <code>label.setText()</code>" — hardcoded inside the button's own click-handling code. That ties the button class to one specific use, and adding a second thing that should also react means editing the button.</p>
+        <p>Qt inverts this: a <code>QObject</code> declares a <strong>signal</strong> ("something happened") without knowing who, if anyone, is listening. Any number of other objects can <code>connect()</code> a <strong>slot</strong> — an ordinary function, lambda, or member function — to that signal. The emitter and the listener never need to know about each other's types beyond the signal's signature.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag what">WHAT</span><h4>Q_OBJECT, signals, slots, and connect()</h4></div>
+      <div class="content">
+        <ul>
+          <li><code>Q_OBJECT</code> — a macro at the top of any class that declares its own signals or slots. It marks the class for Qt's <strong>moc</strong> (Meta-Object Compiler), a code generator that runs before the real C++ compiler and writes the plumbing <code>connect()</code> needs. <code>CMAKE_AUTOMOC ON</code> runs moc for you automatically.</li>
+          <li><code>signals:</code> — a section listing functions with no body; declaring one gives you <code>emit signalName(args)</code>, which notifies every connected slot. Signals are never called directly, only emitted.</li>
+          <li><code>public slots:</code> — in modern Qt, any regular member function, free function, or lambda can already be a slot; the <code>slots:</code> keyword is mostly there for readability and older Qt versions, but this repo keeps using it since it makes intent explicit.</li>
+          <li><code>QObject::connect(sender, &amp;Sender::signalName, receiver, &amp;Receiver::slotName)</code> — the modern, type-checked connection syntax (a compile error if the signatures don't match, unlike Qt4's string-based <code>SIGNAL()</code>/<code>SLOT()</code> macros). <code>receiver</code> can be dropped when connecting straight to a lambda that doesn't need a <code>QObject</code> lifetime tied to it.</li>
+          <li>A class with <code>Q_OBJECT</code> defined inside a <code>.cpp</code> file (not its own header) needs one extra line at the bottom of that file — <code>#include "main.moc"</code> — so moc's generated code actually gets compiled in.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>A Calculator object with its own signal, wired to two widgets</h4></div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">main.cpp</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;QApplication&gt;
+#include &lt;QWidget&gt;
+#include &lt;QVBoxLayout&gt;
+#include &lt;QHBoxLayout&gt;
+#include &lt;QLineEdit&gt;
+#include &lt;QPushButton&gt;
+#include &lt;QLabel&gt;
+
+class Calculator : public QObject {
+    Q_OBJECT
+public:
+    explicit Calculator(QObject *parent = nullptr) : QObject(parent) {}
+
+public slots:
+    void add(double a, double b) {
+        emit resultChanged(a + b);
+    }
+
+signals:
+    void resultChanged(double result);
+};
+
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+
+    QWidget window;
+    window.setWindowTitle("Nimbus Calculator");
+    auto *outer = new QVBoxLayout(&amp;window);
+
+    auto *row = new QHBoxLayout();
+    auto *inputA = new QLineEdit("2");
+    auto *inputB = new QLineEdit("3");
+    auto *addButton = new QPushButton("+");
+    row-&gt;addWidget(inputA);
+    row-&gt;addWidget(addButton);
+    row-&gt;addWidget(inputB);
+    outer-&gt;addLayout(row);
+
+    auto *resultLabel = new QLabel("Result: (not calculated yet)");
+    outer-&gt;addWidget(resultLabel);
+
+    Calculator calc;
+    QObject::connect(&amp;calc, &amp;Calculator::resultChanged, [&amp;](double result) {
+        resultLabel-&gt;setText(QString("Result: %1").arg(result));
+    });
+
+    QObject::connect(addButton, &amp;QPushButton::clicked, [&amp;]() {
+        calc.add(inputA-&gt;text().toDouble(), inputB-&gt;text().toDouble());
+    });
+
+    window.show();
+    return app.exec();
+}
+
+#include "main.moc"</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Expected behavior</span>A window opens with two text fields (pre-filled "2" and "3"), a "+" button between them, and a result label below. Clicking "+" calls <code>calc.add(...)</code>, which emits <code>resultChanged(5)</code>, which the connected lambda uses to update the label to "Result: 5". Changing either field and clicking "+" again recalculates.</div>
+      <div class="quickguide">
+        <p class="qg-title">Build it and experiment</p>
+        <ol>
+          <li>Same build steps as Tab 1 — this file also only needs <code>Qt6::Widgets</code>.</li>
+          <li><strong>Experiment 1:</strong> Add a <code>subtract(double, double)</code> slot to <code>Calculator</code> reusing the same <code>resultChanged</code> signal, and a second button wired to it.</li>
+          <li><strong>Experiment 2:</strong> Connect a <em>second</em> lambda to <code>resultChanged</code> that also prints the result to the console with <code>qDebug()</code> — proof that one signal can drive more than one slot at once.</li>
+        </ol>
+      </div>
+      <div class="callout"><strong>Reference:</strong> <a href="https://doc.qt.io/qt-6/signalsandslots.html" target="_blank" rel="noopener">Qt docs: Signals &amp; Slots</a></div>
+    </div>
+
+    <div class="topic-nav">
+      <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=t1]').click()">← Qt fundamentals</button>
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t3]').click()">Next: QML &amp; Qt Quick →</button>
+    </div>
+  </div>
+
+  <!-- TAB 3: QML & Qt Quick -->
+  <div class="tabpanel" id="t3">
+    <p class="topic-intro">Everything so far describes the UI imperatively — construct a widget, add it to a layout, one line at a time. QML flips that: you <em>declare</em> what the UI looks like as data, and Qt Quick figures out how to draw and animate it. It's the same signals &amp; slots engine underneath, viewed from a different, more designer-friendly language.</p>
+
+    <div class="block">
+      <div class="block-label"><span class="tag why">WHY</span><h4>Declarative UI, and why it's a separate language</h4></div>
+      <div class="content">
+        <p>Widget code describes <em>how to build</em> a UI: create this label, add it to that layout, in this order. QML describes <em>what the UI is</em>: a window contains a column containing a text and a button — Qt Quick's own render engine handles the actual drawing, positioning, and animation. That declarative style is closer to HTML/CSS than to C++, and it's deliberate: a designer can edit <code>.qml</code> files without touching the C++ logic behind them, and Qt Quick's GPU-accelerated scene graph makes animations and touch interaction smoother than the widget toolkit was ever designed for.</p>
+        <p>C++ doesn't disappear — it becomes the <strong>backend</strong>: business logic, data, and anything performance-sensitive still lives in C++ classes, which QML talks to through the same signals &amp; slots mechanism from the last tab.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag what">WHAT</span><h4>QML syntax and loading it from C++</h4></div>
+      <div class="content">
+        <ul>
+          <li><code>import QtQuick</code> / <code>import QtQuick.Controls</code> — QML's equivalent of <code>#include</code>, pulling in the visual element types used below.</li>
+          <li><strong>Items</strong> (<code>ApplicationWindow</code>, <code>Column</code>, <code>Row</code>, <code>Text</code>, <code>Button</code>, <code>TextField</code>) — QML's version of widgets, nested as a tree using curly braces instead of C++'s layout objects.</li>
+          <li><strong>Properties</strong> (<code>width: 300</code>, <code>text: "hi"</code>) — <code>name: value</code> pairs inside an item; a property's value can itself be an expression that recalculates automatically whenever the values it references change (a <em>binding</em>), e.g. <code>text: "Clicks: " + clicks</code>.</li>
+          <li><strong>Signal handlers</strong> (<code>onClicked: clicks++</code>) — QML's way of writing a slot inline, right where the signal is used, instead of a separate <code>connect()</code> call.</li>
+          <li><code>QQmlApplicationEngine</code> + <code>engine.load(QUrl::fromLocalFile("main.qml"))</code> — the C++-side loader that reads a <code>.qml</code> file and builds the object tree it describes; <code>QGuiApplication</code> (not <code>QApplication</code>) is the right application object for a pure Quick app, since there's no widget toolkit involved.</li>
+          <li><code>engine.rootContext()-&gt;setContextProperty("name", &amp;cppObject)</code> — exposes one C++ <code>QObject</code> to QML under a name, so QML code can call its slots and react to its signals directly.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>A pure-QML counter, then a C++ Calculator driven from QML</h4></div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">main.qml — pure QML, no C++ backend needed</span><button class="copy-btn">Copy</button></div>
+        <pre><code>import QtQuick
+import QtQuick.Controls
+
+ApplicationWindow {
+    visible: true
+    width: 300
+    height: 200
+    title: "Nimbus QML Counter"
+
+    property int clicks: 0
+
+    Column {
+        anchors.centerIn: parent
+        spacing: 12
+
+        Text {
+            text: "Clicks: " + clicks
+            font.pixelSize: 20
+        }
+
+        Button {
+            text: "Click me"
+            onClicked: clicks++
+        }
+    }
+}</code></pre>
+      </div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">main.cpp — loads the QML file above</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;QGuiApplication&gt;
+#include &lt;QQmlApplicationEngine&gt;
+#include &lt;QUrl&gt;
+
+int main(int argc, char *argv[]) {
+    QGuiApplication app(argc, argv);
+    QQmlApplicationEngine engine;
+    engine.load(QUrl::fromLocalFile("main.qml"));
+    if (engine.rootObjects().isEmpty())
+        return -1;
+    return app.exec();
+}</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Expected behavior</span>A window titled "Nimbus QML Counter" opens showing "Clicks: 0" and a button. Each click updates the text via the <code>clicks</code> property binding — no <code>connect()</code> call anywhere, because <code>onClicked</code> is the slot, written inline.</div>
+      <p style="font-size:0.88rem; color:var(--text-muted, #888); margin:4px 0 16px;">This exact pair of files was built and run for this page — the window opened and stayed open with no QML load errors.</p>
+
+      <div class="code-card">
+        <div class="code-head"><span class="filename">main.qml — now driven by the C++ Calculator from Tab 2</span><button class="copy-btn">Copy</button></div>
+        <pre><code>import QtQuick
+import QtQuick.Controls
+
+ApplicationWindow {
+    visible: true
+    width: 320
+    height: 220
+    title: "Nimbus QML Calculator"
+
+    property real result: 0
+
+    Connections {
+        target: calc
+        function onResultChanged(value) { result = value }
+    }
+
+    Column {
+        anchors.centerIn: parent
+        spacing: 10
+
+        Row {
+            spacing: 8
+            TextField { id: aField; text: "2"; width: 60 }
+            Text { text: "+"; font.pixelSize: 18 }
+            TextField { id: bField; text: "3"; width: 60 }
+        }
+
+        Button {
+            text: "Calculate"
+            onClicked: calc.add(parseFloat(aField.text), parseFloat(bField.text))
+        }
+
+        Text { text: "Result: " + result; font.pixelSize: 18 }
+    }
+}</code></pre>
+      </div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">main.cpp — exposes Calculator to QML by name</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;QGuiApplication&gt;
+#include &lt;QQmlApplicationEngine&gt;
+#include &lt;QQmlContext&gt;
+#include &lt;QUrl&gt;
+#include &lt;QObject&gt;
+
+class Calculator : public QObject {
+    Q_OBJECT
+public:
+    explicit Calculator(QObject *parent = nullptr) : QObject(parent) {}
+public slots:
+    void add(double a, double b) { emit resultChanged(a + b); }
+signals:
+    void resultChanged(double result);
+};
+
+int main(int argc, char *argv[]) {
+    QGuiApplication app(argc, argv);
+
+    Calculator calc;
+    QQmlApplicationEngine engine;
+    engine.rootContext()-&gt;setContextProperty("calc", &amp;calc);
+    engine.load(QUrl::fromLocalFile("main.qml"));
+    if (engine.rootObjects().isEmpty())
+        return -1;
+    return app.exec();
+}
+
+#include "main.moc"</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Expected behavior</span>Same calculator as Tab 2, rebuilt as a QML front end: two text fields, a "Calculate" button, and a result line. Clicking "Calculate" calls the C++ <code>calc.add()</code> slot directly from QML; the <code>Connections</code> block listens for <code>resultChanged</code> and updates the <code>result</code> property, which the bound <code>Text</code> re-renders automatically.</div>
+      <div class="quickguide">
+        <p class="qg-title">Build it and experiment</p>
+        <ol>
+          <li><code>CMakeLists.txt</code> for either QML demo needs the Quick module instead of Widgets: <code>find_package(Qt6 REQUIRED COMPONENTS Quick QuickControls2)</code>, <code>target_link_libraries(&lt;target&gt; Qt6::Quick Qt6::QuickControls2)</code>.</li>
+          <li>Run the built executable from the same folder as <code>main.qml</code> (or edit the <code>fromLocalFile</code> path) — <code>QQmlApplicationEngine</code> loads it from disk at startup, it isn't compiled in.</li>
+          <li><strong>Experiment 1:</strong> Add a <code>Slider</code> from <code>QtQuick.Controls</code> and bind a <code>Text</code>'s content to its <code>value</code> property — no signal/slot code needed for that part, just a binding.</li>
+          <li><strong>Experiment 2:</strong> In the calculator variant, add a <code>subtract</code> slot and a second button the same way you did in Tab 2's experiment — notice the QML side barely changes, because the signal/slot contract is identical either way.</li>
+        </ol>
+      </div>
+      <div class="callout"><strong>Note:</strong> the <code>function onResultChanged(value) { ... }</code> form inside <code>Connections</code> is Qt 6's syntax; Qt 5 used a plain <code>onResultChanged: result = value</code> property instead. Both files above were built against Qt 6.10.</div>
+    </div>
+
+    <div class="topic-nav">
+      <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=t2]').click()">← Signals &amp; slots</button>
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t4]').click()">Next: Qt networking →</button>
+    </div>
+  </div>
+
+  <!-- TAB 4: Qt Networking -->
+  <div class="tabpanel" id="t4">
+    <p class="topic-intro">Module 8 sent bytes with raw Winsock — <code>WSAStartup</code>, blocking <code>recv()</code>, manual buffer management, Windows-only. Qt wraps the same TCP/UDP ideas in <code>QObject</code>s that emit signals instead of blocking, so a network event fits into the exact same event loop a button click does — and the code is identical on Windows, Linux, and macOS.</p>
+
+    <div class="block">
+      <div class="block-label"><span class="tag why">WHY</span><h4>Signals instead of blocking calls</h4></div>
+      <div class="content">
+        <p>Module 8's <code>recv()</code> blocks the whole thread until data arrives — fine for a simple one-shot demo, fatal for a GUI, where blocking the main thread freezes the window and stops it from repainting or responding to clicks. Qt's socket classes never block by default: instead of calling <code>recv()</code> and waiting, you <code>connect()</code> a slot to the socket's <code>readyRead</code> signal, and Qt calls it whenever data actually arrives — the event loop keeps servicing button clicks and window repaints in between.</p>
+        <p>The TCP-vs-UDP tradeoff from Module 8 is unchanged: <code>QTcpSocket</code>/<code>QTcpServer</code> for reliable, ordered delivery; <code>QUdpSocket</code> for cheap, connectionless, best-effort messages like a heartbeat.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag what">WHAT</span><h4>QTcpServer, QTcpSocket, and QUdpSocket</h4></div>
+      <div class="content">
+        <ul>
+          <li><code>QTcpServer::listen(QHostAddress::Any, port)</code> — starts listening; no separate <code>bind()</code>/<code>listen()</code> pair like raw sockets.</li>
+          <li><code>newConnection</code> signal — emitted once per incoming client; <code>server.nextPendingConnection()</code> inside that slot returns the new <code>QTcpSocket*</code> for that client.</li>
+          <li><code>readyRead</code> signal — emitted whenever a socket has bytes waiting; <code>socket-&gt;readAll()</code> reads everything available as a <code>QByteArray</code>.</li>
+          <li><code>socket-&gt;write(data)</code> — queues bytes to send; like <code>send()</code> but never blocks the caller.</li>
+          <li><code>connected</code> / <code>disconnected</code> signals — fire when a <code>QTcpSocket</code>'s connection state changes; no manual "did connect() succeed?" check needed.</li>
+          <li><code>QUdpSocket::bind(...)</code> then <code>writeDatagram(data, address, port)</code> / <code>readDatagram(buffer, size)</code> — UDP's connectionless send/receive, still wired through the same <code>readyRead</code> signal.</li>
+          <li>No <code>WSAStartup</code>/<code>WSACleanup</code>, no <code>-lws2_32</code> — Qt's <code>Network</code> module hides the platform socket API entirely: <code>find_package(Qt6 REQUIRED COMPONENTS Network)</code> and <code>target_link_libraries(... Qt6::Network)</code> is all the build needs.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>A console TCP chat server and client, no widgets involved</h4></div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">chat_server.cpp</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;QCoreApplication&gt;
+#include &lt;QTcpServer&gt;
+#include &lt;QTcpSocket&gt;
+#include &lt;QTextStream&gt;
+
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+    QTextStream out(stdout);
+
+    QTcpServer server;
+    if (!server.listen(QHostAddress::Any, 9091)) {
+        out &lt;&lt; "Failed to start server: " &lt;&lt; server.errorString() &lt;&lt; "\n";
+        return 1;
+    }
+    out &lt;&lt; "[Server] Listening on port 9091...\n";
+    out.flush();
+
+    QObject::connect(&amp;server, &amp;QTcpServer::newConnection, [&amp;]() {
+        QTcpSocket *client = server.nextPendingConnection();
+        out &lt;&lt; "[Server] Client connected.\n";
+        out.flush();
+
+        QObject::connect(client, &amp;QTcpSocket::readyRead, [client, &amp;out]() {
+            QByteArray data = client-&gt;readAll();
+            out &lt;&lt; "[Server] Received: " &lt;&lt; data &lt;&lt; "\n";
+            out.flush();
+            client-&gt;write("Message received, over.");
+        });
+
+        QObject::connect(client, &amp;QTcpSocket::disconnected, client, &amp;QTcpSocket::deleteLater);
+    });
+
+    return app.exec();
+}</code></pre>
+      </div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">chat_client.cpp</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;QCoreApplication&gt;
+#include &lt;QTcpSocket&gt;
+#include &lt;QTextStream&gt;
+
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+    QTextStream out(stdout);
+
+    QTcpSocket socket;
+    QObject::connect(&amp;socket, &amp;QTcpSocket::connected, [&amp;]() {
+        out &lt;&lt; "[Client] Connected to server.\n";
+        out.flush();
+        socket.write("Rack-A temperature nominal.");
+    });
+    QObject::connect(&amp;socket, &amp;QTcpSocket::readyRead, [&amp;]() {
+        out &lt;&lt; "[Client] Server replied: " &lt;&lt; socket.readAll() &lt;&lt; "\n";
+        out.flush();
+        app.quit();
+    });
+
+    socket.connectToHost("127.0.0.1", 9091);
+    return app.exec();
+}</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Actual output — both processes really run together for this page</span>Server terminal:
+[Server] Listening on port 9091...
+[Server] Client connected.
+[Server] Received: Rack-A temperature nominal.
+
+Client terminal:
+[Client] Connected to server.
+[Client] Server replied: Message received, over.</div>
+      <div class="quickguide">
+        <p class="qg-title">Build it and experiment</p>
+        <ol>
+          <li><code>CMakeLists.txt</code> needs only <code>Qt6::Network</code> — no <code>Widgets</code>, since <code>QCoreApplication</code> is the non-GUI application object.</li>
+          <li>Build both targets, run <code>chat_server.exe</code> first, then <code>chat_client.exe</code> in a second terminal — same "server first" rule as Module 8's raw sockets.</li>
+          <li><strong>Experiment 1:</strong> Compare this file to Module 8's <code>net_server_step.cpp</code> line by line — no <code>WSAStartup</code>, no manual buffer/byte-count juggling, no <code>closesocket()</code>/<code>WSACleanup()</code> cleanup pair.</li>
+          <li><strong>Experiment 2 (UDP):</strong> A <code>QUdpSocket</code> heartbeat only needs three calls: <code>bind()</code> once, <code>writeDatagram()</code> on a repeating <code>QTimer</code>, and a <code>readyRead</code> slot that drains pending datagrams with <code>readDatagram()</code> — this repo's <code>28-Qt-QML/6-udp-heartbeat/</code> has the full file.</li>
+        </ol>
+      </div>
+      <div class="callout"><strong>Note:</strong> this server only handles the first message per connection cleanly for a one-shot demo — the homework below asks you to make the client send more than one line without reconnecting.</div>
+    </div>
+
+    <div class="topic-nav" style="justify-content:flex-end;">
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t5]').click()">Story Mode: see it all connected →</button>
+    </div>
+  </div>
+
+  <!-- TAB 5: Story Mode -->
+  <div class="tabpanel" id="t5">
+    <span class="story-badge">🎬 Story Mode</span>
+    <h2 style="margin:0 0 12px;">The on-call engineer who wanted a window, not a log file</h2>
+    <p class="story-lede">Nimbus Systems' fleet diagnostics relay from Module 8 works — reports arrive over TCP, critical events are flagged, nothing gets lost. But the on-call engineer still reads it as scrolling text in a terminal at 2am, squinting for the word CRITICAL. The ops lead's ask was blunt: "give them something they can glance at." Here's how the team built that, one Qt concept at a time.</p>
+
+    <div class="story-timeline">
+      <div class="story-act">
+        <div class="story-act-head">
+          <span class="story-act-num">ACT 1</span>
+          <h3>"First, just get a window on screen"</h3>
+          <button class="story-jump" type="button" onclick="document.querySelector('[data-tab=t1]').click()">↳ Revisit Qt fundamentals</button>
+        </div>
+        <p>The first prototype was almost embarrassingly small: one label, one button, proof that a Qt window could open and redraw itself without crashing. That's deliberately where the team started too — before wiring anything real, they needed to trust the basic loop of "show a window, click something, see it update" on their own machines.</p>
+      </div>
+      <div class="story-act">
+        <div class="story-act-head">
+          <span class="story-act-num">ACT 2</span>
+          <h3>"The console can't know about the parser, and vice versa"</h3>
+          <button class="story-jump" type="button" onclick="document.querySelector('[data-tab=t2]').click()">↳ Revisit Signals &amp; slots</button>
+        </div>
+        <p>Early on, someone wired the report parser to call a specific <code>MainWindow::updateLog()</code> method directly. It worked, until a second panel needed the same data and the parser had to learn about two window classes instead of zero. Switching the parser to <code>emit reportParsed(text)</code> and letting each panel <code>connect()</code> independently meant the parser never has to change again, no matter how many panels the ops team adds.</p>
+      </div>
+      <div class="story-act">
+        <div class="story-act-head">
+          <span class="story-act-num">ACT 3</span>
+          <h3>"The wall display needed a different skin, not different logic"</h3>
+          <button class="story-jump" type="button" onclick="document.querySelector('[data-tab=t3]').click()">↳ Revisit QML &amp; Qt Quick</button>
+        </div>
+        <p>The ops room wanted a big wall-mounted status board — legible from across the room, touch-friendly, restyled every few months as the team's taste changed. Rebuilding the C++ widget layout for that would mean recompiling for every visual tweak. Instead, the same <code>Calculator</code>-style backend objects got a QML front end: designers now edit <code>.qml</code> files to change the wall display's look without anyone touching the C++ that decides what's critical.</p>
+      </div>
+      <div class="story-act">
+        <div class="story-act-head">
+          <span class="story-act-num">ACT 4</span>
+          <h3>"The console finally talks to the relay live"</h3>
+          <button class="story-jump" type="button" onclick="document.querySelector('[data-tab=t4]').click()">↳ Revisit Qt networking</button>
+        </div>
+        <p>The last piece connected the window to Module 8's actual relay server: a <code>QTcpSocket</code> inside the console widget, its <code>readyRead</code> signal wired straight to the same log panel from Act 2. No blocking <code>recv()</code> loop freezing the window mid-update — reports simply appear as they arrive, exactly the "glance at it" experience the ops lead asked for.</p>
+      </div>
+    </div>
+
+    <blockquote class="story-pullquote">A button doesn't need to know who's listening. A signal doesn't need to know who's watching. And a window that never blocks is a window an on-call engineer can actually trust at 2am.</blockquote>
+
+    <div class="story-also">
+      <p class="story-also-title">Also seen in the wild</p>
+      <div class="story-also-grid">
+        <div class="story-also-item"><span class="story-also-domain">Automotive</span>In-car infotainment systems render their touch UI in QML while the CAN-bus/vehicle-signal logic stays in C++, for the same "designers iterate without a rebuild" reason.</div>
+        <div class="story-also-item"><span class="story-also-domain">Medical devices</span>Diagnostic equipment UIs often run Qt Widgets specifically because of its long-term-support stability guarantees in regulated environments.</div>
+        <div class="story-also-item"><span class="story-also-domain">Finance</span>Trading desk monitors use signal/slot-style event buses so a price-feed update can drive a chart, an alert, and a log line without those three consumers knowing about each other.</div>
+        <div class="story-also-item"><span class="story-also-domain">Web frameworks</span>React's props-down/events-up model and Qt's signals &amp; slots solve the same decoupling problem in different UI ecosystems.</div>
+      </div>
+    </div>
+
+    <div class="callout"><strong>Bring it back:</strong> the complete program below is the Nimbus Fleet Console — a widget window with a live-updating log, wired to a <code>QTcpSocket</code> that talks to the same relay pattern from Module 8. QML stays a separate, standalone exercise here rather than getting merged into the widget program, since it's an alternative front end for the same backend idea, not an additional feature on top of it.</div>
+
+    <div class="topic-nav">
+      <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=t4]').click()">← Qt networking</button>
+      <a class="btn btn-primary" href="module10.html">Module 10: Wrap-up &amp; Evaluation →</a>
+    </div>
+  </div>
+
+  <section class="try-now" id="try-now">
+    <div class="try-now-header"><div><div class="section-kicker">Learn by doing</div><h2>Try now: build the Nimbus Fleet Console</h2><p>Build the moving pieces step by step — a window that reacts to clicks, a custom signal driving a live label, and a socket that connects to a relay — then combine them into one chat-style console window.</p></div><span class="try-badge">35 minutes</span></div>
+    <div class="build-ladder">
+      <div class="build-step"><div class="build-step-title"><span>Step 1</span><strong>A window that reacts to a click</strong></div><p>The Tab 1 click-counter, saved as its own step — confirms your Qt install and build actually work before anything else.</p><div class="code-card"><div class="code-head"><span class="filename">step1_window.cpp</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;QApplication&gt;
+#include &lt;QWidget&gt;
+#include &lt;QVBoxLayout&gt;
+#include &lt;QLabel&gt;
+#include &lt;QPushButton&gt;
+
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+    QWidget window;
+    window.setWindowTitle("Step 1");
+    auto *layout = new QVBoxLayout(&amp;window);
+    auto *label = new QLabel("Not clicked yet");
+    auto *button = new QPushButton("Click me");
+    layout-&gt;addWidget(label);
+    layout-&gt;addWidget(button);
+    QObject::connect(button, &amp;QPushButton::clicked, [&amp;]() { label-&gt;setText("Clicked!"); });
+    window.show();
+    return app.exec();
+}</code></pre></div><p class="run-line"><b>Build:</b> <code>cmake -B build -S . -G Ninja &amp;&amp; cmake --build build</code></p><p class="mini-output"><b>See:</b> label text changes from "Not clicked yet" to "Clicked!" on click</p></div>
+      <div class="build-step"><div class="build-step-title"><span>Step 2</span><strong>A custom signal drives a label</strong></div><p>The Tab 2 Calculator, minus the second input — one signal, one emit, one connected slot.</p><div class="code-card"><div class="code-head"><span class="filename">step2_signal.cpp</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;QApplication&gt;
+#include &lt;QWidget&gt;
+#include &lt;QVBoxLayout&gt;
+#include &lt;QPushButton&gt;
+#include &lt;QLabel&gt;
+
+class Pinger : public QObject {
+    Q_OBJECT
+public:
+    explicit Pinger(QObject *parent = nullptr) : QObject(parent) {}
+public slots:
+    void ping() { emit pinged("pong"); }
+signals:
+    void pinged(QString reply);
+};
+
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+    QWidget window;
+    auto *layout = new QVBoxLayout(&amp;window);
+    auto *label = new QLabel("Waiting...");
+    auto *button = new QPushButton("Ping");
+    layout-&gt;addWidget(label);
+    layout-&gt;addWidget(button);
+
+    Pinger pinger;
+    QObject::connect(&amp;pinger, &amp;Pinger::pinged, [&amp;](QString reply) { label-&gt;setText(reply); });
+    QObject::connect(button, &amp;QPushButton::clicked, [&amp;]() { pinger.ping(); });
+
+    window.show();
+    return app.exec();
+}
+
+#include "step2_signal.moc"</code></pre></div><p class="run-line"><b>Build:</b> same CMake pattern, one target</p><p class="mini-output"><b>See:</b> label changes from "Waiting..." to "pong" on click</p></div>
+      <div class="build-step"><div class="build-step-title"><span>Step 3</span><strong>Connect to the relay over TCP</strong></div><p>The Tab 4 chat client, run against a relay server — this is the socket half of the final program.</p><div class="code-card"><div class="code-head"><span class="filename">step3_relay_probe.cpp</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;QCoreApplication&gt;
+#include &lt;QTcpSocket&gt;
+#include &lt;QTextStream&gt;
+
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+    QTextStream out(stdout);
+    QTcpSocket socket;
+    QObject::connect(&amp;socket, &amp;QTcpSocket::connected, [&amp;]() {
+        out &lt;&lt; "Connected to relay.\n";
+        app.quit();
+    });
+    QObject::connect(&amp;socket, &amp;QTcpSocket::errorOccurred, [&amp;]() {
+        out &lt;&lt; "Could not reach relay (start chat_server.exe first).\n";
+        app.quit();
+    });
+    socket.connectToHost("127.0.0.1", 9091);
+    return app.exec();
+}</code></pre></div><p class="run-line"><b>Run first:</b> <code>28-Qt-QML/5-tcp-chat/chat_server.cpp</code> from Tab 4, then this probe</p><p class="mini-output"><b>See:</b> "Connected to relay." printed once the relay is running</p></div>
+    </div>
+    <div class="build-divider"><span>Now combine the pieces into the complete use case</span></div>
+    <div class="try-step"><span>01</span><div><strong>Nimbus Fleet Console — widgets, a custom-feeling connection, and live networking together</strong><p>A chat-style window: a read-only log, a text field, a Send button, and a <code>QTcpSocket</code> wired straight into the same log via signals.</p></div></div>
+    <div class="code-card"><div class="code-head"><span class="filename">program.cpp — complete use case</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;QApplication&gt;
+#include &lt;QWidget&gt;
+#include &lt;QVBoxLayout&gt;
+#include &lt;QHBoxLayout&gt;
+#include &lt;QLineEdit&gt;
+#include &lt;QPushButton&gt;
+#include &lt;QTextEdit&gt;
+#include &lt;QTcpSocket&gt;
+
+class NimbusChatClient : public QWidget {
+    Q_OBJECT
+public:
+    NimbusChatClient() {
+        setWindowTitle("Nimbus Fleet Console");
+        resize(360, 280);
+
+        auto *outer = new QVBoxLayout(this);
+        log = new QTextEdit();
+        log-&gt;setReadOnly(true);
+        outer-&gt;addWidget(log);
+
+        auto *row = new QHBoxLayout();
+        input = new QLineEdit();
+        auto *sendButton = new QPushButton("Send");
+        row-&gt;addWidget(input);
+        row-&gt;addWidget(sendButton);
+        outer-&gt;addLayout(row);
+
+        connect(&amp;socket, &amp;QTcpSocket::connected, this, [this]() {
+            log-&gt;append("[System] Connected to relay.");
+        });
+        connect(&amp;socket, &amp;QTcpSocket::readyRead, this, [this]() {
+            log-&gt;append("[Relay] " + QString::fromUtf8(socket.readAll()));
+        });
+        connect(sendButton, &amp;QPushButton::clicked, this, [this]() {
+            QString text = input-&gt;text();
+            if (text.isEmpty()) return;
+            socket.write(text.toUtf8());
+            log-&gt;append("You: " + text);
+            input-&gt;clear();
+        });
+
+        socket.connectToHost("127.0.0.1", 9091);
+    }
+
+private:
+    QTextEdit *log;
+    QLineEdit *input;
+    QTcpSocket socket;
+};
+
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+    NimbusChatClient window;
+    window.show();
+    return app.exec();
+}
+
+#include "program.moc"</code></pre></div>
+    <div class="output-box"><span class="lbl">Actual behavior — verified against a running relay for this page</span>Window opens titled "Nimbus Fleet Console" with an empty log. Within about a second, the relay server's own console prints "[Server] Client connected." confirming the socket handshake succeeded. Typing a message and clicking Send appends "You: &lt;message&gt;" to the log, sends it to the relay, and the relay's reply appears as "[Relay] Message received, over."</div>
+    <div class="quickguide"><p class="qg-title">Run it</p><ol><li>Create folder <code>module9-try-now</code>, save <code>chat_server.cpp</code> (Tab 4) and <code>program.cpp</code> (above) into it, plus a <code>CMakeLists.txt</code> building both — <code>Qt6::Network</code> for the server, <code>Qt6::Widgets</code> + <code>Qt6::Network</code> for the console.</li><li>Build: <code>cmake -B build -S . -G Ninja &amp;&amp; cmake --build build</code>.</li><li>Run <code>chat_server.exe</code> in one terminal, then <code>program.exe</code> (the GUI) — a small window opens and connects automatically.</li><li>Type a message, click Send, and watch both the log panel and the server's terminal update.</li></ol></div>
+    <div class="task-card"><div class="task-label">Homework / assessment</div><h3>Timestamp every log line, and let the server outlive one client</h3><p>In <code>NimbusChatClient</code>, prefix every appended log line with the current time — <code>QTime::currentTime().toString("hh:mm:ss")</code> — so the ops-room log reads like a real timeline. Then change <code>chat_server.cpp</code> so a disconnected client doesn't stop the server from accepting the next one (it already half does this via <code>deleteLater</code> — confirm it by connecting, sending a message, closing the client window, then starting the console again and sending a second message to the same still-running server).</p><p class="hint-title">Hints, not the answer</p><ul class="hint-list"><li><code>#include &lt;QTime&gt;</code> and build the prefixed string before calling <code>log-&gt;append(...)</code> — the append call itself doesn't need to change shape.</li><li>The server already handles multiple sequential clients because <code>newConnection</code> can fire more than once and each client gets its own <code>readyRead</code> connection — the homework is to observe and confirm this, not rebuild it.</li></ul></div>
+    <div class="submission-card"><strong>Submit for evaluation</strong><p>Send your finished <code>program.cpp</code> to the trainer's cohort email.</p><div><b>Subject:</b> <code>Module 9 Task - Your Name - program.cpp</code></div><div><b>Body:</b> <code>Your Name | Module 9 | Qt version used | result you observed</code></div><p>Attach both <code>program.cpp</code> and your updated <code>chat_server.cpp</code>, and describe the timestamped log you observed.</p></div>
+  </section>
+
+  <details class="practice-drawer">
+    <summary>★ Practice &amp; Capstones <span class="practice-drawer-hint">— standalone challenges you can attempt any time</span></summary>
+    <div class="practice-drawer-body">
+      <p style="margin:10px 0 0; font-size:13.5px; color:var(--text-muted);">Each one is a separate, self-contained exercise — pick whichever matches what you've covered so far.</p>
+      <div class="practice-links">
+        <a class="practice-link" href="exercise.html"><span class="practice-link-tag">Capstone</span>RR Skillverse Course Tracker — a course tracker built from scratch</a>
+        <a class="practice-link" href="capstone-work1.html"><span class="practice-link-tag">Capstone-Work1</span>Smart Office Access System — inheritance &amp; overloading, from scratch</a>
+        <a class="practice-link" href="capstone-work2.html"><span class="practice-link-tag">Capstone-Work2</span>Nimbus Logistics Challenge — fix 3 TODOs (Modules 1-6)</a>
+        <a class="practice-link" href="capstone-work3.html"><span class="practice-link-tag">Capstone-Work3</span>Nimbus Fleet Command — fix 5 TODOs (Module 8)</a>
+      </div>
+    </div>
+  </details>
+</div>
+</main>
+</div>
+<footer>Module 9 of 11 · Enterprise C++ Training Programme · Personal notes by <strong>Raushan Ranjan</strong></footer>
+<script>
+function initSidebar(){const toggle=document.querySelector('.sidebar-toggle'),sidebar=document.querySelector('.sidebar-left');if(!toggle||!sidebar)return;const desktop=window.matchMedia('(min-width: 861px)');toggle.addEventListener('click',()=>{if(desktop.matches){const collapsed=document.body.classList.toggle('sidebar-collapsed');toggle.setAttribute('aria-expanded',String(!collapsed));}else sidebar.classList.toggle('open');});sidebar.querySelectorAll('a:not(.nav-day-toggle)').forEach(link=>link.addEventListener('click',()=>sidebar.classList.remove('open')));}
+function initNavGroups(){document.querySelectorAll('.nav-day').forEach(day=>{const toggle=day.querySelector(':scope > .nav-day-toggle'),body=day.querySelector(':scope > .nav-day-body');if(!toggle||!body)return;toggle.setAttribute('aria-expanded',String(day.dataset.open==='true'));toggle.addEventListener('click',event=>{event.preventDefault();const open=day.dataset.open==='true';day.dataset.open=String(!open);toggle.setAttribute('aria-expanded',String(!open));});});}
+function initNavModules(){document.querySelectorAll('.nav-module').forEach(module=>{const label=module.querySelector(':scope > .nav-module-label'),content=module.querySelector(':scope > .nav-topics, :scope > .nav-tabs');if(!label||!content)return;module.dataset.open=module.dataset.open||'true';label.setAttribute('role','button');label.setAttribute('tabindex','0');label.setAttribute('aria-expanded',String(module.dataset.open==='true'));const toggle=()=>{const open=module.dataset.open==='true';module.dataset.open=String(!open);label.setAttribute('aria-expanded',String(!open));};label.addEventListener('click',toggle);label.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();toggle();}});});}
+function initTabs(){const bar=document.querySelector('.tabbar');if(!bar)return;const buttons=[...document.querySelectorAll('.tabbar button,.nav-tab')],panels=[...document.querySelectorAll('.tabpanel')];function activate(id,updateHash){buttons.forEach(b=>b.classList.toggle('active',b.dataset.tab===id));panels.forEach(p=>p.classList.toggle('active',p.id===id));if(updateHash)history.replaceState(null,'','#'+id);}buttons.forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab,true)));const requested=location.hash.slice(1);activate(buttons.some(b=>b.dataset.tab===requested)?requested:(buttons.find(b=>b.classList.contains('active'))||buttons[0]).dataset.tab,false);}
+function initCopyButtons(){document.querySelectorAll('.copy-btn').forEach(btn=>btn.addEventListener('click',async()=>{const code=btn.closest('.code-card').querySelector('code').innerText;try{await navigator.clipboard.writeText(code);}catch(e){const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1200);}));}
+document.addEventListener('DOMContentLoaded',()=>{initSidebar();initNavGroups();initNavModules();initTabs();initCopyButtons();});
+</script>
+<script src="search.js"></script>
+</body>
+</html>

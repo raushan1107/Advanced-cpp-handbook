@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.16)
+project(shape_canvas)
+set(CMAKE_AUTOMOC ON)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+add_executable(shape_canvas main.cpp)
+target_link_libraries(shape_canvas Qt6::Widgets)

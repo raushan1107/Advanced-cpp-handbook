@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.16)
+project(qml_counter)
+set(CMAKE_AUTOMOC ON)
+find_package(Qt6 REQUIRED COMPONENTS Quick QuickControls2)
+add_executable(qml_counter main.cpp)
+target_link_libraries(qml_counter Qt6::Quick Qt6::QuickControls2)

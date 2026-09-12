@@ -1,3 +1,9 @@
+// std::queue — FIFO (First In, First Out): push adds at the back, pop
+// removes from the front. Also std::priority_queue — a heap where the
+// HIGHEST-priority element is always on top, regardless of insertion order.
+//
+// Compile: g++ -std=c++17 4_queues.cpp -o queues
+// Run:     queues.exe   (Windows)   or   ./queues   (Linux/macOS)
 #include <iostream>
 #include <queue>
 using namespace std;
@@ -7,6 +13,9 @@ int main()
     queue<int> numQueue;
 
     // Adding elements to the queue
+    // numQueue.push(10)
+    //   10 - added at the BACK of the queue (unlike stack::push, which
+    //        adds to the top).
     numQueue.push(10);
     numQueue.push(20);
     numQueue.push(30);
@@ -15,6 +24,9 @@ int main()
     cout << "Queue size: " << numQueue.size() << endl;     // Outputs 3
 
     // Removing elements from the queue
+    // numQueue.pop()
+    // Removes from the FRONT (the OLDEST element, 10) — the defining
+    // difference from stack, which removes from the top (the NEWEST).
     numQueue.pop();
     cout << "Front element after pop: " << numQueue.front() << endl; // Outputs 20
     cout << "Queue size after pop: " << numQueue.size() << endl;     // Outputs 2
@@ -25,12 +37,15 @@ int main()
     cout << "Final Queue size: " << numQueue.size() << endl;
 
     // Priority Queue Example
-    // What it is? 
+    // What it is?
     // A priority queue is a special type of queue where elements are
     // ordered based on their priority rather than their insertion order.
     // How it works?
     // In a priority queue, each element has a priority associated with it.
     // Elements with higher priority are served before elements with lower priority.
+    // priority_queue<int> maxHeap
+    // Default priority_queue: the LARGEST value is always considered
+    // highest priority and sits at top(), regardless of push() order.
     priority_queue<int> maxHeap;
     maxHeap.push(10);
     maxHeap.push(5);
@@ -38,7 +53,7 @@ int main()
     maxHeap.push(15);
 
     // Here we are using a max-heap priority queue,
-    // which means the largest element has the highest priority.    
+    // which means the largest element has the highest priority.
 
     cout << "Max element: " << maxHeap.top() << endl; // Outputs 20
     maxHeap.pop();
@@ -46,6 +61,14 @@ int main()
 
 
     // less than operator is used to create max-heap (default behavior)
+    // priority_queue<int, vector<int>, less<int>> maxHeap2
+    //   int         - the element type.
+    //   vector<int> - the underlying container the heap is built on top
+    //                 of (this IS the default, spelled out explicitly
+    //                 here).
+    //   less<int>   - the comparator; less<int> is ALSO the default,
+    //                 which is why maxHeap2 behaves identically to
+    //                 maxHeap above.
     priority_queue<int, vector<int>, less<int>> maxHeap2;
     maxHeap2.push(10);
     maxHeap2.push(5);
@@ -63,9 +86,12 @@ int main()
     // 1. Task Scheduling: Managing tasks based on priority levels.
     // 2. Dijkstra's Algorithm: Finding the shortest path in graphs.
     // 3. Event Simulation: Processing events in order of occurrence time.
+    // priority_queue<int, vector<int>, greater<int>> minHeap
+    //   greater<int> - REVERSES the ordering: now the SMALLEST value is
+    //                  treated as highest priority and sits at top().
     priority_queue<int, vector<int>, greater<int>> minHeap;
     // Explanation:
-    // Here, we create a min-heap priority queue by specifying greater<int> as the comparator.  
+    // Here, we create a min-heap priority queue by specifying greater<int> as the comparator.
     // This changes the default behavior of the priority queue to prioritize smaller elements.
     // How it works?
     // By using greater<int>, the priority queue organizes elements such that
@@ -86,3 +112,24 @@ int main()
     cout << "Min element after pop: " << minHeap.top() << endl; // Outputs 10
     return 0;
 }
+
+// --------------------------------------------------------------------------
+// Step-by-step execution trace
+// --------------------------------------------------------------------------
+// STEP 1  numQueue: push 10, 20, 30 — front is ALWAYS the oldest (10),
+//         back is always the newest (30). front()==10, back()==30,
+//         size()==3.
+// STEP 2  pop() removes the front (10): now front()==20, size()==2.
+// STEP 3  emplace(40) adds to the back: back()==40, size()==3.
+// STEP 4  maxHeap: push 10, 5, 20, 15 in that ORDER, but top() always
+//         returns the LARGEST regardless of push order -> top()==20.
+//         After pop() (removing 20), the next-largest remaining (15) is
+//         now on top -> top()==15.
+// STEP 5  maxHeap2 is built with the SAME default comparator (less<int>)
+//         spelled out explicitly — identical behavior to maxHeap: top()
+//         is 20, then 15 after popping.
+// STEP 6  minHeap uses greater<int>, flipping priority to SMALLEST first:
+//         after pushing 10, 5, 20, 15, top()==5 (the smallest). After
+//         pop() (removing 5), the next-smallest remaining (10) is on top
+//         -> top()==10.
+// STEP 7  main() returns 0.

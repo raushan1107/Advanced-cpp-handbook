@@ -1,3 +1,10 @@
+// String capacity — size() vs capacity(): how many characters a string
+// HOLDS vs how much memory it has ALLOCATED, and reserve()/shrink_to_fit()
+// to control that allocation explicitly.
+//
+// Compile: g++ -std=c++17 7_stringCapacity.cpp -o stringCapacity
+// Run:     stringCapacity.exe   (Windows)   or   ./stringCapacity   (Linux/macOS)
+
 #include<iostream>
 #include<string>
 using namespace std;
@@ -11,6 +18,11 @@ int main() {
     cout << "Capacity: " << str.capacity() << endl;  // Size of allocated storage
     cout << "Max Size: " << str.max_size() << endl;  // Maximum size the string can reach
 
+    // str.reserve(500)
+    //   500 - a HINT: "make sure at least 500 characters fit without
+    //         reallocating," even though `str` only currently holds 13.
+    //         size() stays 13 (reserve doesn't add characters); capacity()
+    //         grows to at least 500.
     str.reserve(500); // Reserve space for at least 50 characters
     cout << "After reserving capacity of 500:" << endl;
     cout << "String: " << str << endl;
@@ -21,20 +33,36 @@ int main() {
 
     string s;
     cout << "Initial capacity of empty string: " << s.capacity() << endl;
+    // s += "C++ Programming"
+    //   "C++ Programming" - 16 characters appended to the empty string
+    //                       `s`; since `s` had no reserved capacity, this
+    //                       forces at least one allocation.
     s += "C++ Programming";
     cout << "Capacity after adding 'C++ Programming': " << s.capacity() << endl;
 
     s.reserve(1000); // Reserve space for at least 1000 characters
     cout << "Capacity after reserving 1000: " << s.capacity() << endl;
-    for(int i = 0; i < 800; i++) 
+    for(int i = 0; i < 800; i++)
     {
+        // s += 'a'
+        //   'a' - one character appended per iteration; because 1000
+        //         characters were already reserved above, none of these
+        //         800 appends needs to trigger a reallocation.
         s += 'a'; // Append 800 'a' characters
     };
     cout << "Capacity after adding 800 'a' characters: " << s.capacity() << endl;
 
+    // s.shrink_to_fit()
+    // No parameters — a (non-binding) REQUEST to the implementation to
+    // reduce capacity down to match the current size exactly, releasing
+    // whatever reserved-but-unused memory is left.
     s.shrink_to_fit(); // Reduce capacity to fit size
     cout << "Capacity after shrink_to_fit: " << s.capacity() << endl;
 
+    // s.clear()
+    // No parameters — empties the string's CONTENT (size becomes 0), but
+    // does NOT necessarily release the underlying buffer — that's why the
+    // next line's capacity print may still show a nonzero number.
     s.clear(); // Clear the string
     cout << "Capacity after clearing the string: " << s.capacity() << endl;
 
@@ -71,3 +99,37 @@ int main() {
 // 8. The string is cleared, and the capacity is printed again.
 // 9. Finally, the program prints the final state of the string and returns 0 to indicate successful execution. size, and the new capacity is printed.
 
+// --------------------------------------------------------------------------
+// Step-by-step execution trace (exact capacity NUMBERS are implementation-
+// defined and will vary by standard library/compiler — the RELATIONSHIPS
+// described below always hold)
+// --------------------------------------------------------------------------
+// STEP 1  str = "Hello, World!" (13 characters). size()==length()==13;
+//         capacity() is whatever the library allocated for a 13-char
+//         string (often >=13, sometimes exactly 15 due to small-string
+//         optimization).
+// STEP 2  str.reserve(500): size() stays 13 (unchanged), capacity()
+//         becomes AT LEAST 500 — reserve never shrinks capacity or
+//         changes the string's content, it only guarantees a minimum.
+// STEP 3  s starts empty: size()==0, capacity() is whatever the
+//         implementation's default empty-string capacity is (often 15,
+//         due to small-string optimization avoiding heap allocation for
+//         very short strings).
+// STEP 4  s += "C++ Programming" (16 chars): size() becomes 16; if 16
+//         exceeds the small-string-optimization threshold, capacity()
+//         jumps to whatever the library over-allocates to (commonly more
+//         than 16, to leave room for future growth).
+// STEP 5  s.reserve(1000): capacity() becomes at least 1000; size() stays
+//         16.
+// STEP 6  The loop appends 800 more characters one at a time: size()
+//         grows to 16+800=816, but capacity() stays at (at least) 1000
+//         throughout, since STEP 5 already reserved enough room — no
+//         reallocation happens mid-loop.
+// STEP 7  s.shrink_to_fit(): capacity() is reduced toward size() (816),
+//         though the standard doesn't guarantee it becomes EXACTLY 816.
+// STEP 8  s.clear(): size() becomes 0; capacity() is left up to the
+//         implementation — many implementations keep the existing buffer
+//         (capacity unchanged) rather than freeing it, since the memory
+//         might be reused by the next append.
+// STEP 9  Final string prints as '' (empty), confirming clear() emptied
+//         the CONTENT even though capacity may still be nonzero.

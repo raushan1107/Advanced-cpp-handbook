@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2: Inheritance &amp; Polymorphism - Enterprise C++ Handbook</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="sidebar-toggle" type="button" aria-label="Toggle course navigation" aria-expanded="true">☰</button>
+    <a href="../index.html" class="brand"><span class="brand-mark">C++</span><span class="brand-text">Enterprise C++ Handbook<small>Personal notes by Raushan Ranjan</small></span></a>
+  </div>
+  <div class="topbar-center"><label class="search-bar"><span class="search-icon">⌕</span><input class="search-input" type="search" placeholder="Search the handbook" aria-label="Search the handbook"><kbd class="search-kbd">⌘ K</kbd></label></div>
+  <div class="topbar-right"><a href="../index.html">All modules</a><a href="../index.html#day2">Curriculum</a><a href="cpp-in-the-wild.html">🌍 C++ in the Wild</a><a class="btn-notes" href="../index.html#day2">Polymorphism</a></div>
+</div>
+
+<div class="app-layout">
+<aside class="sidebar-left">
+  <div class="sidebar-content">
+    <div class="sidebar-section-title">Course map</div>
+    <nav class="nav-tree" aria-label="Course navigation">
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day1" aria-expanded="false"><span class="nav-day-icon">○</span><span class="nav-day-label">Day 1</span><span class="nav-day-subtitle">Foundations</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module0.html">Foundation Enhancer</a></li><li class="nav-topic"><a href="module1.html">C++ Basics</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day" data-open="true">
+        <a class="nav-day-toggle" href="../index.html#day2"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 2</span><span class="nav-day-subtitle">Polymorphism</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module2.html">Inheritance &amp; Polymorphism</a></li><li class="nav-topic"><a href="module3.html">Compile-time Polymorphism</a></li></ul></div>
+          <div class="nav-module"><div class="nav-module-label">Topics</div><div class="nav-tabs">
+            <button class="nav-tab active" data-tab="t1">01 Inheritance</button>
+            <button class="nav-tab" data-tab="t2">02 Virtual functions</button>
+            <button class="nav-tab" data-tab="t3">03 Abstract classes</button>
+            <button class="nav-tab" data-tab="t4">04 Destructors &amp; vtables</button>
+            <button class="nav-tab" data-tab="t5">05 🎬 Story Mode</button>
+          </div></div>
+        </div>
+      </div>
+      <div class="nav-day"><a class="nav-day-toggle" href="../index.html#day3"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 3</span><span class="nav-day-subtitle">Robustness</span><span class="nav-day-chevron">›</span></a><div class="nav-day-body"><div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module4.html">Exception Handling</a></li><li class="nav-topic"><a href="module5.html">Templates &amp; Generics</a></li></ul></div></div></div>
+      <div class="nav-day"><a class="nav-day-toggle" href="../index.html#day4"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 4</span><span class="nav-day-subtitle">Modern C++</span><span class="nav-day-chevron">›</span></a><div class="nav-day-body"><div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module6.html">STL &amp; Containers</a></li><li class="nav-topic"><a href="module7.html">Advanced C++</a></li></ul></div></div></div>
+      <div class="nav-day"><a class="nav-day-toggle" href="../index.html#day5"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 5</span><span class="nav-day-subtitle">Systems &amp; Internals</span><span class="nav-day-chevron">›</span></a><div class="nav-day-body"><div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module8.html">Systems Programming &amp; Advanced C++ Internals</a></li></ul></div></div></div>
+      <div class="nav-day"><a class="nav-day-toggle" href="../index.html#day6" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 6</span><span class="nav-day-subtitle">Qt &amp; Capstone</span><span class="nav-day-chevron">›</span></a><div class="nav-day-body"><div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module9.html">Qt/QML &amp; Network Programming</a></li><li class="nav-topic"><a href="module10.html">Wrap-up &amp; Evaluation</a></li></ul></div></div></div>
+    </nav>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-title">Resources</div>
+    <ul class="sidebar-resources"><li><a href="https://github.com/raushan1107/Advanced-cpp-sample-codes" target="_blank" rel="noopener">↗ Source code</a></li><li><a href="../index.html#day2">▣ Course overview</a></li></ul>
+  </div>
+</aside>
+
+<main class="main-content">
+<div class="module-header">
+  <div class="breadcrumb"><a href="../index.html">Polymorphism</a> / Module 2</div>
+  <h1>Inheritance &amp; Polymorphism</h1>
+  <p class="sub">Extend the banking-system thinking from Module 1 into families of related types. We will start with code reuse, then see why virtual functions are needed when one interface must work with many concrete objects.</p>
+  <div class="module-meta"><span><b>Day:</b> 2 of 6</span><span><b>Topics:</b> 4</span><span><b>Case study:</b> Shape hierarchy</span><span><b>Repo folder:</b> <code>08-ClassesandObjects/</code></span></div>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabbar"><button data-tab="t1" class="active">01 Inheritance</button><button data-tab="t2">02 Virtual functions</button><button data-tab="t3">03 Abstract classes</button><button data-tab="t4">04 Destructors &amp; vtables</button><button data-tab="t5">05 🎬 Story Mode</button></div>
+
+  <div class="tabpanel active" id="t1">
+    <p class="topic-intro">Inheritance expresses an intentional relationship: a derived type is a more specific form of a base type.</p>
+    <div class="block"><div class="block-label"><span class="tag why">WHY</span><h4>Why share a common interface?</h4></div><div class="content"><p>Suppose a graphics system needs circles, rectangles, and triangles. They all have a position and a way to describe themselves, but each shape stores different details. Inheritance lets shared behavior live in one base type while derived classes add their own behavior.</p><p>Public inheritance should communicate an honest “is-a” relationship. It is not just a shortcut for copying code.</p></div></div>
+    <div class="block"><div class="block-label"><span class="tag what">WHAT</span><h4>Base and derived syntax</h4></div><div class="content"><p>The colon introduces the base class: <code>class Circle : public Shape</code>. Public inheritance keeps the base public interface public on the derived object. A derived constructor calls the base constructor before its own body runs.</p></div><div class="code-card"><div class="code-head"><span class="filename">inheritancecls.cpp</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;iostream&gt;
+
+class Shape {
+public:
+    void describe() const { std::cout &lt;&lt; "A drawable shape\n"; }
+};
+
+class Circle : public Shape {
+public:
+    void drawCircle() const { std::cout &lt;&lt; "Drawing a circle\n"; }
+};
+
+int main() {
+    Circle circle;
+    circle.describe();
+    circle.drawCircle();
+}</code></pre></div></div>
+    <div class="quickguide"><p class="qg-title">Run the repository example</p><ol><li>Open <code>08-ClassesandObjects/inheritancecls.cpp</code>.</li><li>Compile with <code>g++ -std=c++17 inheritancecls.cpp -o inheritance_demo</code>.</li><li>Run <code>inheritance_demo.exe</code> on Windows or <code>./inheritance_demo</code> on Linux/macOS.</li></ol></div>
+    <div class="output-box"><span class="lbl">Expected output</span>A drawable shape
+Drawing a circle</div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>Constructor chaining: base runs before derived</h4></div>
+      <div class="content">
+        <p>When a derived object is constructed, the base class constructor runs first, before the derived constructor body. This guarantees the base part is fully initialised before derived code runs. The colon-initialiser syntax <code>: Base(args)</code> selects which base constructor to call.</p>
+      </div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">constructor_chain.cpp</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;iostream&gt;
+
+class Vehicle {
+    std::string brand;
+public:
+    explicit Vehicle(std::string b) : brand(b) {
+        std::cout &lt;&lt; "Vehicle created: " &lt;&lt; brand &lt;&lt; "\n";
+    }
+    std::string getBrand() const { return brand; }
+};
+
+class Car : public Vehicle {
+    int doors;
+public:
+    Car(std::string b, int d) : Vehicle(b), doors(d) {
+        std::cout &lt;&lt; "Car created with " &lt;&lt; doors &lt;&lt; " doors\n";
+    }
+    void info() const {
+        std::cout &lt;&lt; getBrand() &lt;&lt; " has " &lt;&lt; doors &lt;&lt; " doors\n";
+    }
+};
+
+int main() {
+    Car c("Toyota", 4);
+    c.info();
+}</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Expected output</span>Vehicle created: Toyota
+Car created with 4 doors
+Toyota has 4 doors</div>
+      <div class="quickguide">
+        <p class="qg-title">Run it and experiment</p>
+        <ol>
+          <li>Save as <code>constructor_chain.cpp</code>, compile: <code>g++ -std=c++17 constructor_chain.cpp -o chain</code></li>
+          <li>Run on Windows: <code>chain.exe</code> — on Linux/macOS: <code>./chain</code></li>
+          <li><strong>Experiment 1:</strong> Add a <code>Truck</code> class inheriting from <code>Vehicle</code> with a <code>payload</code> (in tonnes). Notice the base constructor always runs first.</li>
+          <li><strong>Experiment 2:</strong> Remove the <code>: Vehicle(b)</code> from Car's initialiser list and recompile — the compiler error tells you exactly which base constructor is missing.</li>
+        </ol>
+      </div>
+      <div class="callout"><strong>Reference:</strong> <a href="https://en.cppreference.com/w/cpp/language/derived_class" target="_blank" rel="noopener">cppreference: Derived classes</a> — full inheritance syntax including multiple base classes and access specifiers.</div>
+    </div>
+
+    <div class="topic-nav">
+      <span></span>
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t2]').click()">Next: Virtual functions →</button>
+    </div>
+  </div>
+
+  <div class="tabpanel" id="t2">
+    <p class="topic-intro">Inheritance alone reuses members. Polymorphism lets one base interface select the correct derived behavior at runtime.</p>
+    <div class="block"><div class="block-label"><span class="tag why">WHY</span><h4>Why a non-virtual function is not enough</h4></div><div class="content"><p>If a <code>Shape*</code> points to a <code>Circle</code>, the compiler otherwise chooses the function based on the pointer's declared type. That is static binding. A <code>virtual</code> function asks C++ to choose the override based on the object that is actually there. This is dynamic binding.</p></div></div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag what">WHAT</span><h4>virtual, override, and dynamic dispatch defined</h4></div>
+      <div class="content">
+        <ul>
+          <li><strong>virtual</strong> — added to a base class member function, it tells the compiler: "when this function is called through a pointer or reference, choose the implementation based on the actual runtime type of the object, not the declared type of the pointer." Without <code>virtual</code>, the call is resolved at compile time from the pointer's declared type — this is <em>static binding</em>.</li>
+          <li><strong>override</strong> (C++11) — added to a derived class function that is intended to override a base class virtual. The compiler verifies that a matching virtual exists in the base — if not, it's a compile-time error instead of a silent bug. Always use <code>override</code> when you mean to override.</li>
+          <li><strong>vtable</strong> — how most compilers implement virtual dispatch. Every class with at least one <code>virtual</code> function gets a hidden table of function pointers (one per virtual function). Every object stores a hidden pointer (vptr) to its class's vtable. A virtual call follows the vptr, looks up the function in the table, and calls it — this is the runtime overhead, typically one pointer indirection.</li>
+        </ul>
+        <p>In C#, all instance methods are effectively virtual by default and are dispatched through the CLR's virtual dispatch mechanism. In C++, virtual dispatch is opt-in and has zero cost until you add the <code>virtual</code> keyword.</p>
+      </div>
+    </div>
+
+    <div class="block"><div class="block-label"><span class="tag how">HOW</span><h4>Call through a base reference</h4></div><div class="code-card"><div class="code-head"><span class="filename">polymorphismcls.cpp</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;iostream&gt;
+
+class Shape {
+public:
+    virtual void draw() const { std::cout &lt;&lt; "Generic shape\n"; }
+    virtual ~Shape() = default;
+};
+
+class Circle : public Shape {
+public:
+    void draw() const override { std::cout &lt;&lt; "Circle\n"; }
+};
+
+int main() {
+    Circle circle;
+    Shape&amp; shape = circle;
+    shape.draw();
+}</code></pre></div><div class="content"><p><code>override</code> asks the compiler to check that the derived function really overrides a virtual base function. Use it whenever you intend overriding.</p></div>
+    <div class="output-box"><span class="lbl">Expected output</span>Circle</div>
+    <div class="quickguide">
+      <p class="qg-title">Run it and experiment</p>
+      <ol>
+        <li>Open <code>08-ClassesandObjects/polymorphismcls.cpp</code>, compile: <code>g++ -std=c++17 polymorphismcls.cpp -o poly</code></li>
+        <li>Run — you see <code>Circle</code>. The <code>shape.draw()</code> call dispatched to <code>Circle::draw()</code> at runtime.</li>
+        <li><strong>Experiment 1:</strong> Add a <code>Rectangle</code> class with <code>void draw() const override</code>. Create a <code>Shape&amp; r = rectangle;</code> and call <code>r.draw()</code> — no <code>if</code> statement needed.</li>
+        <li><strong>Experiment 2:</strong> Remove <code>virtual</code> from <code>Shape::draw()</code> and recompile. Now <code>shape.draw()</code> prints <code>Generic shape</code> — the call is bound to <code>Shape::draw()</code> at compile time, ignoring the actual object type. This is static binding.</li>
+        <li><strong>Experiment 3:</strong> Rename <code>Circle::draw()</code> to <code>Circle::Draw()</code> (capital D) and keep <code>override</code> — the compiler error tells you no matching virtual was found. <code>override</code> caught the typo for you.</li>
+      </ol>
+    </div>
+    <div class="callout"><strong>Reference:</strong> <a href="https://en.cppreference.com/w/cpp/language/virtual" target="_blank" rel="noopener">cppreference: virtual function specifier</a> — full rules for virtual dispatch including covariant return types.</div>
+    </div>
+
+    <div class="topic-nav">
+      <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=t1]').click()">← Inheritance</button>
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t3]').click()">Next: Abstract classes →</button>
+    </div>
+  </div>
+
+  <div class="tabpanel" id="t3">
+    <p class="topic-intro">An abstract base class defines a contract but cannot be created directly.</p>
+
+    <div class="block">
+      <div class="block-label"><span class="tag why">WHY</span><h4>Why make a class abstract?</h4></div>
+      <div class="content">
+        <p>When you write <code>virtual double area() const</code> with a body in <code>Shape</code>, you're forced to invent a "generic area" that doesn't make sense — a shape with no specific geometry has no meaningful area. If you return 0.0 as a default, derived classes that forget to override silently inherit the wrong answer.</p>
+        <p>Making <code>area()</code> pure virtual (<code>= 0</code>) turns that runtime bug into a compile-time error: any concrete derived class that fails to implement <code>area()</code> cannot be instantiated at all. The abstract base becomes a contract that the compiler enforces.</p>
+        <p>An abstract class also cannot be directly instantiated — <code>Shape s;</code> fails to compile. This prevents accidentally creating a meaningless "generic shape" that would corrupt a real computation.</p>
+      </div>
+    </div>
+
+    <div class="block"><div class="block-label"><span class="tag what">WHAT</span><h4>Pure virtual functions</h4></div><div class="content"><p>Writing <code>virtual double area() const = 0;</code> makes the function pure virtual. Any concrete derived class must implement it before objects can be created. The base class becomes an interface-like contract for the rest of the program.</p></div><div class="code-card"><div class="code-head"><span class="filename">purevirtual-interfaces.cpp</span><button class="copy-btn">Copy</button></div><pre><code>class Shape {
+public:
+    virtual double area() const = 0;
+    virtual ~Shape() = default;
+};
+
+class Rectangle : public Shape {
+    double width;
+    double height;
+public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+    double area() const override { return width * height; }
+};</code></pre></div></div>
+    <div class="callout"><strong>Design check:</strong> if a caller only needs to ask a shape for its area, it should depend on the Shape interface rather than know every future shape class.</div>
+
+    <div class="output-box"><span class="lbl">What the compiler says if you write Shape s;</span>error: cannot declare variable 's' to be of abstract type 'Shape'</div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>A full abstract interface with two concrete shapes</h4></div>
+      <div class="content"><p>This example puts both <code>name()</code> and <code>area()</code> as pure virtuals, then calls them through a common function that knows only the base interface:</p></div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">abstract_shape.cpp</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Shape {
+public:
+    virtual std::string name() const = 0;
+    virtual double area() const = 0;
+    virtual ~Shape() = default;
+
+    void printReport() const {
+        std::cout &lt;&lt; name() &lt;&lt; " area: " &lt;&lt; area() &lt;&lt; "\n";
+    }
+};
+
+class Circle : public Shape {
+    double r;
+public:
+    explicit Circle(double r) : r(r) {}
+    std::string name() const override { return "Circle"; }
+    double area() const override { return 3.14159 * r * r; }
+};
+
+class Rectangle : public Shape {
+    double w, h;
+public:
+    Rectangle(double w, double h) : w(w), h(h) {}
+    std::string name() const override { return "Rectangle"; }
+    double area() const override { return w * h; }
+};
+
+int main() {
+    Circle c(5.0);
+    Rectangle r(3.0, 4.0);
+    c.printReport();
+    r.printReport();
+}</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Expected output</span>Circle area: 78.5397
+Rectangle area: 12</div>
+      <div class="quickguide">
+        <p class="qg-title">Run it and experiment</p>
+        <ol>
+          <li>Save as <code>abstract_shape.cpp</code>, compile: <code>g++ -std=c++17 abstract_shape.cpp -o abstract_shape</code>, run.</li>
+          <li><strong>Experiment 1:</strong> Add <code>class Triangle : public Shape { double base, height; ... }</code>. If you forget to implement either pure virtual, the compiler tells you exactly which one is missing.</li>
+          <li><strong>Experiment 2:</strong> Try adding <code>Shape s;</code> in <code>main()</code> and recompile. Read the error — "cannot declare variable of abstract type" is the contract enforcement working.</li>
+          <li><strong>Experiment 3:</strong> Add <code>void printReport() const</code> to Shape as a non-virtual function using <code>area()</code> and <code>name()</code>. The base class can safely call its own pure virtual functions — the vtable routes to the derived implementation at runtime.</li>
+        </ol>
+      </div>
+      <div class="callout"><strong>Reference:</strong> <a href="https://en.cppreference.com/w/cpp/language/abstract_class" target="_blank" rel="noopener">cppreference: Abstract class</a> — rules for pure virtual functions including what the base class is allowed to do with them.</div>
+    </div>
+
+    <div class="topic-nav">
+      <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=t2]').click()">← Virtual functions</button>
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t4]').click()">Next: Destructors &amp; vtables →</button>
+    </div>
+  </div>
+
+  <div class="tabpanel" id="t4">
+    <p class="topic-intro">A polymorphic base class needs a virtual destructor when objects may be destroyed through a base pointer.</p>
+    <div class="block"><div class="block-label"><span class="tag why">WHY</span><h4>Why virtual destruction matters</h4></div><div class="content"><p><code>Shape* shape = new Circle;</code> stores a derived object behind a base pointer. With a virtual destructor, <code>delete shape</code> runs the derived cleanup first and then the base cleanup. Without it, deleting through the base pointer is unsafe.</p><p>A vtable is an implementation technique commonly used to support virtual dispatch. Treat it as a useful mental model, not as a promise about one compiler's exact memory layout.</p></div></div>
+    <div class="block">
+      <div class="block-label"><span class="tag what">WHAT</span><h4>Virtual destructor and vtable pointer defined</h4></div>
+      <div class="content">
+        <ul>
+          <li><strong>Virtual destructor</strong> — a destructor declared with <code>virtual</code> in the base class: <code>virtual ~Shape() = default;</code>. When <code>delete ptr</code> is called where <code>ptr</code> is a base-class pointer, the compiler looks up the destructor through the vtable — so the correct derived destructor runs first, then the base destructor. Without <code>virtual</code>, only the base destructor would run, leaving derived resources unreleased.</li>
+          <li><strong>Rule of thumb:</strong> if a class has any <code>virtual</code> function (making it a polymorphic base), give it a <code>virtual</code> destructor. If you want no destructor logic, write <code>virtual ~Base() = default;</code>.</li>
+          <li><strong>vtable pointer (vptr):</strong> every object of a class that has virtual functions contains a hidden pointer — the vptr — pointing to that class's vtable. Calling a virtual function reads the vptr, looks up the function in the table, and jumps to it. This adds one pointer of memory per object and one indirection per virtual call — the only overhead virtual functions carry.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label"><span class="tag how">HOW</span><h4>The memory leak and the fix</h4></div>
+      <div class="content"><p>Removing <code>virtual</code> from the base destructor is a real production bug. This example makes the consequence visible:</p></div>
+      <div class="code-card">
+        <div class="code-head"><span class="filename">virtual_destructor.cpp</span><button class="copy-btn">Copy</button></div>
+        <pre><code>#include &lt;iostream&gt;
+
+class Resource {
+public:
+    Resource()  { std::cout &lt;&lt; "Resource acquired\n"; }
+    virtual ~Resource() { std::cout &lt;&lt; "Resource released\n"; }
+};
+
+class ManagedBuffer : public Resource {
+    int* buffer;
+public:
+    ManagedBuffer() : buffer(new int[1024]) {
+        std::cout &lt;&lt; "Buffer allocated (4 KB)\n";
+    }
+    ~ManagedBuffer() override {
+        delete[] buffer;
+        std::cout &lt;&lt; "Buffer freed\n";
+    }
+};
+
+int main() {
+    Resource* r = new ManagedBuffer();
+    delete r;
+    // With virtual ~Resource: ~ManagedBuffer runs THEN ~Resource
+    // Without virtual:        only ~Resource runs — buffer leaks every time
+}</code></pre>
+      </div>
+      <div class="output-box"><span class="lbl">Expected output (with virtual destructor)</span>Resource acquired
+Buffer allocated (4 KB)
+Buffer freed
+Resource released</div>
+      <div class="quickguide">
+        <p class="qg-title">Prove the leak yourself</p>
+        <ol>
+          <li>Save as <code>virtual_destructor.cpp</code>, compile: <code>g++ -std=c++17 virtual_destructor.cpp -o vdtor</code>, run — observe all four lines print.</li>
+          <li><strong>Experiment:</strong> Change <code>virtual ~Resource()</code> to just <code>~Resource()</code> (remove <code>virtual</code>). Recompile and run — "Buffer freed" disappears. The buffer is leaked every time the program runs this scenario.</li>
+          <li>On Linux, run with <code>valgrind ./vdtor</code> to confirm 4096 bytes are leaked. This is exactly the scenario Rule of Five addresses.</li>
+        </ol>
+      </div>
+      <div class="callout"><strong>Reference:</strong> <a href="https://en.cppreference.com/w/cpp/language/destructor" target="_blank" rel="noopener">cppreference: Destructor</a> — virtual destructors, order of destruction, and the Rule of Five.</div>
+    </div>
+
+    <div class="quickguide"><p class="qg-title">Repository examples</p><ol><li>Run <code>virtualdestructor.cpp</code> and observe destructor order.</li><li>Read <code>vtablemechanism.cpp</code> after the behavior is clear.</li><li>Compare the pure interface in <code>purevirtual-interfaces.cpp</code>.</li></ol></div>
+    <div class="topic-nav">
+      <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=t3]').click()">← Abstract classes</button>
+      <button class="btn btn-primary" onclick="document.querySelector('[data-tab=t5]').click()">Story Mode: see it all connected →</button>
+    </div>
+  </div>
+
+  <div class="tabpanel" id="t5">
+    <span class="story-badge">🎬 Story Mode</span>
+    <h2 style="margin:0 0 12px;">One loop, every shape</h2>
+    <p class="story-lede">Priya was building the render loop for Nimbus Games' new engine. The scene had circles. It had rectangles. Next sprint it would have triangles. Her lead engineer set one rule: the render loop may not contain a single <code>if (type == "circle")</code>. It must be able to draw every shape without knowing what it is holding. This module is how she made that work.</p>
+
+    <p>Circles and rectangles look different, but they share real things: a position, a color, a need to be drawn, a hitbox for collision. Priya started by defining what every on-screen object has in common and put that in a <code>Shape</code> base class. Then: <code>class Circle : public Shape</code>. That colon is not just code reuse — it is a real claim. A circle <em>is</em> a shape. It inherits everything <code>Shape</code> defined and adds its own radius on top. <strong>Inheritance</strong> is the mechanism; "is-a" is the relationship it represents. The render loop can then hold a list of <code>Shape*</code> and not care what concrete type each pointer points to.</p>
+
+    <p>The render loop holds a <code>vector&lt;Shape*&gt;</code> — hundreds of mixed objects per frame. It calls <code>shape-&gt;draw()</code> in one loop for all of them. Without the keyword <code>virtual</code>, C++ would always run <code>Shape::draw()</code> no matter what the pointer actually points to — every object would render identically. With <code>virtual</code>, C++ puts a lookup table called a <strong>vtable</strong> on every object. At runtime, <code>shape-&gt;draw()</code> asks the object: what kind are you? Then runs the right version. The render loop never changes. Each shape draws itself correctly. This runtime decision-making is called <strong>polymorphism</strong>.</p>
+
+    <p>A bug made it into one build: a bare <code>Shape</code> object was created directly with no real <code>area()</code> implementation, and the collision system silently treated it as having zero size. The fix was to make the contract impossible to skip. Writing <code>virtual double area() const = 0;</code> turns <code>Shape</code> into an <strong>abstract class</strong>. That <code>= 0</code> means: this function has no body here — every concrete subclass must provide one. A plain <code>Shape</code> can no longer be created at all. Every object that enters the game world is forced to define its own area before it can exist. The compiler enforces the contract, and the bug becomes impossible.</p>
+
+    <p>When a level ends, Priya's engine deletes hundreds of <code>Shape*</code> objects to free memory. Some shapes own GPU texture handles that must be released, or the game leaks graphics memory on every level change. Without <code>virtual ~Shape()</code>, calling <code>delete</code> on a <code>Shape*</code> only runs <code>Shape</code>'s destructor — even if the pointer actually points to a <code>Circle</code>. The Circle's cleanup never happens. The texture leaks silently. Adding <code>virtual ~Shape()</code> means the destructor follows the same vtable lookup as any virtual function: the right destructor runs, in the right order, every time.</p>
+
+    <blockquote class="story-pullquote">The render loop does not know what it is drawing. It just calls <code>draw()</code>. That single fact is what "polymorphism" actually means in production code.</blockquote>
+
+    <div class="callout" style="margin-top:24px;">
+      <p style="margin:0 0 8px;"><strong>What we just learned</strong></p>
+      <ul style="margin:0; padding-left:20px; line-height:1.9;">
+        <li><strong>Inheritance</strong> — <code>class Circle : public Shape</code> means a circle is a kind of shape; it inherits all of Shape's members and can add its own</li>
+        <li><strong>virtual function</strong> — uses a vtable to decide at runtime which version of a function to call, based on the actual object, not the pointer type</li>
+        <li><strong>Polymorphism</strong> — one piece of code (the render loop) works correctly for many different types without knowing which type it holds</li>
+        <li><strong>Abstract class</strong> — a class with at least one pure virtual (<code>= 0</code>) function; cannot be instantiated; forces every subclass to implement it</li>
+        <li><strong>Virtual destructor</strong> — without it, deleting through a base pointer only runs the base destructor; derived cleanup and resources are silently lost</li>
+      </ul>
+    </div>
+
+    <div class="story-also">
+      <p class="story-also-title">Also seen in the wild</p>
+      <div class="story-also-grid">
+        <div class="story-also-item"><span class="story-also-domain">GUI toolkits</span>A <code>Widget</code> base class lets a window loop call <code>draw()</code> on buttons, checkboxes, and sliders without knowing which one it holds — Priya's render loop in a different domain.</div>
+        <div class="story-also-item"><span class="story-also-domain">Payments</span>A <code>PaymentMethod</code> base with <code>CreditCard</code>, <code>PayPal</code>, and <code>UPI</code> subclasses uses the same abstract-contract idea — just charging a customer instead of drawing a pixel.</div>
+        <div class="story-also-item"><span class="story-also-domain">Plugin systems</span>Editors like VS Code load unrelated plugins behind one common interface and must destroy each one safely through a base pointer — the virtual-destructor problem exactly.</div>
+      </div>
+    </div>
+
+    <div class="callout"><strong>Continue:</strong> the complete-program shape report below is Priya's render loop without the graphics — one interface, many shapes, compilable right now.</div>
+
+    <div class="topic-nav">
+      <button class="btn btn-ghost" onclick="document.querySelector('[data-tab=t4]').click()">← Destructors &amp; vtables</button>
+      <a class="btn btn-primary" href="module3.html">Continue to Module 3 →</a>
+    </div>
+  </div>
+
+  <section class="try-now" id="try-now">
+    <div class="try-now-header"><div><div class="section-kicker">Learn by doing</div><h2>Try now: design a shape report</h2><p>Build the hierarchy in small steps, then combine inheritance, virtual dispatch, an abstract interface, and safe destruction in one use case.</p></div><span class="try-badge">20 minutes</span></div>
+    <div class="build-ladder">
+      <div class="build-step"><div class="build-step-title"><span>Step 1</span><strong>Create a base and one derived shape</strong></div><p>Start with a virtual display function.</p><div class="code-card"><div class="code-head"><span class="filename">step1_shape.cpp</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;iostream&gt;
+class Shape {
+public:
+    virtual void show() const {
+        std::cout &lt;&lt; "Shape\n";
+    }
+};
+
+class Circle : public Shape {
+public:
+    void show() const override {
+        std::cout &lt;&lt; "Circle\n";
+    }
+};
+
+int main() {
+    Circle circle;
+    circle.show();
+}</code></pre></div><p class="run-line"><b>Run:</b> <code>g++ -std=c++17 step1_shape.cpp -o step1</code>, then <code>step1.exe</code> or <code>./step1</code>.</p><p class="mini-output"><b>See:</b> <code>Circle</code></p></div>
+      <div class="build-step"><div class="build-step-title"><span>Step 2</span><strong>Call derived behavior through the base</strong></div><p>Change the call site to use a Shape reference.</p><div class="code-card"><div class="code-head"><span class="filename">step2_dispatch.cpp</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;iostream&gt;
+class Shape {
+public:
+    virtual void show() const {
+        std::cout &lt;&lt; "Shape\n";
+    }
+};
+
+class Circle : public Shape {
+public:
+    void show() const override {
+        std::cout &lt;&lt; "Circle\n";
+    }
+};
+
+class Rectangle : public Shape {
+public:
+    void show() const override {
+        std::cout &lt;&lt; "Rectangle\n";
+    }
+};
+
+void printShape(const Shape&amp; shape) {
+    shape.show();
+}
+
+int main() {
+    Circle circle;
+    Rectangle rectangle;
+    printShape(circle);
+    printShape(rectangle);
+}</code></pre></div><p class="run-line"><b>Run:</b> <code>g++ -std=c++17 step2_dispatch.cpp -o step2</code>, then <code>step2.exe</code> or <code>./step2</code>.</p><p class="mini-output"><b>See:</b> <code>Circle</code> then <code>Rectangle</code></p></div>
+      <div class="build-step"><div class="build-step-title"><span>Step 3</span><strong>Make the contract abstract</strong></div><p>Replace the generic implementation with a pure virtual function.</p><div class="code-card"><div class="code-head"><span class="filename">step3_area.cpp</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;iostream&gt;
+class Shape {
+public:
+    virtual double area() const = 0;
+    virtual ~Shape() = default;
+};
+
+class Rectangle : public Shape {
+    double width;
+    double height;
+
+public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+
+    double area() const override {
+        return width * height;
+    }
+};
+
+int main() {
+    Rectangle rectangle(3, 4);
+    std::cout &lt;&lt; rectangle.area() &lt;&lt; std::endl;
+}</code></pre></div><p class="run-line"><b>Run:</b> <code>g++ -std=c++17 step3_area.cpp -o step3</code>, then <code>step3.exe</code> or <code>./step3</code>.</p><p class="mini-output"><b>See:</b> <code>12</code></p></div>
+    </div>
+    <div class="build-divider"><span>Now combine the pieces into the complete use case</span></div>
+    <div class="try-step"><span>01</span><div><strong>Shape hierarchy report</strong><p>The complete program keeps the interface small: every shape can report its name and area, while each derived class owns its formula.</p></div></div>
+    <div class="code-card"><div class="code-head"><span class="filename">program.cpp - complete use case</span><button class="copy-btn">Copy</button></div><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Shape {
+public:
+    virtual std::string name() const = 0;
+    virtual double area() const = 0;
+    virtual ~Shape() = default;
+};
+
+class Circle : public Shape {
+    double radius;
+public:
+    explicit Circle(double r) : radius(r) {}
+    std::string name() const override { return "Circle"; }
+    double area() const override { return 3.14159 * radius * radius; }
+};
+
+class Rectangle : public Shape {
+    double width, height;
+public:
+    Rectangle(double w, double h) : width(w), height(h) {}
+    std::string name() const override { return "Rectangle"; }
+    double area() const override { return width * height; }
+};
+
+void printReport(const Shape&amp; shape) {
+    std::cout &lt;&lt; shape.name() &lt;&lt; " area: " &lt;&lt; shape.area() &lt;&lt; std::endl;
+}
+
+int main() {
+    Circle circle(2);
+    Rectangle rectangle(3, 4);
+    printReport(circle);
+    printReport(rectangle);
+}</code></pre></div>
+    <div class="output-box"><span class="lbl">Expected output</span>Circle area: 12.5664
+Rectangle area: 12</div>
+    <div class="quickguide"><p class="qg-title">Run it in VS Code</p><ol><li>Create a folder named <code>module2-try-now</code> and open it in VS Code.</li><li>Save the final code as <code>program.cpp</code>.</li><li>Compile with <code>g++ -std=c++17 program.cpp -o program</code>.</li><li>Run <code>program.exe</code> on Windows or <code>./program</code> on Linux/macOS.</li></ol></div>
+    <div class="task-card"><div class="task-label">Homework / assessment</div><h3>Extend the shape report</h3><p>Add a Triangle class and report the total area of all three shapes.</p><p class="hint-title">Hints, not the answer</p><ul class="hint-list"><li>Implement the same two virtual functions as the other shapes.</li><li>Keep the calculation inside Triangle.</li><li>Reuse printReport rather than adding a new print function for each shape.</li></ul></div>
+    <div class="submission-card"><strong>Submit for evaluation</strong><p>Send your finished <code>program.cpp</code> to the trainer's cohort email.</p><div><b>Subject:</b> <code>Module 2 Task - Your Name - program.cpp</code></div><div><b>Body:</b> <code>Your Name | Module 2 | compiler used | result you observed</code></div><p>Attach the exact file you compiled and mention how you tested Triangle.</p></div>
+  </section>
+
+  <details class="practice-drawer">
+    <summary>★ Practice &amp; Capstones <span class="practice-drawer-hint">— standalone challenges you can attempt any time</span></summary>
+    <div class="practice-drawer-body">
+      <p style="margin:10px 0 0; font-size:13.5px; color:var(--text-muted);">Each one is a separate, self-contained exercise — pick whichever matches what you've covered so far.</p>
+      <div class="practice-links">
+        <a class="practice-link" href="exercise.html"><span class="practice-link-tag">Capstone</span>RR Skillverse Course Tracker — a course tracker built from scratch</a>
+        <a class="practice-link" href="capstone-work1.html"><span class="practice-link-tag">Capstone-Work1</span>Smart Office Access System — inheritance &amp; overloading, from scratch</a>
+        <a class="practice-link" href="capstone-work2.html"><span class="practice-link-tag">Capstone-Work2</span>Nimbus Logistics Challenge — fix 3 TODOs (Modules 1-6)</a>
+        <a class="practice-link" href="capstone-work3.html"><span class="practice-link-tag">Capstone-Work3</span>Nimbus Fleet Command — fix 5 TODOs (Module 8)</a>
+      </div>
+    </div>
+  </details>
+</div>
+</main>
+</div>
+<footer>Module 2 of 11 · Enterprise C++ Training Programme · Personal notes by <strong>Raushan Ranjan</strong></footer>
+<script>
+function initSidebar(){const toggle=document.querySelector('.sidebar-toggle'),sidebar=document.querySelector('.sidebar-left');if(!toggle||!sidebar)return;const desktop=window.matchMedia('(min-width: 861px)');toggle.addEventListener('click',()=>{if(desktop.matches){const collapsed=document.body.classList.toggle('sidebar-collapsed');toggle.setAttribute('aria-expanded',String(!collapsed));}else sidebar.classList.toggle('open');});sidebar.querySelectorAll('a:not(.nav-day-toggle)').forEach(link=>link.addEventListener('click',()=>sidebar.classList.remove('open')));}
+function initNavGroups(){document.querySelectorAll('.nav-day').forEach(day=>{const toggle=day.querySelector(':scope > .nav-day-toggle'),body=day.querySelector(':scope > .nav-day-body');if(!toggle||!body)return;toggle.setAttribute('aria-expanded',String(day.dataset.open==='true'));toggle.addEventListener('click',event=>{event.preventDefault();const open=day.dataset.open==='true';day.dataset.open=String(!open);toggle.setAttribute('aria-expanded',String(!open));});});}
+function initNavModules(){document.querySelectorAll('.nav-module').forEach(module=>{const label=module.querySelector(':scope > .nav-module-label'),content=module.querySelector(':scope > .nav-topics, :scope > .nav-tabs');if(!label||!content)return;module.dataset.open=module.dataset.open||'true';label.setAttribute('role','button');label.setAttribute('tabindex','0');label.setAttribute('aria-expanded',String(module.dataset.open==='true'));const toggle=()=>{const open=module.dataset.open==='true';module.dataset.open=String(!open);label.setAttribute('aria-expanded',String(!open));};label.addEventListener('click',toggle);label.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();toggle();}});});}
+function initTabs(){const bar=document.querySelector('.tabbar');if(!bar)return;const buttons=[...document.querySelectorAll('.tabbar button,.nav-tab')],panels=[...document.querySelectorAll('.tabpanel')];function activate(id,updateHash){buttons.forEach(b=>b.classList.toggle('active',b.dataset.tab===id));panels.forEach(p=>p.classList.toggle('active',p.id===id));if(updateHash)history.replaceState(null,'','#'+id);}buttons.forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab,true)));const requested=location.hash.slice(1);activate(buttons.some(b=>b.dataset.tab===requested)?requested:(buttons.find(b=>b.classList.contains('active'))||buttons[0]).dataset.tab,false);}
+function initCopyButtons(){document.querySelectorAll('.copy-btn').forEach(btn=>btn.addEventListener('click',async()=>{const code=btn.closest('.code-card').querySelector('code').innerText;try{await navigator.clipboard.writeText(code);}catch(e){const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1200);}));}
+document.addEventListener('DOMContentLoaded',()=>{initSidebar();initNavGroups();initNavModules();initTabs();initCopyButtons();});
+</script>
+<script src="search.js"></script>
+</body>
+</html>

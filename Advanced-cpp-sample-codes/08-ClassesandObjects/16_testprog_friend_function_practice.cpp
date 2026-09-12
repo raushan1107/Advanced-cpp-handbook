@@ -1,3 +1,15 @@
+// Personal scratch/practice file — a long accumulated history of earlier
+// drafts (Learner structs, BankAccount constructors/destructors/statics/
+// friend classes, in roughly the order they were tried), each one
+// commented out and left in place rather than deleted, as a record of how
+// this topic was practiced. Every block above the final, ACTIVE Box/
+// printWidth friend-function example near the bottom is DEAD CODE — none
+// of it runs. See 5_friendFunction.cpp for the fully commented, currently
+// taught version of the friend-function idea this file ends with.
+//
+// Compile: g++ -std=c++17 16_testprog_friend_function_practice.cpp -o friend_practice
+// Run:     friend_practice.exe   (Windows)   or   ./friend_practice   (Linux/macOS)
+
 // // // // // // // #include <iostream>
 // // // // // // // #include <string>
 
@@ -351,3 +363,23 @@ int main() {
     box.printWidth(box);   // called like a member function, but it is NOT one
     return 0;
 }
+
+// --------------------------------------------------------------------------
+// Step-by-step execution trace
+// --------------------------------------------------------------------------
+// STEP 1  box is constructed with width = 10.0.
+// STEP 2  printWidth(box) — unqualified, so name lookup finds the FREE
+//         friend function (declared with `friend void printWidth(Box
+//         box)` inside the class, but which lives at global scope) — it
+//         reads box.width directly because it's a friend. Prints "Width
+//         of box: 10".
+// STEP 3  box.printWidth(box) — the `.` forces this to resolve to Box's
+//         own MEMBER function of the same name and signature (a
+//         completely separate entity from the friend function in STEP 2,
+//         even though both are named printWidth and take a Box by
+//         value). Prints "Width of box: 10" again.
+// STEP 4  main() returns 0. Both calls print the identical text, but by
+//         two entirely different functions — proving a member function
+//         and a friend (non-member) function CAN share the same name and
+//         signature without conflicting, since only one of them is
+//         actually part of the class.

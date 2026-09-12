@@ -1,4 +1,10 @@
-#include<iostream>  
+// Regular expressions (<regex>) — pattern matching and text
+// search/replace beyond plain find()/substr().
+//
+// Compile: g++ -std=c++17 9_regx.cpp -o regx
+// Run:     regx.exe   (Windows)   or   ./regx   (Linux/macOS)
+
+#include<iostream>
 #include<regex>
 #include<string>
 using namespace std;
@@ -109,6 +115,41 @@ int main() {
 
     return 0;
 }
+
+// --------------------------------------------------------------------------
+// Step-by-step execution trace
+// --------------------------------------------------------------------------
+// STEP 1  s = "My phone: ab36789-456-7890". re1 requires \b (a word
+//         boundary) immediately before a clean 3-digit group. The digit
+//         run "36789" (5 digits, no boundary splitting it into a 3-block)
+//         is glued directly onto "ab" with no boundary in between, and
+//         "456-7890" is only a 3-4 shape, not the required 3-3-4. No
+//         valid match exists anywhere in the string, so — per the
+//         all-or-nothing rule described above `re`/`re1` — regex_replace
+//         returns `s` completely UNCHANGED. Verified by actually running
+//         this file: the printed line is exactly
+//         "My phone: ab36789-456-7890", untouched.
+// STEP 2  text = "The quick brown fox... The quick blue hare.". pattern
+//         `quick (\w+) (\w+)` first matches at "quick brown fox":
+//         matches[0]="quick brown fox", matches[1]="brown" (labeled
+//         "Color" in the code, though it's really just word #1 after
+//         "quick"), matches[2]="fox" (labeled "Animal"). regex_search
+//         stops at the FIRST match only.
+// STEP 3  regex_replace(text, regex("quick"), "swift") replaces BOTH
+//         occurrences of "quick" (a plain literal, no groups involved) —
+//         result: "The swift brown fox... The swift blue hare."
+// STEP 4  The sregex_iterator loop finds ALL matches of `pattern`, not
+//         just the first: iteration 1 = "quick brown fox" (color=brown,
+//         animal=fox), iteration 2 = "quick blue hare" (color=blue,
+//         animal=hare) — looping stops when the iterator reaches
+//         words_end.
+// STEP 5  email = "raushan@rrskillverse.com". emailPattern requires the
+//         ENTIRE string to match (regex_match, not regex_search): group1
+//         "raushan", group2 "" (the optional dot didn't appear), group3
+//         "" (nothing left before '@'), group4 "rrskillverse", group5
+//         "com" — every character of `email` is accounted for by SOME
+//         group or literal, so this prints "is a valid email address."
+
 
 
 // Let's understand what is Regex in C++17 and how to use it with examples. 
