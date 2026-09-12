@@ -48,6 +48,7 @@ int main() {
     //   the compiler can resolve all three of these typeid calls purely from
     //   the source code - no run-time lookup happens for any of them.
     cout << "typeid(i).name()  = " << typeid(i).name() << "\n";
+    cout << "typeid of i is " << typeid(i).name() << "\n";
     cout << "typeid(d).name()  = " << typeid(d).name() << "\n";
     cout << "typeid(p).name()  = " << typeid(p).name() << "\n";
     // Note: names are compiler-mangled (e.g. "i" for int on g++). Use them for

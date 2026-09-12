@@ -162,6 +162,24 @@
     { title: "Best Practices — Never Forget", sub: "C++ in the Wild · Quick reminders", url: "cpp-in-the-wild.html#t11", tab: "t11",
       body: "best practices never forget new delete unique_ptr shared_ptr weak_ptr memory leak double free wsastartup wsacleanup socket closesocket createpipe createprocess closehandle thread join detach mutex lock_guard raii placement new destructor acquire release checklist reminders" },
 
+    // Practice MCQ Tests: interactive pre-test / module-wise tests / post-test
+    { title: "Practice MCQ Tests", sub: "Interactive · 7 tests, instant feedback", url: "practice-tests.html", tab: null,
+      body: "practice mcq tests quiz pre-test post-test module wise test interactive instant feedback right wrong correct answer explanation diagnostic holistic review" },
+    { title: "Pre-Test", sub: "Practice MCQ Tests · Diagnostic, all 6 days", url: "practice-tests.html#pretest", tab: null,
+      body: "pretest diagnostic quiz all modules day 1 to day 6" },
+    { title: "Module-wise Test 1", sub: "Practice MCQ Tests · Module 0 + Module 1", url: "practice-tests.html#mwt1", tab: null,
+      body: "module wise test 1 quiz foundation c++ basics day 1" },
+    { title: "Module-wise Test 2", sub: "Practice MCQ Tests · Module 2 + Module 3", url: "practice-tests.html#mwt2", tab: null,
+      body: "module wise test 2 quiz inheritance polymorphism compile-time day 2" },
+    { title: "Module-wise Test 3", sub: "Practice MCQ Tests · Module 4 + Module 5", url: "practice-tests.html#mwt3", tab: null,
+      body: "module wise test 3 quiz exception handling templates generics day 3" },
+    { title: "Module-wise Test 4", sub: "Practice MCQ Tests · Module 6 + Module 7", url: "practice-tests.html#mwt4", tab: null,
+      body: "module wise test 4 quiz stl containers advanced features smart pointers threading day 4" },
+    { title: "Module-wise Test 5", sub: "Practice MCQ Tests · Module 8 + Module 9", url: "practice-tests.html#mwt5", tab: null,
+      body: "module wise test 5 quiz networking qt qml day 5" },
+    { title: "Post-Test", sub: "Practice MCQ Tests · Holistic, Module 10 + all 6 days", url: "practice-tests.html#posttest", tab: null,
+      body: "post-test quiz holistic final review module 10 wrap-up day 6" },
+
     // Explore More: student questions and follow-up explanations
     { title: "Explore More", sub: "Student questions · 2 entries", url: "explore-more.html", tab: null,
       body: "student questions curiosity follow-up explanations virtual keyword calling conventions cricket demo" },

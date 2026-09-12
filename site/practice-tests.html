@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice MCQ Tests - Enterprise C++ Handbook</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="sidebar-toggle" type="button" aria-label="Toggle course navigation" aria-expanded="true">☰</button>
+    <a href="../index.html" class="brand"><span class="brand-mark">C++</span><span class="brand-text">Enterprise C++ Handbook<small>Personal notes by Raushan Ranjan</small></span></a>
+  </div>
+  <div class="topbar-center"><label class="search-bar"><span class="search-icon">⌕</span><input class="search-input" type="search" placeholder="Search the handbook" aria-label="Search the handbook"><kbd class="search-kbd">⌘ K</kbd></label></div>
+  <div class="topbar-right"><a href="../index.html">All modules</a><a href="repo-guide.html">How to use code</a><a class="btn-notes" href="cpp-in-the-wild.html">🌍 C++ in the Wild</a></div>
+</div>
+
+<div class="app-layout">
+<aside class="sidebar-left">
+  <div class="sidebar-content">
+    <div class="sidebar-section-title">Course map</div>
+    <nav class="nav-tree" aria-label="Course navigation">
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day1"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 1</span><span class="nav-day-subtitle">Foundations</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module0.html">Foundation Enhancer</a></li><li class="nav-topic"><a href="module1.html">C++ Basics</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day2"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 2</span><span class="nav-day-subtitle">Polymorphism</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module2.html">Inheritance &amp; Polymorphism</a></li><li class="nav-topic"><a href="module3.html">Compile-time Polymorphism</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day3"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 3</span><span class="nav-day-subtitle">Robustness</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module4.html">Exception Handling</a></li><li class="nav-topic"><a href="module5.html">Templates &amp; Generics</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day4"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 4</span><span class="nav-day-subtitle">Modern C++</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module6.html">STL &amp; Containers</a></li><li class="nav-topic"><a href="module7.html">Advanced C++ Features</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day">
+        <a class="nav-day-toggle" href="../index.html#day5"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 5</span><span class="nav-day-subtitle">Systems &amp; Internals</span><span class="nav-day-chevron">›</span></a>
+        <div class="nav-day-body">
+          <div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module8.html">Systems Programming &amp; Advanced C++ Internals</a></li></ul></div>
+        </div>
+      </div>
+      <div class="nav-day"><a class="nav-day-toggle" href="../index.html#day6" aria-expanded="false"><span class="nav-day-icon">◐</span><span class="nav-day-label">Day 6</span><span class="nav-day-subtitle">Qt &amp; Capstone</span><span class="nav-day-chevron">›</span></a><div class="nav-day-body"><div class="nav-module"><div class="nav-module-label">Available now</div><ul class="nav-topics"><li class="nav-topic"><a href="module9.html">Qt/QML &amp; Network Programming</a></li><li class="nav-topic"><a href="module10.html">Wrap-up &amp; Evaluation</a></li></ul></div></div></div>
+    </nav>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-title">Resources</div>
+    <ul class="sidebar-resources"><li><a class="active" href="practice-tests.html"><strong>✎ Practice MCQ Tests</strong></a></li><li><a href="repo-guide.html">▣ How to use the repository</a></li><li><a href="module-authoring-context.html">↗ Study flow guide</a></li><li><a href="https://github.com/raushan1107/Advanced-cpp-sample-codes" target="_blank" rel="noopener">↗ Source code</a></li><li><a href="exercise.html">★ Capstone: RR Skillverse Course Tracker</a></li><li><a href="capstone-work1.html">★ Capstone-Work1: Smart Office Access System</a></li><li><a href="capstone-work2.html">★ Capstone-Work2: Nimbus Logistics Challenge</a></li><li><a href="capstone-work3.html">★ Capstone-Work3: Nimbus Fleet Command</a></li></ul>
+  </div>
+</aside>
+
+<main class="main-content">
+<div class="module-header">
+  <div class="breadcrumb"><a href="../index.html">Course</a> / Practice MCQ Tests</div>
+  <h1>Practice MCQ Tests</h1>
+  <p class="sub">The same pre-test and post-tests used in live cohorts, made interactive: pick a test, answer each question, and get marked right or wrong immediately — with the correct answer, why, and which module it comes from, whenever you miss one.</p>
+  <div class="module-meta"><span><b>7 tests:</b> 1 Pre-Test + 5 Module-wise Tests + 1 final Post-Test</span><span><b>Format:</b> instant per-question feedback, no login, nothing saved</span></div>
+</div>
+
+<div class="tabs-wrap">
+  <p class="topic-intro" style="margin-bottom:0;">Take the <strong>Pre-Test</strong> before Day 1 to see where you're starting from — it's fine if most of it feels unfamiliar. Each <strong>Module-wise Test</strong> covers exactly one day's material, for practice right after that day. The <strong>Post-Test</strong> is the final, holistic one, drawing from all 6 days.</p>
+
+  <div class="quiz-picker" role="tablist" aria-label="Choose a practice test"></div>
+
+  <div class="quiz-toolbar">
+    <div class="quiz-score">Score: <span class="quiz-score-current">0</span><span class="quiz-score-total"> / 0</span></div>
+    <button class="quiz-reset-btn" type="button">↺ Restart this test</button>
+  </div>
+
+  <div id="quiz-active-subtitle" class="wild-module-sub" style="margin:10px 0 4px;"></div>
+  <div id="quiz-questions"></div>
+  <div id="quiz-summary-slot"></div>
+
+  <div class="callout" style="margin-top:16px;"><strong>Nothing is saved:</strong> this page keeps your answers only until you leave or restart it — reopening the page later starts that test fresh. That's on purpose: the point is practice, not a graded record.</div>
+</div>
+</main>
+</div>
+<footer>Practice MCQ Tests · Enterprise C++ Training Programme · Personal notes by <strong>Raushan Ranjan</strong></footer>
+<script>
+function initSidebar(){const toggle=document.querySelector('.sidebar-toggle'),sidebar=document.querySelector('.sidebar-left');if(!toggle||!sidebar)return;const desktop=window.matchMedia('(min-width: 861px)');toggle.addEventListener('click',()=>{if(desktop.matches){const collapsed=document.body.classList.toggle('sidebar-collapsed');toggle.setAttribute('aria-expanded',String(!collapsed));}else sidebar.classList.toggle('open');});sidebar.querySelectorAll('a:not(.nav-day-toggle)').forEach(link=>link.addEventListener('click',()=>sidebar.classList.remove('open')));}
+function initNavGroups(){document.querySelectorAll('.nav-day').forEach(day=>{const toggle=day.querySelector(':scope > .nav-day-toggle'),body=day.querySelector(':scope > .nav-day-body');if(!toggle||!body)return;toggle.setAttribute('aria-expanded',String(day.dataset.open==='true'));toggle.addEventListener('click',event=>{event.preventDefault();const open=day.dataset.open==='true';day.dataset.open=String(!open);toggle.setAttribute('aria-expanded',String(!open));});});}
+
+// ─── Quiz engine ────────────────────────────────────────────────
+// PRACTICE_QUIZZES comes from practice-tests-data.js (loaded before this
+// script). Each quiz's questions are rendered fresh into #quiz-questions
+// whenever that quiz is selected; answers live only in memory (the
+// `answered` array below), never in localStorage or any server — closing
+// or reloading the page always starts clean.
+let currentQuizIndex = 0;
+let answered = []; // answered[i] = chosen option index for question i, or undefined
+
+function quizById(id) {
+  return PRACTICE_QUIZZES.findIndex(q => q.id === id);
+}
+
+function renderPicker() {
+  const picker = document.querySelector('.quiz-picker');
+  picker.innerHTML = '';
+  PRACTICE_QUIZZES.forEach((quiz, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = quiz.label;
+    btn.className = i === currentQuizIndex ? 'active' : '';
+    btn.addEventListener('click', () => selectQuiz(i));
+    picker.appendChild(btn);
+  });
+}
+
+function selectQuiz(index) {
+  currentQuizIndex = index;
+  answered = new Array(PRACTICE_QUIZZES[index].questions.length);
+  renderPicker();
+  renderActiveQuiz();
+  history.replaceState(null, '', '#' + PRACTICE_QUIZZES[index].id);
+}
+
+function updateScore() {
+  const quiz = PRACTICE_QUIZZES[currentQuizIndex];
+  let correctCount = 0;
+  answered.forEach((chosen, i) => { if (chosen === quiz.questions[i].correct) correctCount++; });
+  document.querySelector('.quiz-score-current').textContent = correctCount;
+  document.querySelector('.quiz-score-total').textContent = ' / ' + quiz.questions.length;
+
+  const answeredCount = answered.filter(a => a !== undefined).length;
+  const slot = document.getElementById('quiz-summary-slot');
+  if (answeredCount === quiz.questions.length) {
+    const pct = Math.round((correctCount / quiz.questions.length) * 100);
+    slot.innerHTML = '<div class="quiz-summary"><h3>Test complete — ' + correctCount + ' / ' + quiz.questions.length + ' (' + pct + '%)</h3>' +
+      '<p>Review any question above marked wrong, then use "Restart this test" to try again, or pick another test from the list.</p></div>';
+  } else {
+    slot.innerHTML = '';
+  }
+}
+
+function answerQuestion(qIndex, optIndex) {
+  if (answered[qIndex] !== undefined) return; // already answered, locked
+  answered[qIndex] = optIndex;
+  const quiz = PRACTICE_QUIZZES[currentQuizIndex];
+  const question = quiz.questions[qIndex];
+  const card = document.querySelector('.quiz-question[data-qindex="' + qIndex + '"]');
+  const buttons = card.querySelectorAll('.quiz-option');
+  buttons.forEach((b, i) => {
+    b.disabled = true;
+    if (i === question.correct) b.classList.add('quiz-correct');
+    else if (i === optIndex) b.classList.add('quiz-wrong');
+  });
+
+  const isCorrect = optIndex === question.correct;
+  const feedback = card.querySelector('.quiz-feedback');
+  feedback.hidden = false;
+  feedback.className = 'quiz-feedback ' + (isCorrect ? 'quiz-feedback-correct' : 'quiz-feedback-wrong');
+  const verdict = isCorrect ? '✓ Correct!' : ('✗ Not quite — the correct answer is ' + String.fromCharCode(65 + question.correct) + '.');
+  feedback.innerHTML = '<p class="quiz-feedback-verdict">' + verdict + '</p>' +
+    '<p class="quiz-feedback-explain">' + question.explain + '</p>' +
+    '<span class="quiz-feedback-module">' + question.module + '</span>';
+
+  updateScore();
+}
+
+function renderActiveQuiz() {
+  const quiz = PRACTICE_QUIZZES[currentQuizIndex];
+  document.getElementById('quiz-active-subtitle').textContent = quiz.subtitle;
+
+  const container = document.getElementById('quiz-questions');
+  container.innerHTML = '';
+  quiz.questions.forEach((question, qIndex) => {
+    const card = document.createElement('div');
+    card.className = 'quiz-question';
+    card.dataset.qindex = qIndex;
+
+    const qText = document.createElement('p');
+    qText.className = 'quiz-q-text';
+    qText.innerHTML = '<span class="quiz-q-num">Q' + (qIndex + 1) + '.</span>' + question.q;
+    card.appendChild(qText);
+
+    const optionsWrap = document.createElement('div');
+    optionsWrap.className = 'quiz-options';
+    question.options.forEach((optText, optIndex) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'quiz-option';
+      btn.textContent = String.fromCharCode(65 + optIndex) + '. ' + optText;
+      btn.addEventListener('click', () => answerQuestion(qIndex, optIndex));
+      optionsWrap.appendChild(btn);
+    });
+    card.appendChild(optionsWrap);
+
+    const feedback = document.createElement('div');
+    feedback.className = 'quiz-feedback';
+    feedback.hidden = true;
+    card.appendChild(feedback);
+
+    container.appendChild(card);
+  });
+
+  updateScore();
+}
+
+function initQuizEngine() {
+  const requestedId = location.hash.slice(1);
+  const requestedIndex = quizById(requestedId);
+  currentQuizIndex = requestedIndex !== -1 ? requestedIndex : 0;
+  answered = new Array(PRACTICE_QUIZZES[currentQuizIndex].questions.length);
+
+  renderPicker();
+  renderActiveQuiz();
+
+  document.querySelector('.quiz-reset-btn').addEventListener('click', () => {
+    answered = new Array(PRACTICE_QUIZZES[currentQuizIndex].questions.length);
+    renderActiveQuiz();
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => { initSidebar(); initNavGroups(); initQuizEngine(); });
+</script>
+<script src="practice-tests-data.js"></script>
+<script src="search.js"></script>
+</body>
+</html>
